@@ -1,0 +1,114 @@
+[
+    {
+        "id":"1",
+        "number":"1A",
+        "type":"Old",
+        "qty":"4",   
+        "date":"01/12/2023",    
+        "Family":[
+            {"name":"Nguyễn Văn A", "birth":"1991", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn A1", "birth":"1992", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn A2", "birth":"1993", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn A3", "birth":"1994", "location":"Quảng Ngãi", "img":""}
+        ],
+        "roomcharge":"1500000"
+    },
+    {
+        "id":"2",
+        "number":"2A",
+        "type":"Old",
+        "qty":"4",   
+        "date":"01/12/2023",    
+        "Family":[
+            {"name":"Nguyễn Văn B", "birth":"1991", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn B1", "birth":"1992", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn B2", "birth":"1993", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn B3", "birth":"1994", "location":"Quảng Ngãi", "img":""}
+        ],
+        "roomcharge":"1500000"
+    },
+    {
+        "id":"3",
+        "number":"3A",
+        "type":"Old",
+        "qty":"4",   
+        "date":"01/12/2023",    
+        "Family":[
+            {"name":"Nguyễn Văn C", "birth":"1991", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn C1", "birth":"1992", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn C2", "birth":"1993", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn C3", "birth":"1994", "location":"Quảng Ngãi", "img":""}
+        ],
+        "roomcharge":"1500000"
+    },
+    {
+        "id":"4",
+        "number":"4A",
+        "type":"Old",
+        "qty":"4",   
+        "date":"01/12/2023",    
+        "Family":[
+            {"name":"Nguyễn Văn D", "birth":"1991", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D1", "birth":"1992", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D2", "birth":"1993", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D3", "birth":"1994", "location":"Quảng Ngãi", "img":""}
+        ],
+        "roomcharge":"1500000"
+    },
+    {
+        "id":"5",
+        "number":"1B",
+        "type":"New",
+        "qty":"4",   
+        "date":"01/12/2023",    
+        "Family":[
+            {"name":"Nguyễn Văn D", "birth":"1991", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D1", "birth":"1992", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D2", "birth":"1993", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D3", "birth":"1994", "location":"Quảng Ngãi", "img":""}
+        ],
+        "roomcharge":"1500000"
+    },
+    {
+        "id":"6",
+        "number":"2B",
+        "type":"Old",
+        "qty":"4",   
+        "date":"01/12/2023",    
+        "Family":[
+            {"name":"Nguyễn Văn D", "birth":"1991", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D1", "birth":"1992", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D2", "birth":"1993", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D3", "birth":"1994", "location":"Quảng Ngãi", "img":""}
+        ],
+        "roomcharge":"1500000"
+    },
+    {
+        "id":"7",
+        "number":"3B",
+        "type":"Old",
+        "qty":"4",   
+        "date":"01/12/2023",    
+        "Family":[
+            {"name":"Nguyễn Văn D", "birth":"1991", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D1", "birth":"1992", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D2", "birth":"1993", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D3", "birth":"1994", "location":"Quảng Ngãi", "img":""}
+        ],
+        "roomcharge":"1500000"
+    },
+    {
+        "id":"8",
+        "number":"4B",
+        "type":"Old",
+        "qty":"4",   
+        "date":"01/12/2023",    
+        "Family":[
+            {"name":"Nguyễn Văn D", "birth":"1991", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D1", "birth":"1992", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D2", "birth":"1993", "location":"Quảng Ngãi", "img":""},
+            {"name":"Nguyễn Văn D3", "birth":"1994", "location":"Quảng Ngãi", "img":""}
+        ],
+        "roomcharge":"1500000"
+    }
+]
