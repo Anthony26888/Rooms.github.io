@@ -24,12 +24,13 @@
         </v-card-text>
         <v-card-actions>
           <div class="d-flex justify-center algin-center">
-            <div class="ma-4 mb-4">
-              <form-edit></form-edit>
+            <div class="ma-1 mb-1">
+              <ListFamily/>
             </div>
             <div class="ma-4 mb-4">
-              <form-caculation></form-caculation>
+              <FormEdit/>
             </div>
+            
             
             
           </div>
@@ -44,7 +45,7 @@ const store = useAppStore();
 </script>
 <script>
 import FormEdit from '@/components/Form/FormEdit'
-import FormCaculation from '@/components/Form/FormCaculation'
+import ListFamily from '@/components/List/ListFamily'
 export default {
   data() {
     return {};
