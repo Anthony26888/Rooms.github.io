@@ -16,6 +16,8 @@ export const useAppStore = defineStore("app", {
     
   },
   actions: {
-    
+    GetDetail(id){
+      this.Info = this.User.find(value => value.id === id)      
+    }
   },
 });

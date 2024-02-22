@@ -24,8 +24,8 @@
         </v-card-text>
         <v-card-actions>
           <div class="d-flex justify-center algin-center">
-            <div class="ma-1 mb-1">
-              <ListFamily/>
+            <div class="ma-1 mb-1" >
+              <v-btn prepend-icon="mdi-pen" color="primary" variant="tonal" @click="dialog = true"> Thông tin </v-btn>              
             </div>
             <div class="ma-4 mb-4">
               <FormEdit/>
@@ -38,6 +38,7 @@
       </v-card>
     </div>
   </div>
+  <list-family v-model="dialog"></list-family>
 </template>
 <script setup>
 import { useAppStore } from "@/store/app";
@@ -48,7 +49,9 @@ import FormEdit from '@/components/Form/FormEdit'
 import ListFamily from '@/components/List/ListFamily'
 export default {
   data() {
-    return {};
+    return {
+      dialog: false,
+    };
   },
 };
 </script>
