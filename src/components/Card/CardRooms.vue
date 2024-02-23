@@ -25,14 +25,11 @@
         <v-card-actions>
           <div class="d-flex justify-center algin-center">
             <div class="ma-1 mb-1" >
-              <v-btn prepend-icon="mdi-pen" color="primary" variant="tonal" @click="dialog = true"> Thông tin </v-btn>              
+              <v-btn prepend-icon="mdi-pen" color="primary" variant="tonal" @click="dialog = true; store.GetDetail(item.id);"> Thông tin </v-btn>              
             </div>
             <div class="ma-4 mb-4">
               <FormEdit/>
             </div>
-            
-            
-            
           </div>
         </v-card-actions>
       </v-card>
