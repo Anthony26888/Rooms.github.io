@@ -1,5 +1,4 @@
 <template lang="">
-  
   <div class="d-flex flex-wrap justify-center algin-center">
     <div v-for="item in store.User" :key="item">
       <v-card
@@ -38,9 +37,7 @@
                 Thông tin
               </v-btn>
             </div>
-            <div class="ma-4 mb-4">
-              
-            </div>
+            <div class="ma-4 mb-4"></div>
           </div>
         </v-card-actions>
       </v-card>
@@ -48,7 +45,7 @@
   </div>
 
   <!--List of family member-->
-  <v-dialog v-model="dialog" width="400" transition="dialog-bottom-transition">
+  <v-dialog v-model="dialog" width="800" transition="dialog-bottom-transition">
     <v-card title="Thông tin">
       <template v-slot:append>
         <v-btn
@@ -59,89 +56,76 @@
         ></v-btn>
       </template>
       <v-card-text>
-        <v-list lines="two" v-for="item in store.Info.Family" :key="item">
-          <v-list-item :title="item.name" :subtitle="item.birth">
-            <template v-slot:prepend>
-              <v-avatar color="blue">
-                <v-icon color="white">mdi-account</v-icon>
-              </v-avatar>
-            </template>
-
-            <template v-slot:append>
-              <v-btn
-                color="grey-lighten-1"
-                icon="mdi-information"
-                variant="text"
-                @click="
-                  detail = true;
-                  store.GetPerson(item.id);
-                "
-              ></v-btn>
-            </template>
-          </v-list-item>
-        </v-list>
+        <v-table>
+          <thead>
+            <tr>
+              <th class="text-left" v-for="item in headers" :key="item">
+                {{ item.title }}
+              </th>
+              <th class="text-left"></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="item in store.Info.Family">
+              <td>{{ item.name }}</td>
+              <td>{{ item.sex }}</td>
+              <td>{{ item.birth }}</td>
+              <td>{{ item.cccd }}</td>
+              <td>{{ item.sdt }}</td>
+              <td>{{ item.location }}</td>
+              <td>
+                <v-btn
+                  icon="mdi-pencil"
+                  color="success"
+                  variant="text"
+                  size="10"
+                  @click="edit = true; GetPerson(item.id)"
+                ></v-btn>
+                <v-btn
+                  icon="mdi-delete"
+                  color="red"
+                  variant="text"
+                  size="10"
+                  class="ms-3"
+                ></v-btn>
+              </td>
+            </tr>
+          </tbody>
+        </v-table>
       </v-card-text>
     </v-card>
   </v-dialog>
 
   <!--Detail of member-->
-  <v-dialog v-model="detail" width="400" transition="dialog-bottom-transition">
-    <v-card>
-      <v-list>
-        <v-list-item
-          prepend-avatar="https://cdn.vuetifyjs.com/images/john.jpg"
-          :title="store.Person.name"
-          :subtitle="store.Person.birth"
+  <v-dialog v-model="edit" width="500" transition="dialog-bottom-transition">
+    <v-card title="Chỉnh sửa">
+      <template v-slot:append>
+        <v-btn
           class="mx-auto"
-        >
-          <template v-slot:append>
-            <v-btn
-              class="mx-auto"
-              variant="text"
-              icon="mdi-close"
-              @click="detail = false"
-            ></v-btn>
-          </template>
-        </v-list-item>
-      </v-list>
-
-      <v-divider></v-divider>
-
-      <v-list>
-        <v-list-item>
-          <v-list-item-title>Năm sinh:</v-list-item-title>
-
-          <v-list-item-subtitle>
-            {{ store.Person.birth }}
-          </v-list-item-subtitle>
-        </v-list-item>
-
-        <v-list-item>
-          <v-list-item-title>Căn cước công dân:</v-list-item-title>
-
-          <v-list-item-subtitle> {{ store.Person.cccd }} </v-list-item-subtitle>
-        </v-list-item>
-
-        <v-list-item>
-          <v-list-item-title>Số điện thoại:</v-list-item-title>
-
-          <v-list-item-subtitle> {{ store.Person.sdt }} </v-list-item-subtitle>
-        </v-list-item>
-
-        <v-list-item>
-          <v-list-item-title>Nghề nghiệp:</v-list-item-title>
-
-          <v-list-item-subtitle> {{ store.Person.work }} </v-list-item-subtitle>
-        </v-list-item>
-
-        <v-list-item>
-          <v-list-item-title>Quê quán:</v-list-item-title>
-
-          <v-list-item-subtitle>
-            {{ store.Person.location }}
-          </v-list-item-subtitle>
-        </v-list-item>
-      </v-list>
+          variant="text"
+          icon="mdi-close"
+          @click="edit = false"
+        ></v-btn>
+      </template>
+      <v-card-text>
+        <v-row>
+          <v-col cols="6">
+            <v-text-field label="Họ và tên" v-model="store.Person.name"></v-text-field>
+            <v-text-field label="Năm sinh"  v-model="store.Person.birth"></v-text-field>
+            <v-text-field label="Số điện thoại"  v-model="store.Person.sdt"></v-text-field>
+          </v-col>
+          <v-col cols="6">
+            <v-select label="Giới tính" :items="['Nam', 'Nữ']" v-model="store.Person.sex"></v-select>
+            <v-text-field label="Căn cước công nhân"  v-model="store.Person.cccd"></v-text-field>
+            <v-text-field label="Công việc"  v-model="store.Person.work"></v-text-field>
+          </v-col>
+          <v-text-field label="Quê quán"  v-model="store.Person.location"></v-text-field>
+        </v-row>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="primary" @click="edit=false">Lưu</v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -156,7 +140,15 @@ export default {
   data() {
     return {
       dialog: false,
-      detail: false,
+      edit: false,
+      headers: [
+        { title: "Họ và Tên" },
+        { title: "Giới tính" },
+        { title: "Năm sinh" },
+        { title: "CCCD" },
+        { title: "SĐT" },
+        { title: "Quê Quán" },
+      ],
     };
   },
 };
