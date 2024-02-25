@@ -13,13 +13,12 @@
           </v-avatar>
         </template>
         <v-card-text>
+          <p><b>Số người:</b> {{ item.Family.length }} người</p>
+          <p><b>Tiền phòng:</b> {{ item.roomcharge }} vnđ</p>
           <div class="d-flex">
-            <v-icon icon="mdi-human"></v-icon>
-            <p>: {{ item.Family.length }} người</p>
-          </div>
-          <div class="d-flex">
-            <v-icon icon="mdi-currency-usd"></v-icon>
-            <p>: {{ item.roomcharge }} vnđ</p>
+            <b>Dịch vụ:</b>
+            <p v-if="item.wifi == true" class="ms-2">Wifi</p>
+            <p v-if="item.cable == true" class="ms-2">Cáp</p>
           </div>
         </v-card-text>
         <v-card-actions>
@@ -44,10 +43,11 @@
     </div>
   </div>
 
-  <!--List of family member-->
+  <!--List of Profile-->
   <v-dialog v-model="dialog" width="800" transition="dialog-bottom-transition">
     <v-card title="Thông tin">
       <template v-slot:append>
+        <v-btn color="primary" variant="text">Thêm</v-btn>
         <v-btn
           class="mx-auto"
           variant="text"
@@ -79,7 +79,10 @@
                   color="success"
                   variant="text"
                   size="10"
-                  @click="edit = true; GetPerson(item.id)"
+                  @click="
+                    edit = true;
+                    GetPerson(item.id);
+                  "
                 ></v-btn>
                 <v-btn
                   icon="mdi-delete"
@@ -89,14 +92,15 @@
                   class="ms-3"
                 ></v-btn>
               </td>
-            </tr>
-          </tbody>
+            </tr>            
+          </tbody>          
+                    
         </v-table>
       </v-card-text>
     </v-card>
   </v-dialog>
 
-  <!--Detail of member-->
+  <!--Edit of member-->
   <v-dialog v-model="edit" width="500" transition="dialog-bottom-transition">
     <v-card title="Chỉnh sửa">
       <template v-slot:append>
@@ -110,21 +114,43 @@
       <v-card-text>
         <v-row>
           <v-col cols="6">
-            <v-text-field label="Họ và tên" v-model="store.Person.name"></v-text-field>
-            <v-text-field label="Năm sinh"  v-model="store.Person.birth"></v-text-field>
-            <v-text-field label="Số điện thoại"  v-model="store.Person.sdt"></v-text-field>
+            <v-text-field
+              label="Họ và tên"
+              v-model="store.Person.name"
+            ></v-text-field>
+            <v-text-field
+              label="Năm sinh"
+              v-model="store.Person.birth"
+            ></v-text-field>
+            <v-text-field
+              label="Số điện thoại"
+              v-model="store.Person.sdt"
+            ></v-text-field>
           </v-col>
           <v-col cols="6">
-            <v-select label="Giới tính" :items="['Nam', 'Nữ']" v-model="store.Person.sex"></v-select>
-            <v-text-field label="Căn cước công nhân"  v-model="store.Person.cccd"></v-text-field>
-            <v-text-field label="Công việc"  v-model="store.Person.work"></v-text-field>
+            <v-select
+              label="Giới tính"
+              :items="['Nam', 'Nữ']"
+              v-model="store.Person.sex"
+            ></v-select>
+            <v-text-field
+              label="Căn cước công nhân"
+              v-model="store.Person.cccd"
+            ></v-text-field>
+            <v-text-field
+              label="Công việc"
+              v-model="store.Person.work"
+            ></v-text-field>
           </v-col>
-          <v-text-field label="Quê quán"  v-model="store.Person.location"></v-text-field>
+          <v-text-field
+            label="Quê quán"
+            v-model="store.Person.location"
+          ></v-text-field>
         </v-row>
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="primary" @click="edit=false">Lưu</v-btn>
+        <v-btn color="primary" @click="edit = false">Lưu</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -134,8 +160,6 @@ import { useAppStore } from "@/store/app";
 const store = useAppStore();
 </script>
 <script>
-import FormEdit from "@/components/Form/FormEdit";
-
 export default {
   data() {
     return {

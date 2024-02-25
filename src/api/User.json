@@ -11,7 +11,9 @@
             {"id":"2","name":"Nguyễn Văn A2", "birth":"1993", "location":"Quảng Ngãi", "sex":"Nam", "cccd":"025421428", "sdt":"0908799042", "work":"Nhân viên"},
             {"id":"3","name":"Nguyễn Văn A3", "birth":"1994", "location":"Quảng Ngãi", "sex":"Nữ", "cccd":"025421428", "sdt":"0908799042", "work":"Sinh viên"}
         ],
-        "roomcharge":"1500000"
+        "roomcharge":"1500000",
+        "wifi":true,
+        "cable":true
     },
     {
         "id":"1",
@@ -25,7 +27,9 @@
             {"id":"2","name":"Nguyễn Văn B2", "birth":"1993", "location":"Quảng Ngãi", "sex":"Nam", "cccd":"025421428", "sdt":"0908799042", "work":"Sinh viên"},
             {"id":"3","name":"Nguyễn Văn B3", "birth":"1994", "location":"Quảng Ngãi", "sex":"Nữ", "cccd":"025421428", "sdt":"0908799042", "work":"Sinh viên"}
         ],
-        "roomcharge":"1500000"
+        "roomcharge":"1500000",
+        "wifi":true,
+        "cable":true
     },
     {
         "id":"2",
@@ -38,7 +42,9 @@
             {"id":"1","name":"Nguyễn Văn C1", "birth":"1992", "location":"Quảng Ngãi", "sex":"Nam", "cccd":"025421428", "sdt":"0908799042", "work":"Công nhân"},
             {"id":"2","name":"Nguyễn Văn C2", "birth":"1993", "location":"Quảng Ngãi", "sex":"Nam", "cccd":"025421428", "sdt":"0908799042", "work":"Công nhân"}            
         ],
-        "roomcharge":"1500000"
+        "roomcharge":"1500000",
+        "wifi":true,
+        "cable":true
     },
     {
         "id":"3",
@@ -50,7 +56,9 @@
             {"id":"0","name":"Nguyễn Văn D", "birth":"1991", "location":"Quảng Ngãi", "sex":"Nam", "cccd":"025421428", "sdt":"0908799042", "work":"Công nhân"},
             {"id":"1","name":"Nguyễn Văn D1", "birth":"1992", "location":"Quảng Ngãi", "sex":"Nam", "cccd":"025421428", "sdt":"0908799042", "work":"Công nhân"}         
         ],
-        "roomcharge":"1500000"
+        "roomcharge":"1500000",
+        "wifi":true,
+        "cable":true
     },
     {
         "id":"4",
@@ -63,7 +71,9 @@
             {"id":"1","name":"Nguyễn Thị E1", "birth":"1992", "location":"Quảng Ngãi", "sex":"Nữ", "cccd":"025421428", "sdt":"0908799042", "work":"Công nhân"}
             
         ],
-        "roomcharge":"1500000"
+        "roomcharge":"1500000",
+        "wifi":true,
+        "cable":true
     },
     {
         "id":"5",
@@ -77,7 +87,9 @@
             {"id":"2","name":"Nguyễn Văn D2", "birth":"1993", "location":"Quảng Ngãi", "cccd":"025421428", "sdt":"0908799042", "work":"Công nhân"},
             {"id":"3","name":"Nguyễn Văn D3", "birth":"1994", "location":"Quảng Ngãi", "cccd":"025421428", "sdt":"0908799042", "work":"Công nhân"}
         ],
-        "roomcharge":"1500000"
+        "roomcharge":"1500000",
+        "wifi":true,
+        "cable":true
     },
     {
         "id":"6",
@@ -91,7 +103,9 @@
             {"id":"2","name":"Nguyễn Văn D2", "birth":"1993", "location":"Quảng Ngãi", "cccd":"025421428", "sdt":"0908799042", "work":"Công nhân"},
             {"id":"3","name":"Nguyễn Văn D3", "birth":"1994", "location":"Quảng Ngãi", "cccd":"025421428", "sdt":"0908799042", "work":"Công nhân"}
         ],
-        "roomcharge":"1500000"
+        "roomcharge":"1500000",
+        "wifi":true,
+        "cable":false
     },
     {
         "id":"7",
@@ -105,6 +119,8 @@
             {"id":"2","name":"Nguyễn Văn D2", "birth":"1993", "location":"Quảng Ngãi", "cccd":"025421428", "sdt":"0908799042", "work":"Công nhân"},
             {"id":"3","name":"Nguyễn Văn D3", "birth":"1994", "location":"Quảng Ngãi", "cccd":"025421428", "sdt":"0908799042", "work":"Công nhân"}
         ],
-        "roomcharge":"1500000"
+        "roomcharge":"1500000",
+        "wifi":true,
+        "cable":false
     }
 ]
