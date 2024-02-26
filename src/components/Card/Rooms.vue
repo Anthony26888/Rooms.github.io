@@ -1,11 +1,10 @@
 <template lang="">
   <div class="d-flex flex-wrap justify-center algin-center">
-    <div v-for="item in store.User" :key="item">
+    <div v-for="item in store.data" :key="item">
       <v-card
         class="ma-2 mb-2"
         width="300"
-        :title="`Phòng ` + item.number"
-        :subtitle="item.Family[0].name"
+        :title="`Phòng ` + item.number"       
       >
         <template v-slot:prepend>
           <v-avatar color="blue-darken-2">
@@ -13,7 +12,7 @@
           </v-avatar>
         </template>
         <v-card-text>
-          <p><b>Số người:</b> {{ item.Family.length }} người</p>
+          <p><b>Số người:</b>  người</p>
           <p><b>Tiền phòng:</b> {{ item.roomcharge }} vnđ</p>
           <div class="d-flex">
             <b>Dịch vụ:</b>
@@ -44,10 +43,11 @@
   </div>
 
   <!--List of Profile-->
+  
   <v-dialog v-model="dialog" width="800" transition="dialog-bottom-transition">
     <v-card title="Thông tin">
       <template v-slot:append>
-        <v-btn color="primary" variant="text">Thêm</v-btn>
+        <v-btn color="primary" variant="text" @click="news=true">Thêm</v-btn>
         <v-btn
           class="mx-auto"
           variant="text"
@@ -81,7 +81,7 @@
                   size="10"
                   @click="
                     edit = true;
-                    GetPerson(item.id);
+                    store.GetPerson(item.id);
                   "
                 ></v-btn>
                 <v-btn
@@ -93,8 +93,7 @@
                 ></v-btn>
               </td>
             </tr>            
-          </tbody>          
-                    
+          </tbody>  
         </v-table>
       </v-card-text>
     </v-card>
@@ -111,53 +110,32 @@
           @click="edit = false"
         ></v-btn>
       </template>
-      <v-card-text>
-        <v-row>
-          <v-col cols="6">
-            <v-text-field
-              label="Họ và tên"
-              v-model="store.Person.name"
-            ></v-text-field>
-            <v-text-field
-              label="Năm sinh"
-              v-model="store.Person.birth"
-            ></v-text-field>
-            <v-text-field
-              label="Số điện thoại"
-              v-model="store.Person.sdt"
-            ></v-text-field>
-          </v-col>
-          <v-col cols="6">
-            <v-select
-              label="Giới tính"
-              :items="['Nam', 'Nữ']"
-              v-model="store.Person.sex"
-            ></v-select>
-            <v-text-field
-              label="Căn cước công nhân"
-              v-model="store.Person.cccd"
-            ></v-text-field>
-            <v-text-field
-              label="Công việc"
-              v-model="store.Person.work"
-            ></v-text-field>
-          </v-col>
-          <v-text-field
-            label="Quê quán"
-            v-model="store.Person.location"
-          ></v-text-field>
-        </v-row>
-      </v-card-text>
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="primary" @click="edit = false">Lưu</v-btn>
-      </v-card-actions>
+      <EditMember/>
+    </v-card>
+  </v-dialog>
+
+
+  <!--New of member-->
+  <v-dialog v-model="news" width="500" transition="dialog-bottom-transition">
+    <v-card title="Thêm thành viên">
+      <template v-slot:append>
+        <v-btn
+          class="mx-auto"
+          variant="text"
+          icon="mdi-close"
+          @click="news = false"
+        ></v-btn>
+      </template>
+      <NewMember/>
     </v-card>
   </v-dialog>
 </template>
 <script setup>
+import EditMember from "@/components/Form/EditMember.vue";
+import NewMember from "@/components/Form/NewMember.vue"
 import { useAppStore } from "@/store/app";
 const store = useAppStore();
+store.fetch()
 </script>
 <script>
 export default {
@@ -165,6 +143,7 @@ export default {
     return {
       dialog: false,
       edit: false,
+      news:false,
       headers: [
         { title: "Họ và Tên" },
         { title: "Giới tính" },

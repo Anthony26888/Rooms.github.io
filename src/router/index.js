@@ -16,6 +16,11 @@ const routes = [
         name: 'Rooms',        
         component: () => import(/* webpackChunkName: "home" */ '@/views/Rooms.vue'),
       },
+      {
+        path: '/api',
+        name: 'API',        
+        component: () => import(/* webpackChunkName: "home" */ '@/api/User.json'),
+      }
     ],
   },
 ]

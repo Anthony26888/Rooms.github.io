@@ -9,7 +9,7 @@
     Thêm phòng
   </v-btn>
   <v-divider :thickness="2"></v-divider>
-  <v-dialog v-model="form" width="auto">
+  <v-dialog v-model="form" width="500">
     <v-card title="Tạo phòng">
       <template v-slot:append>
         <v-btn          
@@ -25,7 +25,7 @@
   </v-dialog>
 </template>
 <script setup>
-import FormAdd from "@/components/Form/FormAdd.vue";
+import FormAdd from "@/components/Form/AddRoom.vue";
 </script>
 <script>
 export default {

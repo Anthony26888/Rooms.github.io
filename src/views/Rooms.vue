@@ -6,6 +6,6 @@
   </template>
   
   <script setup>
-  import List from '@/components/Card/CardRooms.vue'
-  import Add  from '@/components/Card/CardAdd.vue'
+  import List from '@/components/Card/Rooms.vue'
+  import Add  from '@/components/Card/AddRoom.vue'
   </script>
