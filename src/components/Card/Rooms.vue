@@ -16,9 +16,10 @@
           <p><b>Tiền phòng:</b> {{ item.roomcharge }} vnđ</p>
           <div class="d-flex">
             <b>Dịch vụ:</b>
-            <p v-if="item.wifi == true" class="ms-2">Wifi</p>
-            <p v-if="item.cable == true" class="ms-2">Cáp</p>
+            <p v-if="item.wifi == 'true'" class="ms-2">Wifi</p>
+            <p v-if="item.cable == 'true'" class="ms-2">Cáp</p>
           </div>
+          <p><b>Ngày vào:</b> {{ item.date }}</p>
         </v-card-text>
         <v-card-actions>
           <div class="d-flex justify-center algin-center">
@@ -29,7 +30,7 @@
                 variant="tonal"
                 @click="
                   dialog = true;
-                  store.GetDetail(item.id);
+                  store.fetchProfile(item.number);
                 "
               >
                 Thông tin
@@ -66,7 +67,7 @@
             </tr>
           </thead>
           <tbody>
-            <tr v-for="item in store.Info.Family">
+            <tr v-for="item in store.profile">
               <td>{{ item.name }}</td>
               <td>{{ item.sex }}</td>
               <td>{{ item.birth }}</td>
@@ -135,7 +136,7 @@ import EditMember from "@/components/Form/EditMember.vue";
 import NewMember from "@/components/Form/NewMember.vue"
 import { useAppStore } from "@/store/app";
 const store = useAppStore();
-store.fetch()
+store.fetchRoom();
 </script>
 <script>
 export default {

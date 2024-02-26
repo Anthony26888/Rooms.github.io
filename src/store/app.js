@@ -10,8 +10,7 @@ export const useAppStore = defineStore("app", {
       Info: useLocalStorage("Info", []),
       Person: useLocalStorage("Person", []),     
       data:[],
-      NumberRoom:""
-
+      profile:[]
     };
   },
   getters: {
@@ -27,16 +26,16 @@ export const useAppStore = defineStore("app", {
     GetPerson(id) {
       this.Person = this.Info.Family.find((value) => value.id === id);
     },
-    CreateRoom() {      
+    CreateRoom(LocationRoom, NameRoom, RoomCharge, DateRoom, WifiService, CableService) {      
       axios
-        .post("http://localhost:3000/Profile",{
-          number:this.NumberRoom,
-          type: "Old",
-          qty: "4",
-          date: "01/12/2023",
-          roomcharge: "1500000",
-          wifi: true,
-          cable: false
+        .post("http://localhost:3000/Room",{
+          number:NameRoom,
+          type: LocationRoom,
+          qty: "0",
+          date: DateRoom,
+          roomcharge: RoomCharge,
+          wifi:  WifiService,
+          cable: CableService
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -45,10 +44,34 @@ export const useAppStore = defineStore("app", {
           console.error("Error submitting form:", error);
         });
     },
-    async fetch() {
+    CreateMember(NameMember, BirthMember, PhoneMember, SexMember, CccdMember, WorkMember, LocationMember){
+      axios
+        .post("http://localhost:3000/Room",{
+          room: NameMember,
+          type: LocationRoom,
+          qty: "0",
+          date: DateRoom,
+          roomcharge: RoomCharge,
+          wifi:  WifiService,
+          cable: CableService
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
+    },
+    async fetchRoom() {
       // Assuming your JSON file is in the public folder
-      const res = await fetch('http://localhost:3000/Profile')
+      const res = await fetch('http://localhost:3000/Room')
       this.data = await res.json()
+    },
+    async fetchProfile(number) {
+      // Assuming your JSON file is in the public folder
+      const res = await fetch('http://localhost:3000/Profile?room=' + number)
+      this.profile = await res.json()
+      
     }
   },
 });

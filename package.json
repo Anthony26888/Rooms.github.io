@@ -6,7 +6,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "lint": "eslint . --fix --ignore-path .gitignore"
+    "lint": "eslint . --fix --ignore-path .gitignore",
+    "db": "json-server --watch src/api/User.json --port 3000"
   },
   "dependencies": {
     "@vueuse/components": "^10.7.2",
