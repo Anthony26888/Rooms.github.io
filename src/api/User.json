@@ -1,31 +1,28 @@
 {
   "Room": [
     {
-      "id": "0",
+      "location": "Dãy B",
       "number": "1A",
-      "type": "Old",
-      "qty": "4",
-      "date": "01/12/2023",
-      "roomcharge": "1500000",
+      "roomcharge": "2000000",
+      "date": "2024-02-17",
       "wifi": "true",
-      "cable": "true"
+      "cable": false,
+      "id": "0"
     },
     {
       "id": "1",
       "number": "2A",
-      "type": "Old",
-      "qty": "4",
-      "date": "01/12/2023",
+      "location": "Dãy A",
+      "date": "2024-02-17",
       "roomcharge": "1500000",
-      "wifi": true,
-      "cable": true
+      "wifi": "true",
+      "cable": "false"
     },
     {
       "id": "2",
       "number": "3A",
-      "type": "Old",
-      "qty": "4",
-      "date": "01/12/2023",
+      "location": "Dãy A",
+      "date": "2024-02-17",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": true
@@ -33,9 +30,8 @@
     {
       "id": "3",
       "number": "4A",
-      "type": "Old",
-      "qty": "4",
-      "date": "01/12/2023",
+      "location": "Dãy A",
+      "date": "2024-02-17",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": true
@@ -43,9 +39,8 @@
     {
       "id": "4",
       "number": "1B",
-      "type": "New",
-      "qty": "4",
-      "date": "01/12/2023",
+      "location": "Dãy A",
+      "date": "2024-02-17",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": true
@@ -53,9 +48,8 @@
     {
       "id": "5",
       "number": "2B",
-      "type": "Old",
-      "qty": "4",
-      "date": "01/12/2023",
+      "location": "Dãy A",
+      "date": "2024-02-17",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": true
@@ -63,9 +57,8 @@
     {
       "id": "6",
       "number": "3B",
-      "type": "Old",
-      "qty": "4",
-      "date": "01/12/2023",
+      "location": "Dãy A",
+      "date": "2024-02-17",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": false
@@ -73,17 +66,15 @@
     {
       "id": "7",
       "number": "4B",
-      "type": "Old",
-      "qty": "4",
-      "date": "01/12/2023",
+      "location": "Dãy A",
+      "date": "2024-02-17",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": false
     },
     {
       "number": "6H",
-      "type": "Dãy A",
-      "qty": "0",
+      "location": "Dãy A",
       "date": "2024-02-17",
       "roomcharge": "2000000",
       "wifi": "true",

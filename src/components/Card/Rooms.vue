@@ -1,7 +1,7 @@
 <template lang="">
   <div class="d-flex flex-wrap justify-center algin-center">
     <div v-for="item in store.data" :key="item">
-      <v-card class="ma-2 mb-2" width="300" :title="`Phòng ` + item.number">
+      <v-card class="ma-2 mb-2" width="300" :title="`Phòng ` + item.number" :subtitle="item.location">
         <template v-slot:prepend>
           <v-avatar color="blue-darken-2">
             <v-icon icon="mdi-home"></v-icon>
@@ -27,7 +27,7 @@
                 @click="
                   dialog = true;
                   store.fetchProfile(item.number);
-                  store.GetNumberRoom(item.number);
+                  store.GetRoom(item.number, item.id);
                 "
               >
                 Thông tin
@@ -40,8 +40,8 @@
                 variant="tonal"
                 @click="
                   editRoom = true;
-                  store.fetchProfile(item.number);
-                  store.GetNumberRoom(item.number);
+                  store.fetchEditRoom(item.id);
+                  store.GetRoom(item.number, item.id);
                 "
               >
                 Sửa

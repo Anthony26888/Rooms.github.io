@@ -9,10 +9,13 @@ export const useAppStore = defineStore("app", {
       User,
       Info: useLocalStorage("Info", []),      
       NumberRoom: useLocalStorage("NumberRoom", ""), 
+      IdRoom: useLocalStorage("IdRoom", ""), 
       IdMember: useLocalStorage("IdMember", ""),    
       data:[],
       profile:[],
-      member:[]
+      member:[],
+      editRoom:[]
+
     };
   },
   getters: {
@@ -25,9 +28,10 @@ export const useAppStore = defineStore("app", {
     GetDetail(id) {
       this.Info = this.data.find((value) => value.id === id);
     },    
-    GetNumberRoom(id){
+    GetRoom(number, id){
       //Get id room for create new member
-      this.NumberRoom = id
+      this.NumberRoom = number
+      this.IdRoom = id
     },
     GetIdMember(id){
       this.IdMember=id
@@ -95,6 +99,25 @@ export const useAppStore = defineStore("app", {
         });
     },
 
+    //Edit profile of room
+    EditRoom(LocationRoom, NameRoom, RoomCharge, DateRoom, WifiService, CableService){
+      axios
+        .put(`http://localhost:3000/Room/${this.IdRoom}`,{          
+          location:LocationRoom,
+          number:NameRoom,
+          roomcharge:RoomCharge,
+          date:DateRoom,
+          wifi:WifiService,
+          cable:CableService
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
+    },
+
     //Delete profile of member
     DeleteMember(){
       axios
@@ -120,11 +143,19 @@ export const useAppStore = defineStore("app", {
       const res = await fetch('http://localhost:3000/Profile?room=' + number)
       this.profile = await res.json()      
     },
+    
 
-    //Fetch api prpfile of member
+    //Fetch api profile of member
     fetchMember(id) {
       // Assuming your JSON file is in the public folder
       this.member = this.profile.find((value) => value.name === id);
-    }
+    },
+
+    //Fetch api profile of room for edit
+    fetchEditRoom(id) {
+      // Assuming your JSON file is in the public folder
+      this.editRoom = this.data.find((value) => value.id === id);
+    },
+
   },
 });

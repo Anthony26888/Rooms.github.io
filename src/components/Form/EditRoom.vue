@@ -47,15 +47,13 @@ const store = useAppStore();
 export default {
   data() {
     return {
-      IdMember: store.member.id,
-      NumberRoom: store.member.number,
-      NameMember: store.member.name,
-      SexMember: store.member.sex,
-      BirthMember: store.member.birth,
-      CccdMember: store.member.cccd,
-      PhoneMember: store.member.phone,
-      WorkMember: store.member.work,
-      LocationMember: store.member.location,
+      LocationRoom:store.editRoom.location,
+      NameRoom:store.editRoom.number,
+      RoomCharge: store.editRoom.roomcharge,
+      DateRoom:store.editRoom.date,
+      WifiService:store.editRoom.wifi,
+      CableService:store.editRoom.cable
+
     };
   },
 };
