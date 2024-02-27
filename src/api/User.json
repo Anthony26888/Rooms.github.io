@@ -5,17 +5,17 @@
       "number": "1A",
       "type": "Old",
       "qty": "4",
-      "date": "01/12/2023",      
+      "date": "01/12/2023",
       "roomcharge": "1500000",
-      "wifi": true,
-      "cable": true
+      "wifi": "true",
+      "cable": "true"
     },
     {
       "id": "1",
       "number": "2A",
       "type": "Old",
       "qty": "4",
-      "date": "01/12/2023",      
+      "date": "01/12/2023",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": true
@@ -25,7 +25,7 @@
       "number": "3A",
       "type": "Old",
       "qty": "4",
-      "date": "01/12/2023",      
+      "date": "01/12/2023",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": true
@@ -35,7 +35,7 @@
       "number": "4A",
       "type": "Old",
       "qty": "4",
-      "date": "01/12/2023",      
+      "date": "01/12/2023",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": true
@@ -45,7 +45,7 @@
       "number": "1B",
       "type": "New",
       "qty": "4",
-      "date": "01/12/2023",      
+      "date": "01/12/2023",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": true
@@ -55,7 +55,7 @@
       "number": "2B",
       "type": "Old",
       "qty": "4",
-      "date": "01/12/2023",      
+      "date": "01/12/2023",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": true
@@ -65,7 +65,7 @@
       "number": "3B",
       "type": "Old",
       "qty": "4",
-      "date": "01/12/2023",      
+      "date": "01/12/2023",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": false
@@ -75,7 +75,7 @@
       "number": "4B",
       "type": "Old",
       "qty": "4",
-      "date": "01/12/2023",      
+      "date": "01/12/2023",
       "roomcharge": "1500000",
       "wifi": true,
       "cable": false
@@ -91,49 +91,47 @@
       "id": "Hr727yG"
     }
   ],
-  "Profile":[
+  "Profile": [
     {
-      "id": "0",
-      "room":"1A",
-      "name": "Nguyễn Văn A",
-      "birth": "1991",
-      "location": "Quảng Ngãi",
-      "sex": "Nam",
-      "cccd": "025421428",
-      "sdt": "0908799042",
-      "work": "Công nhân"
-    },
-    {
-      "id": "1",
-      "room":"1A",
-      "name": "Nguyễn Thị A1",
-      "birth": "1992",
-      "location": "Quảng Ngãi",
+      "name": "Nguyễn Thị Tú",
+      "birth": "1995",
+      "location": "Hồ Chí Minh",
+      "phone": "0908799042",
       "sex": "Nữ",
       "cccd": "025421428",
-      "sdt": "0908799042",
-      "work": "Nội trợ"
+      "work": "Công nhân",
+      "id": "1"
     },
     {
-      "id": "2",
-      "room":"2A",
-      "name": "Nguyễn Văn A2",
-      "birth": "1993",
-      "location": "Quảng Ngãi",
+      "name": "Nguyễn Văn Tú",
+      "birth": "1995",
+      "location": "Sài Gòn",
+      "phone": "0908799042",
       "sex": "Nam",
       "cccd": "025421428",
-      "sdt": "0908799042",
-      "work": "Nhân viên"
+      "work": "Công nhân",
+      "id": "2"
     },
     {
-      "id": "3",
-      "room":"2A",
-      "name": "Nguyễn Văn A3",
-      "birth": "1994",
-      "location": "Quảng Ngãi",
+      "name": "Nguyễn Hải Đăng",
+      "room": "1A",
+      "birth": "1995",
+      "location": "Sài Gòn",
+      "phone": "0908799042",
       "sex": "Nữ",
       "cccd": "025421428",
-      "sdt": "0908799042",
+      "work": "Nhân viên",
+      "id": "75b8"
+    },
+    {
+      "id": "6aba",
+      "room": "1A",
+      "name": "Nguyễn Nhật Đăng",
+      "birth": "2023-02-11",
+      "location": "Sài Gòn",
+      "phone": "0907744056",
+      "sex": "Nam",
+      "cccd": "02565423",
       "work": "Sinh viên"
     }
   ]

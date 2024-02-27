@@ -1,21 +1,17 @@
 <template lang="">
   <div class="d-flex flex-wrap justify-center algin-center">
     <div v-for="item in store.data" :key="item">
-      <v-card
-        class="ma-2 mb-2"
-        width="300"
-        :title="`Phòng ` + item.number"       
-      >
+      <v-card class="ma-2 mb-2" width="300" :title="`Phòng ` + item.number">
         <template v-slot:prepend>
           <v-avatar color="blue-darken-2">
             <v-icon icon="mdi-home"></v-icon>
           </v-avatar>
         </template>
         <v-card-text>
-          <p><b>Số người:</b>  người</p>
+          <p><b>Số người:</b> người</p>
           <p><b>Tiền phòng:</b> {{ item.roomcharge }} vnđ</p>
           <div class="d-flex">
-            <b>Dịch vụ:</b>
+            <b>Dịch vụ thêm:</b>
             <p v-if="item.wifi == 'true'" class="ms-2">Wifi</p>
             <p v-if="item.cable == 'true'" class="ms-2">Cáp</p>
           </div>
@@ -25,18 +21,32 @@
           <div class="d-flex justify-center algin-center">
             <div class="ma-1 mb-1">
               <v-btn
-                prepend-icon="mdi-pen"
+                prepend-icon="mdi-information-outline"
                 color="primary"
                 variant="tonal"
                 @click="
                   dialog = true;
                   store.fetchProfile(item.number);
+                  store.GetNumberRoom(item.number);
                 "
               >
                 Thông tin
               </v-btn>
             </div>
-            <div class="ma-4 mb-4"></div>
+            <div class="ma-1 mb-1">
+              <v-btn
+                prepend-icon="mdi-pencil"
+                color="success"
+                variant="tonal"
+                @click="
+                  editRoom = true;
+                  store.fetchProfile(item.number);
+                  store.GetNumberRoom(item.number);
+                "
+              >
+                Sửa
+              </v-btn>
+            </div>
           </div>
         </v-card-actions>
       </v-card>
@@ -44,11 +54,10 @@
   </div>
 
   <!--List of Profile-->
-  
   <v-dialog v-model="dialog" width="800" transition="dialog-bottom-transition">
     <v-card title="Thông tin">
       <template v-slot:append>
-        <v-btn color="primary" variant="text" @click="news=true">Thêm</v-btn>
+        <v-btn color="primary" variant="text" @click="news = true">Thêm</v-btn>
         <v-btn
           class="mx-auto"
           variant="text"
@@ -72,7 +81,7 @@
               <td>{{ item.sex }}</td>
               <td>{{ item.birth }}</td>
               <td>{{ item.cccd }}</td>
-              <td>{{ item.sdt }}</td>
+              <td>{{ item.phone }}</td>
               <td>{{ item.location }}</td>
               <td>
                 <v-btn
@@ -81,8 +90,8 @@
                   variant="text"
                   size="10"
                   @click="
-                    edit = true;
-                    store.GetPerson(item.id);
+                    editMember = true;
+                    store.fetchMember(item.name);                    
                   "
                 ></v-btn>
                 <v-btn
@@ -90,33 +99,48 @@
                   color="red"
                   variant="text"
                   size="10"
-                  class="ms-3"
+                  class="ms-5"
+                  @click="notify = true; store.GetIdMember(item.id);"
                 ></v-btn>
               </td>
-            </tr>            
-          </tbody>  
+            </tr>
+          </tbody>
         </v-table>
       </v-card-text>
     </v-card>
   </v-dialog>
 
-  <!--Edit of member-->
-  <v-dialog v-model="edit" width="500" transition="dialog-bottom-transition">
+  <!--Edit member-->
+  <v-dialog v-model="editMember" width="500" transition="dialog-bottom-transition">
     <v-card title="Chỉnh sửa">
       <template v-slot:append>
         <v-btn
           class="mx-auto"
           variant="text"
           icon="mdi-close"
-          @click="edit = false"
+          @click="editMember = false"
         ></v-btn>
       </template>
-      <EditMember/>
+      <EditMember />
     </v-card>
   </v-dialog>
 
+  <!--Edit room-->
+  <v-dialog v-model="editRoom" width="500" transition="dialog-bottom-transition">
+    <v-card title="Chỉnh sửa">
+      <template v-slot:append>
+        <v-btn
+          class="mx-auto"
+          variant="text"
+          icon="mdi-close"
+          @click="editRoom = false"
+        ></v-btn>
+      </template>
+      <EditRoom />
+    </v-card>
+  </v-dialog>
 
-  <!--New of member-->
+  <!--Add New member-->
   <v-dialog v-model="news" width="500" transition="dialog-bottom-transition">
     <v-card title="Thêm thành viên">
       <template v-slot:append>
@@ -127,13 +151,43 @@
           @click="news = false"
         ></v-btn>
       </template>
-      <NewMember/>
+      <NewMember />
+    </v-card>
+  </v-dialog>
+
+  <!--Notifition -->
+  <v-dialog
+    v-model="notify"
+    width="500"
+    transition="dialog-bottom-transition"
+    persistent
+  >
+    <v-card      
+      title="Bạn có muốn xóa thành viên này?"
+    >
+      <VSpacer/>
+      <template v-slot:actions class="mx-auto">
+        <div class="mx-auto">
+          <v-btn @click="notify = false" color="primary"> Từ chối </v-btn>
+
+          <v-btn
+            @click="
+              notify = false;              
+              store.DeleteMember();
+            "
+            color="red"
+          >
+            Đồng ý
+          </v-btn>
+        </div>
+      </template>
     </v-card>
   </v-dialog>
 </template>
 <script setup>
+import EditRoom from "@/components/Form/EditRoom.vue";
 import EditMember from "@/components/Form/EditMember.vue";
-import NewMember from "@/components/Form/NewMember.vue"
+import NewMember from "@/components/Form/NewMember.vue";
 import { useAppStore } from "@/store/app";
 const store = useAppStore();
 store.fetchRoom();
@@ -143,8 +197,10 @@ export default {
   data() {
     return {
       dialog: false,
-      edit: false,
-      news:false,
+      editMember: false,
+      editRoom:false,
+      news: false,
+      notify: false,
       headers: [
         { title: "Họ và Tên" },
         { title: "Giới tính" },

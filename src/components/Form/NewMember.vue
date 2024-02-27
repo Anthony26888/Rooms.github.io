@@ -4,7 +4,7 @@
       <v-row>
         <v-col cols="6">
           <v-text-field label="Họ và tên" v-model="NameMember"></v-text-field>
-          <v-text-field label="Năm sinh" v-model="BirthMember"></v-text-field>
+          <v-text-field label="Năm sinh" type="date" v-model="BirthMember"></v-text-field>
           <v-text-field label="Số điện thoại" v-model="PhoneMember"></v-text-field>
         </v-col>
         <v-col cols="6">
@@ -24,12 +24,17 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" @click="edit = false">Lưu</v-btn>
+      <v-btn type="submit" color="primary">Lưu</v-btn>
     </v-card-actions>
   </form>
 </template>
+<script setup>
+import { useAppStore } from "@/store/app";
+const store = useAppStore();
+</script>
 <script>
 export default {
+  name:"FormNewMember",
   data() {
     return {
       NameMember: "",
