@@ -2,7 +2,7 @@
   <form>
     <v-card-text>
       <v-select
-        class="w-25"        
+        class="w-25"
         label="Tháng"
         :items="Calander"
         variant="underlined"
@@ -16,6 +16,7 @@
           <v-text-field
             label="Số cũ"
             v-model="ElectricOld"
+            type="num"
             suffix="Kw"
           ></v-text-field>
         </VCol>
@@ -23,11 +24,15 @@
           <v-text-field
             label="Số mới"
             v-model="ElectricNew"
+            type="num"
             suffix="Kw"
           ></v-text-field>
         </VCol>
         <VCol cols="2">
-          <h3 class="text-center mt-4">= 35 Kw</h3>
+          <div class="d-flex text-center mt-4">
+            <h3>= {{ ResultElectric }}</h3>
+            <p class="ms-2">Kw</p>
+          </div>
         </VCol>
       </VRow>
 
@@ -39,6 +44,7 @@
           <v-text-field
             label="Số cũ"
             v-model="WaterOld"
+            type="num"
             suffix="m3"
           ></v-text-field>
         </VCol>
@@ -46,11 +52,15 @@
           <v-text-field
             label="Số mới"
             v-model="WaterNew"
+            type="num"
             suffix="m3"
           ></v-text-field>
         </VCol>
         <VCol cols="2">
-          <h3 class="text-center mt-4">= 35 m3</h3>
+          <div class="d-flex text-center mt-4">
+            <h3>= {{ ResultWater }}</h3>
+            <p class="ms-2">m³</p>
+          </div>
         </VCol>
       </VRow>
 
@@ -65,19 +75,40 @@
 
       <v-divider :thickness="5"></v-divider>
 
-      <VRow class="mt-2">
-        <VCol cols="2">
-          <p v-for="item in List" :key="item" class="ma-1 mb-1">{{ item }}:</p>
-        </VCol>
-        <VCol cols="8"></VCol>
-        <VCol cols="2" class="text-end">
-          <p class="ma-1 mb-1">1500000</p>
-          <p class="ma-1 mb-1">300000</p>
-          <p class="ma-1 mb-1">65000</p>
-          <p class="ma-1 mb-1">52000</p>
-          <p class="ma-1 mb-1">0</p>
-        </VCol>
-      </VRow>
+      <table class="table table-borderless w-100 pa-3 pb-3">     
+        <tbody class="table-group-divider">
+          <tr>
+            <th scope="row" class="text-start">Tiền phòng</th>
+            <td></td>
+            <td></td>
+            <td class="text-end">{{ RoomCharge }}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Điện</th>
+            <td></td>
+            <td></td>
+            <td class="text-end">{{ ElectricCharge }}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Nước</th>
+            <td></td>
+            <td></td>
+            <td class="text-end">{{ WaterCharge }}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Wifi + Rác</th>
+            <td></td>
+            <td></td>
+            <td class="text-end">{{ ServiceCharge }}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Tiền khác</th>
+            <td></td>
+            <td></td>
+            <td class="text-end">{{ OtherCharge }}</td>
+          </tr>
+        </tbody>
+      </table>
 
       <v-divider :thickness="2"></v-divider>
 
@@ -87,7 +118,7 @@
         </VCol>
         <VCol cols="8"></VCol>
         <VCol cols="2" class="text-end">
-          <h2>1995000</h2>
+          <h2>{{ Total }}</h2>
         </VCol>
       </VRow>
     </v-card-text>
@@ -99,9 +130,9 @@
 </template>
 <script setup>
 import { useAppStore } from "@/store/app";
-const store = useAppStore();
 </script>
 <script>
+const store = useAppStore();
 export default {
   name: "FormRoomCharge",
   data() {
@@ -125,7 +156,24 @@ export default {
       ElectricNew: "",
       WaterOld: "",
       WaterNew: "",
+      ResultElectric: "",
+      ResultWater: "",
+      RoomCharge: Number(store.editRoom.roomcharge),
+      OtherCharge: "",
+      ServiceCharge:"",
+      Total:"",
+      WaterCharge:"0",
+      ElectricCharge:"0"
     };
+  },
+  mounted() {
+    setInterval(() => {
+      this.ResultElectric = this.ElectricNew - this.ElectricOld;
+      this.ResultWater = this.WaterNew - this.WaterOld;
+      this.Total = this.RoomCharge + (this.ResultElectric * 35000) + (this.ResultWater * 20000);
+      this.ElectricCharge = this.ResultElectric * 35000
+      this.WaterCharge = this.ResultWater * 35000
+    }, 10);
   },
 };
 </script>

@@ -20,8 +20,7 @@
         <v-card-actions>
           <div class="d-flex justify-center algin-center">
             <div class="ma-1 mb-1">
-              <v-btn
-                prepend-icon="mdi-information-outline"
+              <v-btn                
                 color="primary"
                 variant="tonal"
                 @click="
@@ -34,9 +33,8 @@
               </v-btn>
             </div>
             <div class="ma-1 mb-1">
-              <v-btn
-                prepend-icon="mdi-pencil"
-                color="red"
+              <v-btn                
+                color="orange"
                 variant="tonal"
                 @click="
                   editRoom = true;
@@ -48,8 +46,7 @@
               </v-btn>
             </div>
             <div class="ma-1 mb-1">
-              <v-btn
-                prepend-icon="mdi-currency-usd"
+              <v-btn                
                 color="success"
                 variant="tonal"
                 @click="
@@ -59,6 +56,18 @@
                 "
               >
                 Tính tiền
+              </v-btn>
+            </div>
+
+            <div class="ma-1 mb-1">
+              <v-btn                
+                color="red"
+                variant="tonal"
+                @click="
+                  
+                "
+              >
+                Xóa
               </v-btn>
             </div>
           </div>

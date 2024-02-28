@@ -125,5 +125,13 @@
       "cccd": "02565423",
       "work": "Sinh viên"
     }
+  ],
+  "Service": [
+    {
+      "Electric":"3500",
+      "Water":"20000",
+      "Trash":"35000",
+      "Wifi" : "20000"
+    }
   ]
 }
