@@ -15,6 +15,7 @@
         label="Ngày vào"
         type="date"
         v-model="DateRoom"
+        pattern="\d{4}-\d{2}-\d{2}"
       ></v-text-field>
       <b>Dịch vụ thêm:</b>
       <div class="d-flex">
@@ -35,7 +36,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" @click="edit = false" type="submit">Lưu</v-btn>
+      <v-btn color="primary" type="submit">Lưu</v-btn>
     </v-card-actions>
   </form>
 </template>

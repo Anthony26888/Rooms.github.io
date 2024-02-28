@@ -1,7 +1,7 @@
 <template lang="">
   <div class="d-flex flex-wrap justify-center algin-center">
     <div v-for="item in store.data" :key="item">
-      <v-card class="ma-2 mb-2" width="300" :title="`Phòng ` + item.number" :subtitle="item.location">
+      <v-card class="ma-2 mb-2" width="400" :title="`Phòng ` + item.number" :subtitle="item.location">
         <template v-slot:prepend>
           <v-avatar color="blue-darken-2">
             <v-icon icon="mdi-home"></v-icon>
@@ -36,7 +36,7 @@
             <div class="ma-1 mb-1">
               <v-btn
                 prepend-icon="mdi-pencil"
-                color="success"
+                color="red"
                 variant="tonal"
                 @click="
                   editRoom = true;
@@ -45,6 +45,20 @@
                 "
               >
                 Sửa
+              </v-btn>
+            </div>
+            <div class="ma-1 mb-1">
+              <v-btn
+                prepend-icon="mdi-currency-usd"
+                color="success"
+                variant="tonal"
+                @click="
+                  caculator = true;
+                  store.fetchEditRoom(item.id);
+                  store.GetRoom(item.number, item.id);
+                "
+              >
+                Tính tiền
               </v-btn>
             </div>
           </div>
@@ -155,6 +169,21 @@
     </v-card>
   </v-dialog>
 
+  <!--Caculator Roomcharge-->
+  <v-dialog v-model="caculator" width="700" transition="dialog-bottom-transition">
+    <v-card title="Tính tiền phòng ">
+      <template v-slot:append>
+        <v-btn
+          class="mx-auto"
+          variant="text"
+          icon="mdi-close"
+          @click="caculator = false"
+        ></v-btn>
+      </template>
+      <RoomCharge />
+    </v-card>
+  </v-dialog>
+
   <!--Notifition -->
   <v-dialog
     v-model="notify"
@@ -188,6 +217,7 @@
 import EditRoom from "@/components/Form/EditRoom.vue";
 import EditMember from "@/components/Form/EditMember.vue";
 import NewMember from "@/components/Form/NewMember.vue";
+import RoomCharge from "@/components/Form/RoomCharge.vue";
 import { useAppStore } from "@/store/app";
 const store = useAppStore();
 store.fetchRoom();
@@ -201,6 +231,7 @@ export default {
       editRoom:false,
       news: false,
       notify: false,
+      caculator:false,
       headers: [
         { title: "Họ và Tên" },
         { title: "Giới tính" },

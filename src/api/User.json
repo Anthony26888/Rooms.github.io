@@ -1,10 +1,10 @@
 {
   "Room": [
     {
-      "location": "Dãy B",
+      "location": "Dãy A",
       "number": "1A",
       "roomcharge": "2000000",
-      "date": "2024-02-17",
+      "date": "2024-02-09",
       "wifi": "true",
       "cable": false,
       "id": "0"

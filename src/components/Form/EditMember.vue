@@ -31,7 +31,7 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" @click="edit = false" type="submit">Lưu</v-btn>
+      <v-btn color="primary" type="submit">Lưu</v-btn>
     </v-card-actions>
   </form> 
 </template>

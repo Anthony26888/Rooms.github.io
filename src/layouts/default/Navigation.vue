@@ -14,8 +14,10 @@
                 </router-link>                
                 <router-link to="/Rooms" style="text-decoration: none; color: inherit">
                     <v-list-item prepend-icon="mdi-home" title="Phòng trọ" value="rooms"></v-list-item>
-                </router-link>                
-                <v-list-item prepend-icon="mdi-check" title="Dịch vụ" value="service"></v-list-item>                
+                </router-link>      
+                <router-link to="/Service" style="text-decoration: none; color: inherit">
+                    <v-list-item prepend-icon="mdi-check" title="Dịch vụ" value="service"></v-list-item> 
+                </router-link>   
             </v-list>
         </v-navigation-drawer>
     </v-main>
