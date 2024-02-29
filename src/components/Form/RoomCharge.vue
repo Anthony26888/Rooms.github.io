@@ -36,6 +36,7 @@
         </VCol>
       </VRow>
 
+      <!--
       <VRow>
         <VCol cols="2">
           <h3 class="text-center mt-4">Nước</h3>
@@ -65,6 +66,7 @@
           </div>
         </VCol>
       </VRow>
+      -->
 
       <VRow>
         <VCol cols="2">
@@ -189,17 +191,43 @@ export default {
   },
   mounted() {
     setInterval(() => {
+
+      //Old and New
       this.ResultElectric = this.ElectricNew - this.ElectricOld;
       this.ResultWater = this.WaterNew - this.WaterOld;
       
+      //Electric
+      const Charge0 = store.service[0].Electric0
+      const Charge50 = store.service[0].Electric50
+      const Charge100 = store.service[0].Electric100
+      const Charge200 = store.service[0].Electric200
+      const Charge300 = store.service[0].Electric300
+      if(this.ResultElectric < 50){
+        this.ElectricCharge = Number(this.ResultElectric * Charge0).toLocaleString("en-US");
+      }
+      else if(this.ResultElectric > 50 && this.ResultElectric < 100){
+        this.ElectricCharge = Number((this.ResultElectric - 50)*Charge50 + (Charge0*50)).toLocaleString("en-US");
+      }
+      else if(this.ResultElectric > 100 && this.ResultElectric < 200){
+        this.ElectricCharge = Number((this.ResultElectric - 100)*Charge100 + (Charge50 *100)).toLocaleString("en-US");
+      }
+      else if(this.ResultElectric > 200 && this.ResultElectric < 300){
+        this.ElectricCharge = Number((this.ResultElectric - 200)*Charge200 + (Charge100 *200)).toLocaleString("en-US");
+      }
+      else if(this.ResultElectric > 300 && this.ResultElectric < 400){
+        this.ElectricCharge = Number((this.ResultElectric - 300)*Charge300 + (Charge200 *300)).toLocaleString("en-US");
+      }
+      else{
+        this.ElectricCharge = 0
+      }
+      
 
-      this.ElectricCharge = Number(
-        this.ResultElectric * store.service[0].Electric
-      ).toLocaleString("en-US");
+      //Water
       this.WaterCharge = Number(
         store.service[0].Water * store.editRoom.qty
       ).toLocaleString("en-US");
       
+      //Service
       if (store.editRoom.cable == "true") {
         this.CableCharge = Number(store.service[0].Cable).toLocaleString(
           "en-US"
@@ -216,11 +244,10 @@ export default {
         this.WifiCharge= Number(0)
       }
 
+      //Total
+      const Electric = this.ElectricCharge
       this.Total = (
-        this.RoomCharge +
-          this.ElectricCharge +
-          this.WaterCharge +
-          this.OtherCharge
+        this.RoomCharge + Electric
       ).toLocaleString("en-US");
     }, 10);
   },

@@ -60,6 +60,11 @@
   "Service": [
     {
       "Electric": "3500",
+      "Electric0":"2400",
+      "Electric50":"2700",
+      "Electric100":"3000",
+      "Electric200":"3200",
+      "Electric300":"3500",
       "Water": "20000",
       "Trash": "35000",
       "Wifi": "20000",
