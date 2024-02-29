@@ -2,136 +2,68 @@
   "Room": [
     {
       "location": "Dãy A",
-      "number": "1A",
-      "roomcharge": "2000000",
-      "date": "2024-02-09",
-      "wifi": "true",
-      "cable": false,
-      "id": "0"
-    },
-    {
-      "id": "1",
-      "number": "2A",
-      "location": "Dãy A",
-      "date": "2024-02-17",
-      "roomcharge": "1500000",
-      "wifi": "true",
-      "cable": "false"
-    },
-    {
-      "id": "2",
-      "number": "3A",
-      "location": "Dãy A",
-      "date": "2024-02-17",
-      "roomcharge": "1500000",
-      "wifi": true,
-      "cable": true
-    },
-    {
-      "id": "3",
       "number": "4A",
-      "location": "Dãy A",
-      "date": "2024-02-17",
+      "qty": "4",
       "roomcharge": "1500000",
-      "wifi": true,
-      "cable": true
-    },
-    {
-      "id": "4",
-      "number": "1B",
-      "location": "Dãy A",
-      "date": "2024-02-17",
-      "roomcharge": "1500000",
-      "wifi": true,
-      "cable": true
-    },
-    {
-      "id": "5",
-      "number": "2B",
-      "location": "Dãy A",
-      "date": "2024-02-17",
-      "roomcharge": "1500000",
-      "wifi": true,
-      "cable": true
-    },
-    {
-      "id": "6",
-      "number": "3B",
-      "location": "Dãy A",
-      "date": "2024-02-17",
-      "roomcharge": "1500000",
-      "wifi": true,
-      "cable": false
-    },
-    {
-      "id": "7",
-      "number": "4B",
-      "location": "Dãy A",
-      "date": "2024-02-17",
-      "roomcharge": "1500000",
-      "wifi": true,
-      "cable": false
-    },
-    {
-      "number": "6H",
-      "location": "Dãy A",
-      "date": "2024-02-17",
-      "roomcharge": "2000000",
+      "date": "2024-01-01",
       "wifi": "true",
       "cable": false,
-      "id": "Hr727yG"
+      "id": "f532"
     }
   ],
   "Profile": [
     {
-      "name": "Nguyễn Thị Tú",
-      "birth": "1995",
-      "location": "Hồ Chí Minh",
-      "phone": "0908799042",
-      "sex": "Nữ",
-      "cccd": "025421428",
-      "work": "Công nhân",
-      "id": "1"
-    },
-    {
-      "name": "Nguyễn Văn Tú",
-      "birth": "1995",
-      "location": "Sài Gòn",
+      "id": "97d4",
+      "room": "1A",
+      "name": "Nguyễn Hải Đăng",
+      "birth": "1995-11-11",
+      "location": "Hóc Môn",
       "phone": "0908799042",
       "sex": "Nam",
       "cccd": "025421428",
-      "work": "Công nhân",
-      "id": "2"
+      "work": "Nhân viên"
     },
     {
-      "name": "Nguyễn Hải Đăng",
-      "room": "1A",
-      "birth": "1995",
-      "location": "Sài Gòn",
-      "phone": "0908799042",
-      "sex": "Nữ",
-      "cccd": "025421428",
-      "work": "Nhân viên",
-      "id": "75b8"
-    },
-    {
-      "id": "6aba",
+      "id": "0a6e",
       "room": "1A",
       "name": "Nguyễn Nhật Đăng",
-      "birth": "2023-02-11",
-      "location": "Sài Gòn",
-      "phone": "0907744056",
-      "sex": "Nam",
-      "cccd": "02565423",
+      "birth": "1995-11-11",
+      "location": "Hóc Môn",
+      "phone": "0944218632",
+      "sex": "Nữ",
+      "cccd": "024532162",
       "work": "Sinh viên"
+    },
+    {
+      "id": "0d3c",
+      "room": "2A",
+      "name": "Nguyễn Văn Hương",
+      "birth": "1954-12-01",
+      "location": "Hóc Môn",
+      "phone": "0984121483",
+      "sex": "Nam",
+      "cccd": "02156345",
+      "work": "Không có"
+    },
+    {
+      "name": "Trần Thị Mỹ Hạnh",
+      "room": "2A",
+      "birth": "1966-12-13",
+      "location": "Hóc Môn",
+      "phone": "038565623",
+      "sex": "Nữ",
+      "cccd": "02546321",
+      "work": "Nội Trợ",
+      "id": "3ca9"
     }
   ],
   "Service": [
     {
-      "Electric":"3500",
-      "Water":"20000",
-      "Trash":"35000",
-      "Wifi" : "20000"
+      "Electric": "3500",
+      "Water": "20000",
+      "Trash": "35000",
+      "Wifi": "20000",
+      "Cable": "20000"
     }
   ]
 }

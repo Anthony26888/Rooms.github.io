@@ -1,14 +1,19 @@
 <template lang="">
   <div class="d-flex flex-wrap justify-center algin-center">
     <div v-for="item in store.data" :key="item">
-      <v-card class="ma-2 mb-2" width="400" :title="`Phòng ` + item.number" :subtitle="item.location">
+      <v-card
+        class="ma-2 mb-2"
+        width="400"
+        :title="`Phòng ` + item.number"
+        :subtitle="item.location"
+      >
         <template v-slot:prepend>
           <v-avatar color="blue-darken-2">
             <v-icon icon="mdi-home"></v-icon>
           </v-avatar>
         </template>
         <v-card-text>
-          <p><b>Số người:</b> người</p>
+          <p><b>Số người:</b> {{ item.qty }} người</p>
           <p><b>Tiền phòng:</b> {{ item.roomcharge }} vnđ</p>
           <div class="d-flex">
             <b>Dịch vụ thêm:</b>
@@ -20,7 +25,7 @@
         <v-card-actions>
           <div class="d-flex justify-center algin-center">
             <div class="ma-1 mb-1">
-              <v-btn                
+              <v-btn
                 color="primary"
                 variant="tonal"
                 @click="
@@ -33,7 +38,7 @@
               </v-btn>
             </div>
             <div class="ma-1 mb-1">
-              <v-btn                
+              <v-btn
                 color="orange"
                 variant="tonal"
                 @click="
@@ -46,7 +51,7 @@
               </v-btn>
             </div>
             <div class="ma-1 mb-1">
-              <v-btn                
+              <v-btn
                 color="success"
                 variant="tonal"
                 @click="
@@ -60,11 +65,12 @@
             </div>
 
             <div class="ma-1 mb-1">
-              <v-btn                
+              <v-btn
                 color="red"
                 variant="tonal"
                 @click="
-                  
+                  notifyRoom = true;
+                  store.GetRoom(item.number, item.id);
                 "
               >
                 Xóa
@@ -114,7 +120,7 @@
                   size="10"
                   @click="
                     editMember = true;
-                    store.fetchMember(item.name);                    
+                    store.fetchMember(item.name);
                   "
                 ></v-btn>
                 <v-btn
@@ -123,7 +129,10 @@
                   variant="text"
                   size="10"
                   class="ms-5"
-                  @click="notify = true; store.GetIdMember(item.id);"
+                  @click="
+                    notifyMember = true;
+                    store.GetIdMember(item.id);
+                  "
                 ></v-btn>
               </td>
             </tr>
@@ -134,7 +143,11 @@
   </v-dialog>
 
   <!--Edit member-->
-  <v-dialog v-model="editMember" width="500" transition="dialog-bottom-transition">
+  <v-dialog
+    v-model="editMember"
+    width="500"
+    transition="dialog-bottom-transition"
+  >
     <v-card title="Chỉnh sửa">
       <template v-slot:append>
         <v-btn
@@ -149,7 +162,11 @@
   </v-dialog>
 
   <!--Edit room-->
-  <v-dialog v-model="editRoom" width="500" transition="dialog-bottom-transition">
+  <v-dialog
+    v-model="editRoom"
+    width="500"
+    transition="dialog-bottom-transition"
+  >
     <v-card title="Chỉnh sửa">
       <template v-slot:append>
         <v-btn
@@ -179,7 +196,11 @@
   </v-dialog>
 
   <!--Caculator Roomcharge-->
-  <v-dialog v-model="caculator" width="700" transition="dialog-bottom-transition">
+  <v-dialog
+    v-model="caculator"
+    width="700"
+    transition="dialog-bottom-transition"
+  >
     <v-card title="Tính tiền phòng ">
       <template v-slot:append>
         <v-btn
@@ -193,25 +214,51 @@
     </v-card>
   </v-dialog>
 
-  <!--Notifition -->
+  <!--Notifition Delete Member-->
   <v-dialog
-    v-model="notify"
+    v-model="notifyMember"
     width="500"
     transition="dialog-bottom-transition"
     persistent
   >
-    <v-card      
-      title="Bạn có muốn xóa thành viên này?"
-    >
-      <VSpacer/>
+    <v-card title="Bạn có muốn xóa thành viên này?">
+      <VSpacer />
       <template v-slot:actions class="mx-auto">
         <div class="mx-auto">
           <v-btn @click="notify = false" color="primary"> Từ chối </v-btn>
 
           <v-btn
             @click="
-              notify = false;              
+              notifyMember = false;
               store.DeleteMember();
+            "
+            color="red"
+          >
+            Đồng ý
+          </v-btn>
+        </div>
+      </template>
+    </v-card>
+  </v-dialog>
+
+  <!--Notifition Delete Room-->
+  <v-dialog
+    v-model="notifyRoom"
+    width="500"
+    transition="dialog-bottom-transition"
+    persistent
+  >
+    <v-card title="Bạn có muốn xóa phòng này?">
+      <VSpacer />
+      <template v-slot:actions class="mx-auto">
+        <div class="mx-auto">
+          <v-btn @click="notifyRoom = false" color="primary"> Từ chối </v-btn>
+
+          <v-btn
+            @click="
+              notifyRoom = false;
+              store.DeleteRoom();
+              reloadPage();
             "
             color="red"
           >
@@ -230,6 +277,7 @@ import RoomCharge from "@/components/Form/RoomCharge.vue";
 import { useAppStore } from "@/store/app";
 const store = useAppStore();
 store.fetchRoom();
+store.FetchService()
 </script>
 <script>
 export default {
@@ -237,10 +285,11 @@ export default {
     return {
       dialog: false,
       editMember: false,
-      editRoom:false,
+      editRoom: false,
       news: false,
-      notify: false,
-      caculator:false,
+      notifyMember: false,
+      notifyRoom: false,
+      caculator: false,
       headers: [
         { title: "Họ và Tên" },
         { title: "Giới tính" },
@@ -250,6 +299,11 @@ export default {
         { title: "Quê Quán" },
       ],
     };
+  },
+  methods: {
+    reloadPage() {
+      window.location.reload();
+    },
   },
 };
 </script>

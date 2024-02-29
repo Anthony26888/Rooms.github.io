@@ -1,5 +1,5 @@
 // Utilities
-import axios from 'axios';
+import axios from "axios";
 import { defineStore } from "pinia";
 import User from "@/api/User.json";
 import { useLocalStorage } from "@vueuse/core";
@@ -7,47 +7,54 @@ export const useAppStore = defineStore("app", {
   state: () => {
     return {
       User,
-      Info: useLocalStorage("Info", []),      
-      NumberRoom: useLocalStorage("NumberRoom", ""), 
-      IdRoom: useLocalStorage("IdRoom", ""), 
-      IdMember: useLocalStorage("IdMember", ""),    
-      data:[],
-      profile:[],
-      member:[],
-      editRoom:[]
-
+      Info: useLocalStorage("Info", []),
+      NumberRoom: useLocalStorage("NumberRoom", ""),
+      IdRoom: useLocalStorage("IdRoom", ""),
+      IdMember: useLocalStorage("IdMember", ""),
+      data: [],
+      profile: [],
+      member: [],
+      editRoom: [],
+      service:[]
     };
   },
   getters: {
     Old() {
       return this.User.filter((value) => value.type == "Old");
     },
-    
   },
   actions: {
     GetDetail(id) {
       this.Info = this.data.find((value) => value.id === id);
-    },    
-    GetRoom(number, id){
-      //Get id room for create new member
-      this.NumberRoom = number
-      this.IdRoom = id
     },
-    GetIdMember(id){
-      this.IdMember=id
+    GetRoom(number, id) {
+      //Get id room for create new member
+      this.NumberRoom = number;
+      this.IdRoom = id;
+    },
+    GetIdMember(id) {
+      this.IdMember = id;
     },
 
     //Create a new room
-    CreateRoom(LocationRoom, NameRoom, RoomCharge, DateRoom, WifiService, CableService) {      
+    CreateRoom(
+      LocationRoom,
+      QtyMember,
+      NameRoom,
+      RoomCharge,
+      DateRoom,
+      WifiService,
+      CableService
+    ) {
       axios
-        .post("http://localhost:3000/Room",{
-          number:NameRoom,
-          type: LocationRoom,
-          qty: "0",
+        .post("http://localhost:3000/Room", {
+          number: NameRoom,
+          qty:QtyMember,
+          location: LocationRoom,         
           date: DateRoom,
           roomcharge: RoomCharge,
-          wifi:  WifiService,
-          cable: CableService
+          wifi: WifiService,
+          cable: CableService,
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -58,17 +65,25 @@ export const useAppStore = defineStore("app", {
     },
 
     //Create a new member in that room
-    CreateMember(NameMember, BirthMember, PhoneMember, SexMember, CccdMember, WorkMember, LocationMember){
+    CreateMember(
+      NameMember,
+      BirthMember,
+      PhoneMember,
+      SexMember,
+      CccdMember,
+      WorkMember,
+      LocationMember
+    ) {
       axios
-        .post("http://localhost:3000/Profile",{
-          room: this.IdRoom,
+        .post("http://localhost:3000/Profile", {
+          room: this.NumberRoom,
           name: NameMember,
           birth: BirthMember,
           location: LocationMember,
           phone: PhoneMember,
-          sex:  SexMember,
+          sex: SexMember,
           cccd: CccdMember,
-          work: WorkMember
+          work: WorkMember,
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -79,17 +94,26 @@ export const useAppStore = defineStore("app", {
     },
 
     //Edit profile of member
-    EditMember(IdMember, NameMember, BirthMember, PhoneMember, SexMember, CccdMember, WorkMember, LocationMember){
+    EditMember(
+      IdMember,
+      NameMember,
+      BirthMember,
+      PhoneMember,
+      SexMember,
+      CccdMember,
+      WorkMember,
+      LocationMember
+    ) {
       axios
-        .put(`http://localhost:3000/Profile/${IdMember}`,{          
+        .put(`http://localhost:3000/Profile/${IdMember}`, {
           name: NameMember,
-          room: this.IdRoom,
+          room: this.NumberRoom,
           birth: BirthMember,
           location: LocationMember,
           phone: PhoneMember,
-          sex:  SexMember,
+          sex: SexMember,
           cccd: CccdMember,
-          work: WorkMember
+          work: WorkMember,
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -100,15 +124,24 @@ export const useAppStore = defineStore("app", {
     },
 
     //Edit profile of room
-    EditRoom(LocationRoom, NameRoom, RoomCharge, DateRoom, WifiService, CableService){
+    EditRoom(
+      LocationRoom,
+      NameRoom,
+      QtyMember,
+      RoomCharge,
+      DateRoom,
+      WifiService,
+      CableService
+    ) {
       axios
-        .put(`http://localhost:3000/Room/${this.IdRoom}`,{          
-          location:LocationRoom,
-          number:NameRoom,
-          roomcharge:RoomCharge,
-          date:DateRoom,
-          wifi:WifiService,
-          cable:CableService
+        .put(`http://localhost:3000/Room/${this.IdRoom}`, {
+          location: LocationRoom,
+          number: NameRoom,
+          qty:QtyMember,
+          roomcharge: RoomCharge,
+          date: DateRoom,
+          wifi: WifiService,
+          cable: CableService,
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -119,9 +152,9 @@ export const useAppStore = defineStore("app", {
     },
 
     //Delete profile of member
-    DeleteMember(){
+    DeleteMember() {
       axios
-        .delete("http://localhost:3000/Profile/"+ this.IdMember)
+        .delete("http://localhost:3000/Profile/" + this.IdMember)
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -130,20 +163,40 @@ export const useAppStore = defineStore("app", {
         });
     },
 
+    //Delete room
+    DeleteRoom() {
+      axios
+        .delete("http://localhost:3000/Room/" + this.IdRoom)
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
+
+    },
+
+    //Fetch service Charge
+    async FetchService() {
+      const res = await fetch("http://localhost:3000/Service");
+      this.service = await res.json();
+
+    },
+
+
     //Fetch api room
     async fetchRoom() {
       // Assuming your JSON file is in the public folder
-      const res = await fetch('http://localhost:3000/Room')
-      this.data = await res.json()
+      const res = await fetch("http://localhost:3000/Room");
+      this.data = await res.json();
     },
 
     //Fetch api list of member
     async fetchProfile(number) {
       // Assuming your JSON file is in the public folder
-      const res = await fetch('http://localhost:3000/Profile?room=' + number)
-      this.profile = await res.json()      
+      const res = await fetch("http://localhost:3000/Profile?room=" + number);
+      this.profile = await res.json();
     },
-    
 
     //Fetch api profile of member
     fetchMember(id) {
@@ -156,6 +209,5 @@ export const useAppStore = defineStore("app", {
       // Assuming your JSON file is in the public folder
       this.editRoom = this.data.find((value) => value.id === id);
     },
-
   },
 });

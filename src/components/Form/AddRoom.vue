@@ -1,5 +1,5 @@
 <template>
-  <form v-on:submit.prevent="store.CreateRoom(LocationRoom, NameRoom, RoomCharge, DateRoom, WifiService, CableService)">
+  <form v-on:submit="store.CreateRoom(LocationRoom, QtyMember, NameRoom, RoomCharge, DateRoom, WifiService, CableService)">
     <v-card-text>
       <v-select
         v-model="LocationRoom"
@@ -11,6 +11,11 @@
         label="Nhập số tiền phòng"
         v-model="RoomCharge"
       ></v-text-field>
+      <v-select
+        v-model="QtyMember"
+        label="Số lượng người"
+        :items="['1', '2','3','4','5','6']"
+      ></v-select>
       <v-text-field
         label="Ngày vào"
         type="date"
@@ -52,6 +57,7 @@ export default {
       NameRoom: "",
       RoomCharge: "",
       DateRoom:"",
+      QtyMember:"",
       WifiService: false,
       CableService: false,
     };

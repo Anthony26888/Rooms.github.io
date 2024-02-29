@@ -46,6 +46,7 @@
             v-model="WaterOld"
             type="num"
             suffix="m3"
+            disabled
           ></v-text-field>
         </VCol>
         <VCol cols="4">
@@ -54,6 +55,7 @@
             v-model="WaterNew"
             type="num"
             suffix="m3"
+            disabled
           ></v-text-field>
         </VCol>
         <VCol cols="2">
@@ -68,14 +70,14 @@
         <VCol cols="2">
           <h3 class="text-center mt-4">Tiền khác</h3>
         </VCol>
-        <VCol cols="10">
-          <v-text-field model-value="0" suffix="vnđ"></v-text-field>
+        <VCol cols="8">
+          <v-text-field v-model="OtherCharge" suffix="vnđ"></v-text-field>
         </VCol>
       </VRow>
 
       <v-divider :thickness="5"></v-divider>
 
-      <table class="table table-borderless w-100 pa-3 pb-3">     
+      <table class="table w-100 pa-3 pb-3">
         <tbody class="table-group-divider">
           <tr>
             <th scope="row" class="text-start">Tiền phòng</th>
@@ -87,25 +89,41 @@
             <th scope="row" class="text-start">Điện</th>
             <td></td>
             <td></td>
-            <td class="text-end">{{ ElectricCharge }}</td>
+            <td class="text-end">
+              {{ ElectricCharge }}
+            </td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">Nước</th>
+            <th scope="row" class="text-start">
+              Nước ({{ store.editRoom.qty }} người)
+            </th>
             <td></td>
             <td></td>
             <td class="text-end">{{ WaterCharge }}</td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">Wifi + Rác</th>
+            <th scope="row" class="text-start">Rác</th>
             <td></td>
             <td></td>
-            <td class="text-end">{{ ServiceCharge }}</td>
+            <td class="text-end">{{ TrashCharge }}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Wifi</th>
+            <td></td>
+            <td></td>
+            <td class="text-end">{{ WifiCharge }}</td>
+          </tr>
+          <tr>
+            <th scope="row" class="text-start">Cáp</th>
+            <td></td>
+            <td></td>
+            <td class="text-end">{{ CableCharge }}</td>
           </tr>
           <tr>
             <th scope="row" class="text-start">Tiền khác</th>
             <td></td>
             <td></td>
-            <td class="text-end">{{ OtherCharge }}</td>
+            <td class="text-end">{{ OtherCharge.toLocaleString("en-US") }}</td>
           </tr>
         </tbody>
       </table>
@@ -118,7 +136,7 @@
         </VCol>
         <VCol cols="8"></VCol>
         <VCol cols="2" class="text-end">
-          <h2>{{ Total }}</h2>
+          <h3>{{ Total }}</h3>
         </VCol>
       </VRow>
     </v-card-text>
@@ -133,6 +151,7 @@ import { useAppStore } from "@/store/app";
 </script>
 <script>
 const store = useAppStore();
+store.FetchService();
 export default {
   name: "FormRoomCharge",
   data() {
@@ -157,22 +176,52 @@ export default {
       WaterOld: "",
       WaterNew: "",
       ResultElectric: "",
-      ResultWater: "",
-      RoomCharge: Number(store.editRoom.roomcharge),
-      OtherCharge: "",
-      ServiceCharge:"",
-      Total:"",
-      WaterCharge:"0",
-      ElectricCharge:"0"
+      ResultWater: "1",
+      OtherCharge: "0",
+      Total: "",
+      WaterCharge: "0",
+      ElectricCharge: "0",
+      RoomCharge: Number(store.editRoom.roomcharge).toLocaleString("en-US"),
+      TrashCharge: Number(store.service[0].Trash).toLocaleString("en-US"),
+      WifiCharge: "0",
+      CableCharge: "0",
     };
   },
   mounted() {
     setInterval(() => {
       this.ResultElectric = this.ElectricNew - this.ElectricOld;
       this.ResultWater = this.WaterNew - this.WaterOld;
-      this.Total = this.RoomCharge + (this.ResultElectric * 35000) + (this.ResultWater * 20000);
-      this.ElectricCharge = this.ResultElectric * 35000
-      this.WaterCharge = this.ResultWater * 35000
+      
+
+      this.ElectricCharge = Number(
+        this.ResultElectric * store.service[0].Electric
+      ).toLocaleString("en-US");
+      this.WaterCharge = Number(
+        store.service[0].Water * store.editRoom.qty
+      ).toLocaleString("en-US");
+      
+      if (store.editRoom.cable == "true") {
+        this.CableCharge = Number(store.service[0].Cable).toLocaleString(
+          "en-US"
+        );
+      }else{
+        this.CableCharge=Number(0)
+      }
+
+      if (store.editRoom.wifi == "true") {
+        this.WifiCharge = Number(store.service[0].Wifi).toLocaleString(
+          "en-US"
+        )
+      }else{
+        this.WifiCharge= Number(0)
+      }
+
+      this.Total = (
+        this.RoomCharge +
+          this.ElectricCharge +
+          this.WaterCharge +
+          this.OtherCharge
+      ).toLocaleString("en-US");
     }, 10);
   },
 };
