@@ -14,13 +14,13 @@
         </template>
         <v-card-text>
           <p><b>Số người:</b> {{ item.qty }} người</p>
-          <p><b>Tiền phòng:</b> {{ item.roomcharge }} vnđ</p>
+          <p><b>Tiền phòng:</b> {{ (item.roomcharge).toLocaleString() }} vnđ</p>
           <div class="d-flex">
             <b>Dịch vụ thêm:</b>
             <p v-if="item.wifi == 'true'" class="ms-2">Wifi</p>
             <p v-if="item.cable == 'true'" class="ms-2">Cáp</p>
           </div>
-          <p><b>Ngày vào:</b> {{ item.date }}</p>
+          <p><b>Ngày vào:</b> {{ item.date.toLocaleString('en-GB', { timeZone: 'UTC' }) }}</p>
         </v-card-text>
         <v-card-actions>
           <div class="d-flex justify-center algin-center">

@@ -1,12 +1,33 @@
 <template lang="">
-  <form>
+  <form
+    v-on:submit="
+      store.CaculatorCharge(
+        Time,
+        ElectricNew,
+        ElectricCharge,
+        RoomCharge,
+        DateRoom,
+        WifiService,
+        CableService
+      )
+    "
+  >
     <v-card-text>
-      <v-select
-        class="w-25"
-        label="Tháng"
-        :items="Calander"
-        variant="underlined"
-      ></v-select>
+      <VRow>
+        <VCol cols="2">
+          <v-select
+            width="100"
+            label="Tháng"
+            :items="Calander"
+            variant="underlined"
+            v-model="Time"
+          ></v-select>
+        </VCol>
+        <VCol cols="2">
+          {{ new Date().getYear()}}
+        </VCol>
+        <VCol cols="8"></VCol>
+      </VRow>
 
       <VRow>
         <VCol cols="2">
@@ -85,14 +106,14 @@
             <th scope="row" class="text-start">Tiền phòng</th>
             <td></td>
             <td></td>
-            <td class="text-end">{{ RoomCharge }}</td>
+            <td class="text-end">{{ RoomCharge.toLocaleString("en-US") }}</td>
           </tr>
           <tr>
             <th scope="row" class="text-start">Điện</th>
             <td></td>
             <td></td>
             <td class="text-end">
-              {{ ElectricCharge }}
+              {{ ElectricCharge.toLocaleString("en-US") }}
             </td>
           </tr>
           <tr>
@@ -107,19 +128,19 @@
             <th scope="row" class="text-start">Rác</th>
             <td></td>
             <td></td>
-            <td class="text-end">{{ TrashCharge }}</td>
+            <td class="text-end">{{ TrashCharge.toLocaleString("en-US") }}</td>
           </tr>
           <tr>
             <th scope="row" class="text-start">Wifi</th>
             <td></td>
             <td></td>
-            <td class="text-end">{{ WifiCharge }}</td>
+            <td class="text-end">{{ WifiCharge.toLocaleString("en-US") }}</td>
           </tr>
           <tr>
             <th scope="row" class="text-start">Cáp</th>
             <td></td>
             <td></td>
-            <td class="text-end">{{ CableCharge }}</td>
+            <td class="text-end">{{ CableCharge.toLocaleString("en-US") }}</td>
           </tr>
           <tr>
             <th scope="row" class="text-start">Tiền khác</th>
@@ -138,7 +159,7 @@
         </VCol>
         <VCol cols="8"></VCol>
         <VCol cols="2" class="text-end">
-          <h3>{{ Total }}</h3>
+          <h3>{{ Total.toLocaleString("en-US") }}</h3>
         </VCol>
       </VRow>
     </v-card-text>
@@ -159,98 +180,93 @@ export default {
   data() {
     return {
       List: ["Tiền phòng", "Điện", "Nước", "Rác + Wifi", "Tiền khác"],
-      Calander: [
-        "Tháng 1",
-        "Tháng 2",
-        "Tháng 3",
-        "Tháng 4",
-        "Tháng 5",
-        "Tháng 6",
-        "Tháng 7",
-        "Tháng 8",
-        "Tháng 9",
-        "Tháng 10",
-        "Tháng 11",
-        "Tháng 12",
-      ],
-      ElectricOld: "",
-      ElectricNew: "",
-      WaterOld: "",
-      WaterNew: "",
-      ResultElectric: "",
+      Calander: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
+      Time: "",
+      ElectricOld: "0",
+      ElectricNew: "0",
+      WaterOld: "0",
+      WaterNew: "0",
+      ResultElectric: "0",
       ResultWater: "1",
       OtherCharge: "0",
-      Total: "",
+      Total: "0",
       WaterCharge: "0",
       ElectricCharge: "0",
-      RoomCharge: Number(store.editRoom.roomcharge).toLocaleString("en-US"),
-      TrashCharge: Number(store.service[0].Trash).toLocaleString("en-US"),
+      RoomCharge: store.editRoom.roomcharge,
+      TrashCharge: store.service[0].Trash,
       WifiCharge: "0",
       CableCharge: "0",
     };
   },
   mounted() {
     setInterval(() => {
-
       //Old and New
       this.ResultElectric = this.ElectricNew - this.ElectricOld;
       this.ResultWater = this.WaterNew - this.WaterOld;
-      
+
       //Electric
-      const Charge0 = store.service[0].Electric0
-      const Charge50 = store.service[0].Electric50
-      const Charge100 = store.service[0].Electric100
-      const Charge200 = store.service[0].Electric200
-      const Charge300 = store.service[0].Electric300
-      if(this.ResultElectric < 50){
-        this.ElectricCharge = Number(this.ResultElectric * Charge0).toLocaleString("en-US");
+      const Charge0 = store.service[0].Electric0;
+      const Charge50 = store.service[0].Electric50;
+      const Charge100 = store.service[0].Electric100;
+      const Charge200 = store.service[0].Electric200;
+      const Charge300 = store.service[0].Electric300;
+      if (this.ResultElectric <= 50) {
+        this.ElectricCharge = this.ResultElectric * Charge0;
+      } else if (this.ResultElectric > 50 && this.ResultElectric <= 100) {
+        this.ElectricCharge =
+          (this.ResultElectric - 50) * Charge50 + Charge0 * 50;
+      } else if (this.ResultElectric > 100 && this.ResultElectric <= 200) {
+        this.ElectricCharge =
+          (this.ResultElectric - 100) * Charge100 +
+          Charge50 * 50 +
+          Charge0 * 50;
+      } else if (this.ResultElectric > 200 && this.ResultElectric <= 300) {
+        this.ElectricCharge =
+          (this.ResultElectric - 200) * Charge200 +
+          Charge100 * 100 +
+          Charge50 * 50 +
+          Charge0 * 50;
+      } else if (this.ResultElectric > 300 && this.ResultElectric <= 400) {
+        this.ElectricCharge =
+          (this.ResultElectric - 300) * Charge300 +
+          Charge200 * 100 +
+          Charge100 * 100 +
+          Charge50 * 50 +
+          Charge0 * 50;
+      } else {
+        this.ElectricCharge = 0;
       }
-      else if(this.ResultElectric > 50 && this.ResultElectric < 100){
-        this.ElectricCharge = Number((this.ResultElectric - 50)*Charge50 + (Charge0*50)).toLocaleString("en-US");
-      }
-      else if(this.ResultElectric > 100 && this.ResultElectric < 200){
-        this.ElectricCharge = Number((this.ResultElectric - 100)*Charge100 + (Charge50 *100)).toLocaleString("en-US");
-      }
-      else if(this.ResultElectric > 200 && this.ResultElectric < 300){
-        this.ElectricCharge = Number((this.ResultElectric - 200)*Charge200 + (Charge100 *200)).toLocaleString("en-US");
-      }
-      else if(this.ResultElectric > 300 && this.ResultElectric < 400){
-        this.ElectricCharge = Number((this.ResultElectric - 300)*Charge300 + (Charge200 *300)).toLocaleString("en-US");
-      }
-      else{
-        this.ElectricCharge = 0
-      }
-      
 
       //Water
-      this.WaterCharge = Number(
-        store.service[0].Water * store.editRoom.qty
-      ).toLocaleString("en-US");
-      
+      this.WaterCharge = store.service[0].Water * store.editRoom.qty;
+
       //Service
       if (store.editRoom.cable == "true") {
-        this.CableCharge = Number(store.service[0].Cable).toLocaleString(
-          "en-US"
-        );
-      }else{
-        this.CableCharge=Number(0)
+        this.CableCharge = store.service[0].Cable;
+      } else {
+        this.CableCharge = 0;
       }
 
       if (store.editRoom.wifi == "true") {
-        this.WifiCharge = Number(store.service[0].Wifi).toLocaleString(
-          "en-US"
-        )
-      }else{
-        this.WifiCharge= Number(0)
+        this.WifiCharge = store.service[0].Wifi;
+      } else {
+        this.WifiCharge = 0;
       }
 
       //Total
-      const Electric = this.ElectricCharge
-      this.Total = (
-        this.RoomCharge + Electric
-      ).toLocaleString("en-US");
+      this.Total =
+        Number(this.RoomCharge) +
+        this.ElectricCharge +
+        this.WaterCharge +
+        Number(this.WifiCharge) +
+        Number(this.CableCharge) +
+        Number(this.TrashCharge) +
+        Number(this.OtherCharge);
     }, 10);
   },
+  computed:{
+    Date(){}
+  }
 };
 </script>
 <style lang=""></style>
