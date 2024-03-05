@@ -6,16 +6,16 @@ import { useLocalStorage } from "@vueuse/core";
 export const useAppStore = defineStore("app", {
   state: () => {
     return {
-      User,
-      Info: useLocalStorage("Info", []),
+      User,      
       NumberRoom: useLocalStorage("NumberRoom", ""),
       IdRoom: useLocalStorage("IdRoom", ""),
       IdMember: useLocalStorage("IdMember", ""),
       data: [],
       profile: [],
       member: [],
+      pay:[],
       editRoom: [],
-      service:[]
+      service: [],
     };
   },
   getters: {
@@ -49,8 +49,8 @@ export const useAppStore = defineStore("app", {
       axios
         .post("http://localhost:3000/Room", {
           number: NameRoom,
-          qty:QtyMember,
-          location: LocationRoom,         
+          qty: QtyMember,
+          location: LocationRoom,
           date: DateRoom,
           roomcharge: RoomCharge,
           wifi: WifiService,
@@ -137,7 +137,7 @@ export const useAppStore = defineStore("app", {
         .put(`http://localhost:3000/Room/${this.IdRoom}`, {
           location: LocationRoom,
           number: NameRoom,
-          qty:QtyMember,
+          qty: QtyMember,
           roomcharge: RoomCharge,
           date: DateRoom,
           wifi: WifiService,
@@ -173,16 +173,13 @@ export const useAppStore = defineStore("app", {
         .catch((error) => {
           console.error("Error submitting form:", error);
         });
-
     },
 
     //Fetch service Charge
     async FetchService() {
       const res = await fetch("http://localhost:3000/Service");
       this.service = await res.json();
-
     },
-
 
     //Fetch api room
     async fetchRoom() {
@@ -198,6 +195,13 @@ export const useAppStore = defineStore("app", {
       this.profile = await res.json();
     },
 
+    //Fetch api pay of room
+    async fetchPay() {
+      // Assuming your JSON file is in the public folder
+      const res = await fetch("http://localhost:3000/History");
+      this.pay = await res.json();
+    },
+
     //Fetch api profile of member
     fetchMember(id) {
       // Assuming your JSON file is in the public folder
@@ -208,6 +212,44 @@ export const useAppStore = defineStore("app", {
     fetchEditRoom(id) {
       // Assuming your JSON file is in the public folder
       this.editRoom = this.data.find((value) => value.id === id);
+    },
+
+    //Caculator Room Charge
+    CaculatorCharge(
+      Month,
+      Year,
+      NameRoom,
+      RoomCharge,
+      ElectricCharge,
+      WaterCharge,
+      TrashCharge,
+      WifiCharge,
+      CableCharge,
+      OtherCharge,
+      Total,
+      Status
+    ) {
+      axios
+        .post("http://localhost:3000/History", {
+          status: Status,
+          month: Month,
+          year: Year,
+          name: NameRoom,
+          roomcharge: RoomCharge,
+          electric: ElectricCharge,
+          water: WaterCharge,
+          trash: TrashCharge,
+          wifi: WifiCharge,
+          cable: CableCharge,
+          other: OtherCharge,
+          total: Total
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
     },
   },
 });

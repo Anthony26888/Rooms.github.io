@@ -2,13 +2,23 @@
   "Room": [
     {
       "location": "Dãy A",
-      "number": "4A",
+      "number": "1A",
       "qty": "4",
       "roomcharge": "1500000",
       "date": "2024-01-01",
       "wifi": "true",
       "cable": false,
       "id": "f532"
+    },
+    {
+      "id": "9a81",
+      "number": "2A",
+      "qty": "3",
+      "location": "Dãy B",
+      "date": "2024-03-02",
+      "roomcharge": "2500000",
+      "wifi": "true",
+      "cable": false
     }
   ],
   "Profile": [
@@ -60,15 +70,32 @@
   "Service": [
     {
       "Electric": "3500",
-      "Electric0":"2400",
-      "Electric50":"2700",
-      "Electric100":"3000",
-      "Electric200":"3200",
-      "Electric300":"3500",
+      "Electric0": "2400",
+      "Electric50": "2700",
+      "Electric100": "3000",
+      "Electric200": "3200",
+      "Electric300": "3500",
       "Water": "20000",
       "Trash": "35000",
       "Wifi": "20000",
       "Cable": "20000"
+    }
+  ],
+  "History": [
+    {
+      "id": "e7a4",
+      "status": "false",
+      "month": "2",
+      "year": 2024,
+      "name": "1A",
+      "roomcharge": "1500000",
+      "electric": 255000,
+      "water": 80000,
+      "trash": "35000",
+      "wifi": "20000",
+      "cable": 0,
+      "other": "0",
+      "total": 1890000
     }
   ]
 }

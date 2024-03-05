@@ -2,13 +2,18 @@
   <form
     v-on:submit="
       store.CaculatorCharge(
-        Time,
-        ElectricNew,
-        ElectricCharge,
+        Month,
+        Year, 
+        NameRoom,       
         RoomCharge,
-        DateRoom,
-        WifiService,
-        CableService
+        ElectricCharge,
+        WaterCharge,
+        TrashCharge,
+        WifiCharge,
+        CableCharge,
+        OtherCharge,
+        Total,
+        Status
       )
     "
   >
@@ -16,15 +21,16 @@
       <VRow>
         <VCol cols="2">
           <v-select
+            :rules="[rules.required]"
             width="100"
             label="Tháng"
             :items="Calander"
             variant="underlined"
-            v-model="Time"
+            v-model="Month"
           ></v-select>
         </VCol>
-        <VCol cols="2">
-          {{ new Date().getYear()}}
+        <VCol cols="2"  class="mt-5">
+          <h3>/ {{ Year }}</h3>
         </VCol>
         <VCol cols="8"></VCol>
       </VRow>
@@ -39,6 +45,7 @@
             v-model="ElectricOld"
             type="num"
             suffix="Kw"
+            :rules="[rules.required]"
           ></v-text-field>
         </VCol>
         <VCol cols="4">
@@ -47,6 +54,7 @@
             v-model="ElectricNew"
             type="num"
             suffix="Kw"
+            :rules="[rules.required]"
           ></v-text-field>
         </VCol>
         <VCol cols="2">
@@ -68,6 +76,7 @@
             v-model="WaterOld"
             type="num"
             suffix="m3"
+            :rules="[rules.required]"
             disabled
           ></v-text-field>
         </VCol>
@@ -77,6 +86,7 @@
             v-model="WaterNew"
             type="num"
             suffix="m3"
+            :rules="[rules.required]"
             disabled
           ></v-text-field>
         </VCol>
@@ -180,14 +190,15 @@ export default {
   data() {
     return {
       List: ["Tiền phòng", "Điện", "Nước", "Rác + Wifi", "Tiền khác"],
-      Calander: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
-      Time: "",
+      Calander: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],    
+
       ElectricOld: "0",
       ElectricNew: "0",
       WaterOld: "0",
       WaterNew: "0",
       ResultElectric: "0",
       ResultWater: "1",
+
       OtherCharge: "0",
       Total: "0",
       WaterCharge: "0",
@@ -196,6 +207,14 @@ export default {
       TrashCharge: store.service[0].Trash,
       WifiCharge: "0",
       CableCharge: "0",
+
+      Month: "",
+      Year:"",
+      NameRoom: store.NumberRoom,
+      Status:"false",
+      rules: {
+        required: value => !!value || 'Nhập thông tin',
+      },
     };
   },
   mounted() {
@@ -262,6 +281,10 @@ export default {
         Number(this.CableCharge) +
         Number(this.TrashCharge) +
         Number(this.OtherCharge);
+
+      //Month and Year
+      const date = new Date();
+      this.Year = date.getFullYear()
     }, 10);
   },
   computed:{

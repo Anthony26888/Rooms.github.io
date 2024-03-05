@@ -1,14 +1,56 @@
 <template lang="">
   <v-card class="mt-3 mx-auto">
-    <v-data-table
-      v-model:page="page"
-      :headers="headers"
-      :items="RoomsPay"
-      :items-per-page="itemsPerPage"      
-    >
-    </v-data-table>
+    <v-table>
+      <thead>
+        <tr>
+          <th class="text-left" v-for="item in headers" :key="item">
+            {{ item.title }}
+          </th>
+          <th class="text-left"></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="item in store.pay">
+          <td>Phòng {{ item.name }}</td>
+          <td >            
+            <p v-if="item.stauts = 'false'" class="text-red">Chưa thanh toán</p>
+            <p v-else color="success">Đã thanh toán</p>
+          </td>
+          <td>{{ item.total.toLocaleString("en-US") }}</td>
+          <td>{{ item.month }}/{{ item.year }}</td> 
+          <td>
+            <v-btn
+              icon="mdi-pencil"
+              color="success"
+              variant="text"
+              size="10"
+              @click="
+                editMember = true;
+                store.fetchMember(item.name);
+              "
+            ></v-btn>
+            <v-btn
+              icon="mdi-delete"
+              color="red"
+              variant="text"
+              size="10"
+              class="ms-5"
+              @click="
+                notifyMember = true;
+                store.GetIdMember(item.id);
+              "
+            ></v-btn>
+          </td>
+        </tr>
+      </tbody>
+    </v-table>
   </v-card>
 </template>
+<script setup>
+import { useAppStore } from "@/store/app";
+const store = useAppStore();
+store.fetchPay()
+</script>
 <script>
 export default {
   data() {
@@ -23,93 +65,10 @@ export default {
           title: "Phòng",
         },
         { title: "Tình trạng", key: "calories" },
-        { title: "Tiền Phòng", key: "fat" },
-        { title: "Tiền Dịch Vụ", key: "carbs" },
-        { title: "Tổng Tiền", key: "protein" },
-        { title: "Xác nhận", key: "iron" },
-      ],
-      RoomsPay: [
-        {
-          name: "Frozen Yogurt",
-          calories: 159,
-          fat: 6.0,
-          carbs: 24,
-          protein: 4.0,
-          iron: 1,
-        },
-        {
-          name: "Ice cream sandwich",
-          calories: 237,
-          fat: 9.0,
-          carbs: 37,
-          protein: 4.3,
-          iron: 1,
-        },
-        {
-          name: "Eclair",
-          calories: 262,
-          fat: 16.0,
-          carbs: 23,
-          protein: 6.0,
-          iron: 7,
-        },
-        {
-          name: "Cupcake",
-          calories: 305,
-          fat: 3.7,
-          carbs: 67,
-          protein: 4.3,
-          iron: 8,
-        },
-        {
-          name: "Gingerbread",
-          calories: 356,
-          fat: 16.0,
-          carbs: 49,
-          protein: 3.9,
-          iron: 16,
-        },
-        {
-          name: "Jelly bean",
-          calories: 375,
-          fat: 0.0,
-          carbs: 94,
-          protein: 0.0,
-          iron: 0,
-        },
-        {
-          name: "Lollipop",
-          calories: 392,
-          fat: 0.2,
-          carbs: 98,
-          protein: 0,
-          iron: 2,
-        },
-        {
-          name: "Honeycomb",
-          calories: 408,
-          fat: 3.2,
-          carbs: 87,
-          protein: 6.5,
-          iron: 45,
-        },
-        {
-          name: "Donut",
-          calories: 452,
-          fat: 25.0,
-          carbs: 51,
-          protein: 4.9,
-          iron: 22,
-        },
-        {
-          name: "KitKat",
-          calories: 518,
-          fat: 26.0,
-          carbs: 65,
-          protein: 7,
-          iron: 6,
-        },
-      ],
+        { title: "Tổng tiền", key: "fat" },
+        { title: "Thời gian", key: "protein" },
+        { title: "", key: "iron" },
+      ],      
     };
   },
   computed: {
@@ -119,4 +78,5 @@ export default {
   },
 };
 </script>
+
 <style lang=""></style>
