@@ -2,9 +2,8 @@
   <form
     v-on:submit="
       store.CaculatorCharge(
-        Month,
-        Year, 
-        NameRoom,       
+        DateNow,
+        NameRoom,
         RoomCharge,
         ElectricCharge,
         WaterCharge,
@@ -19,20 +18,15 @@
   >
     <v-card-text>
       <VRow>
-        <VCol cols="2">
-          <v-select
-            :rules="[rules.required]"
-            width="100"
-            label="Tháng"
-            :items="Calander"
-            variant="underlined"
-            v-model="Month"
-          ></v-select>
+        <VCol cols="6">
+          <v-text-field
+            label="Số mới"
+            v-model="DateNow"
+            type="date"            
+          ></v-text-field>
         </VCol>
-        <VCol cols="2"  class="mt-5">
-          <h3>/ {{ Year }}</h3>
-        </VCol>
-        <VCol cols="8"></VCol>
+        
+        <VCol cols="6"></VCol>
       </VRow>
 
       <VRow>
@@ -43,7 +37,7 @@
           <v-text-field
             label="Số cũ"
             v-model="ElectricOld"
-            type="num"
+            type="number"
             suffix="Kw"
             :rules="[rules.required]"
           ></v-text-field>
@@ -52,7 +46,7 @@
           <v-text-field
             label="Số mới"
             v-model="ElectricNew"
-            type="num"
+            type="number"
             suffix="Kw"
             :rules="[rules.required]"
           ></v-text-field>
@@ -190,7 +184,7 @@ export default {
   data() {
     return {
       List: ["Tiền phòng", "Điện", "Nước", "Rác + Wifi", "Tiền khác"],
-      Calander: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],    
+      Calander: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
 
       ElectricOld: "0",
       ElectricNew: "0",
@@ -208,12 +202,11 @@ export default {
       WifiCharge: "0",
       CableCharge: "0",
 
-      Month: "",
-      Year:"",
+      DateNow:"",
       NameRoom: store.NumberRoom,
-      Status:"false",
+      Status: "false",
       rules: {
-        required: value => !!value || 'Nhập thông tin',
+        required: (value) => !!value || "Nhập thông tin",
       },
     };
   },
@@ -282,14 +275,12 @@ export default {
         Number(this.TrashCharge) +
         Number(this.OtherCharge);
 
-      //Month and Year
-      const date = new Date();
-      this.Year = date.getFullYear()
+      
     }, 10);
   },
-  computed:{
-    Date(){}
-  }
+  computed: {
+    Date() {},
+  },
 };
 </script>
 <style lang=""></style>

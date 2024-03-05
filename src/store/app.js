@@ -19,9 +19,7 @@ export const useAppStore = defineStore("app", {
     };
   },
   getters: {
-    Old() {
-      return this.User.filter((value) => value.type == "Old");
-    },
+    
   },
   actions: {
     GetDetail(id) {
@@ -216,8 +214,7 @@ export const useAppStore = defineStore("app", {
 
     //Caculator Room Charge
     CaculatorCharge(
-      Month,
-      Year,
+      DateNow,
       NameRoom,
       RoomCharge,
       ElectricCharge,
@@ -232,8 +229,7 @@ export const useAppStore = defineStore("app", {
       axios
         .post("http://localhost:3000/History", {
           status: Status,
-          month: Month,
-          year: Year,
+          date:DateNow,
           name: NameRoom,
           roomcharge: RoomCharge,
           electric: ElectricCharge,
@@ -251,5 +247,8 @@ export const useAppStore = defineStore("app", {
           console.error("Error submitting form:", error);
         });
     },
+
+
+    //Accept paid room charge
   },
 });

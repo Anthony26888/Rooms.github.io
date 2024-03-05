@@ -17,29 +17,15 @@
             <p v-else color="success">Đã thanh toán</p>
           </td>
           <td>{{ item.total.toLocaleString("en-US") }}</td>
-          <td>{{ item.month }}/{{ item.year }}</td> 
+          <td>{{ item.date }} (Trể {{Now - item.date}} ngày)</td> 
           <td>
-            <v-btn
-              icon="mdi-pencil"
+            <v-btn              
               color="success"
-              variant="text"
-              size="10"
-              @click="
-                editMember = true;
-                store.fetchMember(item.name);
+              variant="text"              
+              @click="                
+                store.PaidCharge(item.id);
               "
-            ></v-btn>
-            <v-btn
-              icon="mdi-delete"
-              color="red"
-              variant="text"
-              size="10"
-              class="ms-5"
-              @click="
-                notifyMember = true;
-                store.GetIdMember(item.id);
-              "
-            ></v-btn>
+            >Thanh toán</v-btn>            
           </td>
         </tr>
       </tbody>
@@ -48,15 +34,16 @@
 </template>
 <script setup>
 import { useAppStore } from "@/store/app";
-const store = useAppStore();
-store.fetchPay()
+
 </script>
 <script>
+const store = useAppStore();
+store.fetchPay()
 export default {
   data() {
     return {
-      page: 1,
-      itemsPerPage: 10,
+      Now:"",
+
       headers: [
         {
           align: "start",
@@ -71,11 +58,14 @@ export default {
       ],      
     };
   },
-  computed: {
-    pageCount() {
-      return Math.ceil(this.desserts.length / this.itemsPerPage);
-    },
+  mounted() {
+    setInterval(()=>{
+      const date = new Date()
+      const now = date.toISOString().substring(0,10) 
+      this.Now = now
+    })
   },
+
 };
 </script>
 

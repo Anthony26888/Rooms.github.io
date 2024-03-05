@@ -83,19 +83,18 @@
   ],
   "History": [
     {
-      "id": "e7a4",
       "status": "false",
-      "month": "2",
-      "year": 2024,
+      "date": "2024-03-05",
       "name": "1A",
       "roomcharge": "1500000",
-      "electric": 255000,
+      "electric": 875000,
       "water": 80000,
       "trash": "35000",
       "wifi": "20000",
       "cable": 0,
       "other": "0",
-      "total": 1890000
+      "total": 2510000,
+      "id": 1
     }
   ]
 }
