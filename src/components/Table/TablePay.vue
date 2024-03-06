@@ -12,12 +12,18 @@
       <tbody>
         <tr v-for="item in store.pay">
           <td>Phòng {{ item.name }}</td>
-          <td >            
-            <p v-if="item.stauts = 'false'" class="text-red">Chưa thanh toán</p>
-            <p v-else color="success">Đã thanh toán</p>
+          <td >   
+            <div v-if="item.stauts == false">
+              <p  class="text-red">Chưa thanh toán</p>
+            </div>
+            <div v-if="item.stauts == true">
+              <p  class="text-success">Đã thanh toán</p>
+            </div>
+            
+            
           </td>
           <td>{{ item.total.toLocaleString("en-US") }}</td>
-          <td>{{ item.date }} (Trể {{Now - item.date}} ngày)</td> 
+          <td>{{ item.date }}</td> 
           <td>
             <v-btn              
               color="success"
@@ -34,11 +40,11 @@
 </template>
 <script setup>
 import { useAppStore } from "@/store/app";
-
-</script>
-<script>
 const store = useAppStore();
 store.fetchPay()
+</script>
+<script>
+
 export default {
   data() {
     return {

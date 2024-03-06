@@ -250,5 +250,17 @@ export const useAppStore = defineStore("app", {
 
 
     //Accept paid room charge
+    PaidCharge(id){
+      axios
+        .patch("http://localhost:3000/History/"+id,{
+          status:"true"
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
+    }
   },
 });
