@@ -1,24 +1,15 @@
 {
   "Room": [
     {
-      "location": "Dãy A",
-      "number": "1A",
-      "qty": "4",
-      "roomcharge": "1500000",
-      "date": "2024-01-01",
-      "wifi": "true",
-      "cable": false,
-      "id": "f532"
-    },
-    {
-      "id": "9a81",
+      "id": "7781",
       "number": "2A",
       "qty": "3",
-      "location": "Dãy B",
-      "date": "2024-03-02",
+      "location": "Dãy A",
+      "date": "2024-03-07",
       "roomcharge": "2500000",
-      "wifi": "true",
-      "cable": false
+      "wifi": false,
+      "cable": false,
+      "electric": "4562"
     }
   ],
   "Profile": [
@@ -84,7 +75,7 @@
   ],
   "History": [
     {
-      "status": "false",
+      "status": "true",
       "date": "2024-03-05",
       "name": "1A",
       "roomcharge": "1500000",

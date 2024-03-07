@@ -13,6 +13,11 @@
         OtherCharge,
         Total,
         Status
+      );
+      store.Paramater(
+        NameRoom,
+        ElectricNew,
+        DebtCharge
       )
     "
   >
@@ -99,6 +104,15 @@
         </VCol>
         <VCol cols="8">
           <v-text-field v-model="OtherCharge" suffix="vnđ"></v-text-field>
+        </VCol>
+      </VRow>
+
+      <VRow>
+        <VCol cols="2">
+          <h3 class="text-center mt-4">Tiền nợ</h3>
+        </VCol>
+        <VCol cols="8">
+          <v-text-field v-model="DebtCharge" suffix="vnđ"></v-text-field>
         </VCol>
       </VRow>
 
@@ -201,6 +215,7 @@ export default {
       TrashCharge: store.service[0].Trash,
       WifiCharge: "0",
       CableCharge: "0",
+      DebtCharge:"0",
 
       DateNow:"",
       NameRoom: store.NumberRoom,

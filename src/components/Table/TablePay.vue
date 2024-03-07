@@ -13,14 +13,8 @@
         <tr v-for="item in store.pay">
           <td>Phòng {{ item.name }}</td>
           <td >   
-            <div v-if="item.stauts == false">
-              <p  class="text-red">Chưa thanh toán</p>
-            </div>
-            <div v-if="item.stauts == true">
-              <p  class="text-success">Đã thanh toán</p>
-            </div>
-            
-            
+            <p v-if="item.status == 'false'" class="text-red">Chưa thanh toán</p>
+            <p v-else class="text-success">Đã thanh toán</p>
           </td>
           <td>{{ item.total.toLocaleString("en-US") }}</td>
           <td>{{ item.date }}</td> 
@@ -30,6 +24,7 @@
               variant="text"              
               @click="                
                 store.PaidCharge(item.id);
+                reloadPage();
               "
             >Thanh toán</v-btn>            
           </td>
@@ -70,6 +65,11 @@ export default {
       const now = date.toISOString().substring(0,10) 
       this.Now = now
     })
+  },
+  methods: {
+    reloadPage() {
+      window.location.reload();
+    },
   },
 
 };

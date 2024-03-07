@@ -42,7 +42,8 @@ export const useAppStore = defineStore("app", {
       RoomCharge,
       DateRoom,
       WifiService,
-      CableService
+      CableService,
+      LastElectric
     ) {
       axios
         .post("http://localhost:3000/Room", {
@@ -53,6 +54,7 @@ export const useAppStore = defineStore("app", {
           roomcharge: RoomCharge,
           wifi: WifiService,
           cable: CableService,
+          electric:LastElectric
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -246,6 +248,11 @@ export const useAppStore = defineStore("app", {
         .catch((error) => {
           console.error("Error submitting form:", error);
         });
+    },
+
+    //Parameter of Electric and Water
+    Parameter(ElectricNew, DebtCharge){
+
     },
 
 

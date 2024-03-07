@@ -8,7 +8,8 @@
         RoomCharge,
         DateRoom,
         WifiService,
-        CableService
+        CableService,
+        LastElectric
       )
     "
   >
@@ -32,6 +33,11 @@
         label="Ngày vào"
         type="date"
         v-model="DateRoom"
+      ></v-text-field>
+      <v-text-field
+        label="Số điện cuối"
+        type="number"
+        v-model="LastElectric"
       ></v-text-field>
       <b>Dịch vụ thêm:</b>
       <div class="d-flex">
@@ -71,6 +77,7 @@ export default {
       RoomCharge: "",
       DateRoom: "",
       QtyMember: "",
+      LastElectric:"",
       WifiService: false,
       CableService: false,
     };
