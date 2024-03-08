@@ -2,7 +2,7 @@
   <VRow class="mt-1">
     <VCol cols="3">
       <v-card title="Tổng Thu" class="w-100">
-        <v-card-text class="text-center text text-green">0</v-card-text>
+        <v-card-text class="text-center text text-green">{{ store.FilterPaid.length }}</v-card-text>
       </v-card>
     </VCol>
     <VCol cols="3">
@@ -11,18 +11,24 @@
       </v-card>
     </VCol>
     <VCol cols="3">
-      <v-card title="Phòng đã thuê" class="w-100">
-        <v-card-text class="text-center text text-blue">28</v-card-text>
+      <v-card title="Phòng đã đóng tiền" class="w-100">
+        <v-card-text class="text-center text text-blue" v-if="store.FilterPaid.length == null">0</v-card-text>
+        <v-card-text class="text-center text text-blue" v-else>{{ store.FilterPaid.length }}</v-card-text>
       </v-card>
     </VCol>
     <VCol cols="3">
-      <v-card title="Phòng trống" class="w-100">
-        <v-card-text class="text-center text text-deep-orange">1</v-card-text>
+      <v-card title="Phòng chưa đóng tiền" class="w-100">
+        <v-card-text class="text-center text text-deep-orange" v-if="store.FilterNotPay.length == null">0</v-card-text>
+        <v-card-text class="text-center text text-deep-orange" v-else>{{ store.FilterNotPay.length }}</v-card-text>
       </v-card>
     </VCol>
   </VRow>
 </template>
-
+<script setup>
+import { useAppStore } from "@/store/app";
+const store = useAppStore();
+store.fetchPay()
+</script>
 <script>
 export default {
   data() {

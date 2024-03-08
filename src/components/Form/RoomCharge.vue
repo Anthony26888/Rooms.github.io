@@ -1,36 +1,15 @@
 <template lang="">
-  <form
-    v-on:submit="
-      store.CaculatorCharge(
-        DateNow,
-        NameRoom,
-        RoomCharge,
-        ElectricCharge,
-        WaterCharge,
-        TrashCharge,
-        WifiCharge,
-        CableCharge,
-        OtherCharge,
-        Total,
-        Status
-      );
-      store.Paramater(
-        NameRoom,
-        ElectricNew,
-        DebtCharge
-      )
-    "
-  >
+  <form >
     <v-card-text>
       <VRow>
         <VCol cols="6">
           <v-text-field
             label="Số mới"
             v-model="DateNow"
-            type="date"            
+            type="date"
           ></v-text-field>
         </VCol>
-        
+
         <VCol cols="6"></VCol>
       </VRow>
 
@@ -183,7 +162,27 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn type="submit" color="primary">Lưu</v-btn>
+      <v-btn
+        type="submit"
+        color="primary"
+        @click="
+          store.CaculatorCharge(
+            DateNow,
+            NameRoom,
+            RoomCharge,
+            ElectricCharge,
+            WaterCharge,
+            TrashCharge,
+            WifiCharge,
+            CableCharge,
+            OtherCharge,
+            Total,
+            Status
+          );
+          store.Parameter(ElectricNew);
+        "
+        >Lưu</v-btn
+      >
     </v-card-actions>
   </form>
 </template>
@@ -200,24 +199,24 @@ export default {
       List: ["Tiền phòng", "Điện", "Nước", "Rác + Wifi", "Tiền khác"],
       Calander: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
 
-      ElectricOld: "0",
-      ElectricNew: "0",
-      WaterOld: "0",
-      WaterNew: "0",
-      ResultElectric: "0",
-      ResultWater: "1",
+      ElectricOld: store.editRoom.electric,
+      ElectricNew: 0,
+      WaterOld: 0,
+      WaterNew: 0,
+      ResultElectric: 0,
+      ResultWater: 0,
 
-      OtherCharge: "0",
-      Total: "0",
-      WaterCharge: "0",
-      ElectricCharge: "0",
+      OtherCharge: 0,
+      Total: 0,
+      WaterCharge: 0,
+      ElectricCharge: 0,
       RoomCharge: store.editRoom.roomcharge,
       TrashCharge: store.service[0].Trash,
-      WifiCharge: "0",
-      CableCharge: "0",
-      DebtCharge:"0",
+      WifiCharge: 0,
+      CableCharge: 0,
+      DebtCharge: 0,
 
-      DateNow:"",
+      DateNow: "",
       NameRoom: store.NumberRoom,
       Status: "false",
       rules: {
@@ -288,9 +287,8 @@ export default {
         Number(this.WifiCharge) +
         Number(this.CableCharge) +
         Number(this.TrashCharge) +
-        Number(this.OtherCharge);
-
-      
+        Number(this.OtherCharge) -
+        Number(this.DebtCharge);
     }, 10);
   },
   computed: {

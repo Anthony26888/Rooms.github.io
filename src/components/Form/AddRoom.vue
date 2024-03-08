@@ -1,6 +1,6 @@
 <template>
   <form
-    v-on:submit="
+    v-on:submit.prevent="
       store.CreateRoom(
         LocationRoom,
         QtyMember,

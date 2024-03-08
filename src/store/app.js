@@ -19,7 +19,12 @@ export const useAppStore = defineStore("app", {
     };
   },
   getters: {
-    
+    FilterPaid(){
+      return this.pay.filter(value => value.status === "true")
+    },
+    FilterNotPay(){
+      return this.pay.filter(value => value.status === "false")
+    }
   },
   actions: {
     GetDetail(id) {
@@ -182,8 +187,7 @@ export const useAppStore = defineStore("app", {
     },
 
     //Fetch api room
-    async fetchRoom() {
-      // Assuming your JSON file is in the public folder
+    async fetchRoom() {  
       const res = await fetch("http://localhost:3000/Room");
       this.data = await res.json();
     },
@@ -200,7 +204,7 @@ export const useAppStore = defineStore("app", {
       // Assuming your JSON file is in the public folder
       const res = await fetch("http://localhost:3000/History");
       this.pay = await res.json();
-    },
+    },    
 
     //Fetch api profile of member
     fetchMember(id) {
@@ -251,8 +255,17 @@ export const useAppStore = defineStore("app", {
     },
 
     //Parameter of Electric and Water
-    Parameter(ElectricNew, DebtCharge){
-
+    Parameter(ElectricNew){
+      axios
+        .patch(`http://localhost:3000/Room/${this.IdRoom}`, {
+          electric:ElectricNew
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
     },
 
 
