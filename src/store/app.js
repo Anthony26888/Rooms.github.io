@@ -15,7 +15,8 @@ export const useAppStore = defineStore("app", {
       member: [],
       pay:[],
       editRoom: [],
-      service: [],
+      service: [], 
+      payment:0     
     };
   },
   getters: {
@@ -24,7 +25,8 @@ export const useAppStore = defineStore("app", {
     },
     FilterNotPay(){
       return this.pay.filter(value => value.status === "false")
-    }
+    },
+    
   },
   actions: {
     GetDetail(id) {

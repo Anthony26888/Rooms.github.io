@@ -35,28 +35,26 @@
 </template>
 <script setup>
 import { useAppStore } from "@/store/app";
-const store = useAppStore();
-store.fetchPay()
+
+
 </script>
 <script>
-
+const store = useAppStore();
+store.fetchPay()
 export default {
+  name:"TablePay",
   data() {
     return {
       Now:"",
 
       headers: [
-        {
-          align: "start",
-          key: "name",
-          sortable: true,
-          title: "Phòng",
-        },
+        {title: "Phòng"},
         { title: "Tình trạng"},
         { title: "Tổng tiền"},
         { title: "Thời gian"},
         { title: ""},
-      ],      
+      ], 
+       
     };
   },
   mounted() {
@@ -64,12 +62,15 @@ export default {
       const date = new Date()
       const now = date.toISOString().substring(0,10) 
       this.Now = now
-    })
+    },10);
+
   },
   methods: {
     reloadPage() {
       window.location.reload();
     },
+    
+   
   },
 
 };
