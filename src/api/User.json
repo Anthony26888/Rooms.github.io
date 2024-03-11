@@ -9,7 +9,18 @@
       "roomcharge": "2500000",
       "wifi": false,
       "cable": false,
-      "electric": "4850"
+      "electric": "4925"
+    },
+    {
+      "id": "2d98",
+      "number": "3",
+      "qty": "2",
+      "location": "Dãy B",
+      "date": "2024-03-11",
+      "roomcharge": "1700000",
+      "wifi": "true",
+      "cable": false,
+      "electric": "47150"
     }
   ],
   "Profile": [
@@ -60,89 +71,54 @@
   ],
   "Service": [
     {
-      "Electric": "3500",
-      "Electric0": "2400",
-      "Electric50": "2700",
-      "Electric100": "3000",
-      "Electric200": "3200",
-      "Electric300": "3500",
-      "Water": "20000",
-      "Trash": "35000",
-      "Wifi": "20000",
-      "Cable": "20000",
+      "Electric": 3500,
+      "Electric0": 2400,
+      "Electric50": 2700,
+      "Electric100": 3000,
+      "Electric200": 3200,
+      "Electric300": 3500,
+      "Water": 20000,
+      "Trash": 35000,
+      "Wifi": 20000,
+      "Cable": 20000,
       "id": "d0ee"
+    }
+  ],
+  "Profit": [
+    {
+      "income": 4816300,
+      "debt": 0,
+      "id": "0"
     }
   ],
   "History": [
     {
+      "id": "388f",
       "status": "true",
-      "date": "2024-03-05",
-      "name": "1A",
-      "roomcharge": "1500000",
-      "electric": 875000,
-      "water": 80000,
-      "trash": "35000",
-      "wifi": "20000",
-      "cable": 0,
-      "other": "0",
-      "total": 2510000,
-      "id": "1"
-    },
-    {
-      "id": "0425",
-      "status": "true",
-      "date": "2024-03-07",
+      "date": "2024-03-11",
       "name": "2A",
       "roomcharge": "2500000",
-      "electric": 676600,
+      "electric": 187500,
       "water": 60000,
-      "trash": "35000",
-      "wifi": 0,
-      "cable": 0,
-      "other": "0",
-      "total": 3271600
-    },
-    {
-      "id": "91ba",
-      "status": "true",
-      "date": "2024-03-18",
-      "name": "2A",
-      "roomcharge": "2500000",
-      "electric": 369000,
-      "water": 60000,
-      "trash": "35000",
-      "wifi": 0,
-      "cable": 0,
-      "other": "10000",
-      "total": 2974000
-    },
-    {
-      "id": "27f9",
-      "status": "true",
-      "date": "",
-      "name": "2A",
-      "roomcharge": "2500000",
-      "electric": 519000,
-      "water": 60000,
-      "trash": "35000",
+      "trash": 35000,
       "wifi": 0,
       "cable": 0,
       "other": 0,
-      "total": 3114000
+      "total": 2782500
     },
     {
-      "id": "8145",
-      "status": "false",
-      "date": "",
-      "name": "2A",
-      "roomcharge": "2500000",
-      "electric": 836600,
-      "water": 60000,
-      "trash": "35000",
-      "wifi": 0,
+      "id": "8504",
+      "status": "true",
+      "date": "2024-03-11",
+      "name": "3",
+      "roomcharge": "1700000",
+      "electric": 238800,
+      "water": 40000,
+      "trash": 35000,
+      "wifi": 20000,
       "cable": 0,
-      "other": "10000",
-      "total": 3421600
+      "other": 0,
+      "total": 2033800
     }
   ]
 }

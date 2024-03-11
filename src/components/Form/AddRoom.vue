@@ -22,6 +22,7 @@
       <v-text-field label="Nhập tên phòng" v-model="NameRoom"></v-text-field>
       <v-text-field
         label="Nhập số tiền phòng"
+        type="number"
         v-model="RoomCharge"
       ></v-text-field>
       <v-select

@@ -24,6 +24,7 @@
               variant="text"              
               @click="                
                 store.PaidCharge(item.id);
+                store.Payment();
                 reloadPage();
               "
             >Thanh toán</v-btn>            

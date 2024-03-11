@@ -6,29 +6,66 @@ import { useLocalStorage } from "@vueuse/core";
 export const useAppStore = defineStore("app", {
   state: () => {
     return {
-      User,      
+      User,
       NumberRoom: useLocalStorage("NumberRoom", ""),
       IdRoom: useLocalStorage("IdRoom", ""),
       IdMember: useLocalStorage("IdMember", ""),
       data: [],
       profile: [],
       member: [],
-      pay:[],
+      pay: [],
       editRoom: [],
-      service: [], 
-      payment:0     
+      service: [],
+      payment:[],
     };
   },
   getters: {
-    FilterPaid(){
-      return this.pay.filter(value => value.status === "true")
+    FilterPaid() {
+      return this.pay.filter((value) => value.status === "true");
     },
-    FilterNotPay(){
-      return this.pay.filter(value => value.status === "false")
+    FilterNotPay() {
+      return this.pay.filter((value) => value.status === "false");
     },
-    
   },
   actions: {
+     //Fetch service Charge
+     async FetchService() {
+      const res = await fetch("http://localhost:3000/Service");
+      this.service = await res.json();
+    },
+
+    //Fetch api room
+    async fetchRoom() {
+      const res = await fetch("http://localhost:3000/Room");
+      this.data = await res.json();
+    },
+
+    //Fetch api list of member
+    async fetchProfile(number) {
+      // Assuming your JSON file is in the public folder
+      const res = await fetch("http://localhost:3000/Profile?room=" + number);
+      this.profile = await res.json();
+    },
+
+    //Fetch api pay of room
+    async fetchPay() {
+      // Assuming your JSON file is in the public folder
+      const res = await fetch("http://localhost:3000/History");
+      this.pay = await res.json();
+    },
+
+    //Fetch api pay of room
+    async fetchPayment() {
+      // Assuming your JSON file is in the public folder
+      const res = await fetch("http://localhost:3000/Profit/0");
+      this.payment = await res.json();
+      
+    },
+
+
+
+
+
     GetDetail(id) {
       this.Info = this.data.find((value) => value.id === id);
     },
@@ -61,7 +98,7 @@ export const useAppStore = defineStore("app", {
           roomcharge: RoomCharge,
           wifi: WifiService,
           cable: CableService,
-          electric:LastElectric
+          electric: LastElectric,
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -182,31 +219,7 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-    //Fetch service Charge
-    async FetchService() {
-      const res = await fetch("http://localhost:3000/Service");
-      this.service = await res.json();
-    },
-
-    //Fetch api room
-    async fetchRoom() {  
-      const res = await fetch("http://localhost:3000/Room");
-      this.data = await res.json();
-    },
-
-    //Fetch api list of member
-    async fetchProfile(number) {
-      // Assuming your JSON file is in the public folder
-      const res = await fetch("http://localhost:3000/Profile?room=" + number);
-      this.profile = await res.json();
-    },
-
-    //Fetch api pay of room
-    async fetchPay() {
-      // Assuming your JSON file is in the public folder
-      const res = await fetch("http://localhost:3000/History");
-      this.pay = await res.json();
-    },    
+   
 
     //Fetch api profile of member
     fetchMember(id) {
@@ -237,7 +250,7 @@ export const useAppStore = defineStore("app", {
       axios
         .post("http://localhost:3000/History", {
           status: Status,
-          date:DateNow,
+          date: DateNow,
           name: NameRoom,
           roomcharge: RoomCharge,
           electric: ElectricCharge,
@@ -246,7 +259,7 @@ export const useAppStore = defineStore("app", {
           wifi: WifiCharge,
           cable: CableCharge,
           other: OtherCharge,
-          total: Total
+          total: Total,
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -257,10 +270,24 @@ export const useAppStore = defineStore("app", {
     },
 
     //Parameter of Electric and Water
-    Parameter(ElectricNew){
+    Parameter(ElectricNew) {
       axios
         .patch(`http://localhost:3000/Room/${this.IdRoom}`, {
-          electric:ElectricNew
+          electric: ElectricNew,
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
+    },
+
+    //Accept paid room charge
+    PaidCharge(id) {
+      axios
+        .patch("http://localhost:3000/History/" + id, {
+          status: "true",
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -271,11 +298,17 @@ export const useAppStore = defineStore("app", {
     },
 
 
-    //Accept paid room charge
-    PaidCharge(id){
+    //Payment
+    Payment() {
+      const Charge = this.pay.filter((value) => value.status === "true");
+      let sum = 0;
+      for (let i = 0; i < Charge.length; i++) {
+        sum += Charge[i].total;
+      }
       axios
-        .patch("http://localhost:3000/History/"+id,{
-          status:"true"
+        .put(`http://localhost:3000/Profit/0`, {
+          income: sum,
+          debt: 0         
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -283,6 +316,7 @@ export const useAppStore = defineStore("app", {
         .catch((error) => {
           console.error("Error submitting form:", error);
         });
-    }
+      
+    },
   },
 });

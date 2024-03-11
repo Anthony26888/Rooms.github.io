@@ -2,7 +2,7 @@
   <VRow class="mt-1">
     <VCol cols="3">
       <v-card title="Tổng Thu" class="w-100">
-        <v-card-text class="text-center text text-green">{{ Payment }}</v-card-text>
+        <v-card-text class="text-center text text-green">{{ Income }}</v-card-text>
       </v-card>
     </VCol>
     <VCol cols="3">
@@ -30,32 +30,27 @@ import { useAppStore } from "@/store/app";
 </script>
 <script>
 const store = useAppStore();
-
+store.fetchPayment()
 export default {
-  name:"Profit",
+  name: "Profit",
   data() {
     return {
-      Charge:store.FilterPaid,
-      Payment:"" 
+      Income:store.payment.income,
     }
   },
   mounted() {
     
-    this.payment()
-    
+
+
   },
   methods: {
-    payment(){
-      this.Charge.forEach(value => {
-        this.Payment += parseFloat(value.total)
-      });
-    }
+    
   },
 } 
 </script>
 <style scoped>
-  .text{
-    font-size: 35px;
-    font-weight: 700;
-  }
+.text {
+  font-size: 35px;
+  font-weight: 700;
+}
 </style>

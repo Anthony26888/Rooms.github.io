@@ -17,7 +17,7 @@
         <VCol cols="2">
           <h3 class="text-center mt-4">Điện</h3>
         </VCol>
-        <VCol cols="4">
+        <VCol cols="3">
           <v-text-field
             label="Số cũ"
             v-model="ElectricOld"
@@ -26,7 +26,7 @@
             :rules="[rules.required]"
           ></v-text-field>
         </VCol>
-        <VCol cols="4">
+        <VCol cols="3">
           <v-text-field
             label="Số mới"
             v-model="ElectricNew"
@@ -35,7 +35,7 @@
             :rules="[rules.required]"
           ></v-text-field>
         </VCol>
-        <VCol cols="2">
+        <VCol cols="4">
           <div class="d-flex text-center mt-4">
             <h3>= {{ ResultElectric }}</h3>
             <p class="ms-2">Kw</p>
