@@ -16,7 +16,8 @@ export const useAppStore = defineStore("app", {
       pay: [],
       editRoom: [],
       service: [],
-      payment:[],
+      payment:0,
+      debt:0,
     };
   },
   getters: {
@@ -29,37 +30,57 @@ export const useAppStore = defineStore("app", {
   },
   actions: {
      //Fetch service Charge
-     async FetchService() {
-      const res = await fetch("http://localhost:3000/Service");
-      this.service = await res.json();
+    FetchService() {
+      setInterval(async () => {
+        const res = await fetch("http://localhost:3000/Service");
+      this.service = await res.json();  
+      }, 100); 
+      
     },
 
     //Fetch api room
-    async fetchRoom() {
-      const res = await fetch("http://localhost:3000/Room");
-      this.data = await res.json();
+    fetchRoom() {
+      setInterval(async () => {
+        const res = await fetch("http://localhost:3000/Room");
+        this.data = await res.json();
+      }, 100);      
     },
 
     //Fetch api list of member
-    async fetchProfile(number) {
+    fetchProfile(number) {
+      setInterval(async () => {
+        const res = await fetch("http://localhost:3000/Profile?room=" + number);
+        this.profile = await res.json();
+      }, 100);
       // Assuming your JSON file is in the public folder
-      const res = await fetch("http://localhost:3000/Profile?room=" + number);
-      this.profile = await res.json();
-    },
-
-    //Fetch api pay of room
-    async fetchPay() {
-      // Assuming your JSON file is in the public folder
-      const res = await fetch("http://localhost:3000/History");
-      this.pay = await res.json();
-    },
-
-    //Fetch api pay of room
-    async fetchPayment() {
-      // Assuming your JSON file is in the public folder
-      const res = await fetch("http://localhost:3000/Profit/0");
-      this.payment = await res.json();
       
+    },
+
+    //Fetch api pay of room
+    fetchPay(){
+      setInterval(async () => {
+        const res = await fetch("http://localhost:3000/History") 
+        this.pay = await res.json();
+      }, 100);
+    },
+   
+
+    //Fetch api payment of room
+    fetchPayment() {      
+      // Assuming your JSON file is in the public folder
+      setInterval(async () => {
+        const res = await fetch("http://localhost:3000/Profit/0");
+        this.payment = await res.json();
+      }, 100);
+    },
+
+    //Fetch api debt of room
+    fetchDebt() {      
+      // Assuming your JSON file is in the public folder
+      setInterval(async () => {
+        const res = await fetch("http://localhost:3000/Profit/0");
+        this.debt = await res.json();
+      }, 100);
     },
 
 
@@ -299,15 +320,10 @@ export const useAppStore = defineStore("app", {
 
 
     //Payment
-    Payment() {
-      const Charge = this.pay.filter((value) => value.status === "true");
-      let sum = 0;
-      for (let i = 0; i < Charge.length; i++) {
-        sum += Charge[i].total;
-      }
+    Payment(total) {      
       axios
         .put(`http://localhost:3000/Profit/0`, {
-          income: sum,
+          income: this.payment.income + Number(total),
           debt: 0         
         })
         .then((response) => {
@@ -315,8 +331,7 @@ export const useAppStore = defineStore("app", {
         })
         .catch((error) => {
           console.error("Error submitting form:", error);
-        });
-      
+        });      
     },
   },
 });

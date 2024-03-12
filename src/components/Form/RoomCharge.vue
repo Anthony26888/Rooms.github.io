@@ -292,7 +292,7 @@ export default {
     }, 10);
   },
   computed: {
-    Date() {},
+    
   },
 };
 </script>

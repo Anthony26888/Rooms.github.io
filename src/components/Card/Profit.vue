@@ -2,12 +2,12 @@
   <VRow class="mt-1">
     <VCol cols="3">
       <v-card title="Tổng Thu" class="w-100">
-        <v-card-text class="text-center text text-green">{{ Income }}</v-card-text>
+        <v-card-text class="text-center text text-green">{{ store.payment.income }}</v-card-text>
       </v-card>
     </VCol>
     <VCol cols="3">
       <v-card title="Tổng Nợ" class="w-100">
-        <v-card-text class="text-center text text-red">0</v-card-text>
+        <v-card-text class="text-center text text-red">{{ store.payment.debt }}</v-card-text>
       </v-card>
     </VCol>
     <VCol cols="3">
@@ -26,16 +26,16 @@
 </template>
 <script setup>
 import { useAppStore } from "@/store/app";
-
-</script>
-<script>
 const store = useAppStore();
 store.fetchPayment()
+</script>
+<script>
+
 export default {
   name: "Profit",
   data() {
     return {
-      Income:store.payment.income,
+      
     }
   },
   mounted() {

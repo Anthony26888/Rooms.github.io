@@ -257,8 +257,7 @@
           <v-btn
             @click="
               notifyRoom = false;
-              store.DeleteRoom();
-              reloadPage();
+              store.DeleteRoom();             
             "
             color="red"
           >

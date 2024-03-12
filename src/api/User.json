@@ -20,7 +20,7 @@
       "roomcharge": "1700000",
       "wifi": "true",
       "cable": false,
-      "electric": "47150"
+      "electric": "47250"
     }
   ],
   "Profile": [
@@ -86,7 +86,7 @@
   ],
   "Profit": [
     {
-      "income": 4816300,
+      "income": 0,
       "debt": 0,
       "id": "0"
     }
@@ -94,7 +94,7 @@
   "History": [
     {
       "id": "388f",
-      "status": "true",
+      "status": "false",
       "date": "2024-03-11",
       "name": "2A",
       "roomcharge": "2500000",
@@ -108,7 +108,7 @@
     },
     {
       "id": "8504",
-      "status": "true",
+      "status": "false",
       "date": "2024-03-11",
       "name": "3",
       "roomcharge": "1700000",
@@ -119,6 +119,20 @@
       "cable": 0,
       "other": 0,
       "total": 2033800
+    },
+    {
+      "id": "21f7",
+      "status": "false",
+      "date": "2024-04-16",
+      "name": "3",
+      "roomcharge": "1700000",
+      "electric": 255000,
+      "water": 40000,
+      "trash": 35000,
+      "wifi": 20000,
+      "cable": 0,
+      "other": 0,
+      "total": 2050000
     }
   ]
 }
