@@ -30,30 +30,22 @@ export const useAppStore = defineStore("app", {
   },
   actions: {
      //Fetch service Charge
-    FetchService() {
-      setInterval(async () => {
-        const res = await fetch("http://localhost:3000/Service");
+     async fetchService() {
+      const res = await fetch("http://localhost:3000/Service");
       this.service = await res.json();  
-      }, 100); 
-      
     },
 
-    //Fetch api room
-    fetchRoom() {
-      setInterval(async () => {
-        const res = await fetch("http://localhost:3000/Room");
-        this.data = await res.json();
-      }, 100);      
-    },
+    //Fetch api room    
+    async fetchRoom() {
+      const res = await fetch("http://localhost:3000/Room");
+      this.data = await res.json();
+    },    
+    
 
     //Fetch api list of member
-    fetchProfile(number) {
-      setInterval(async () => {
-        const res = await fetch("http://localhost:3000/Profile?room=" + number);
-        this.profile = await res.json();
-      }, 100);
-      // Assuming your JSON file is in the public folder
-      
+    async fetchProfile(number) {
+      const res = await fetch("http://localhost:3000/Profile?room=" + number);
+      this.profile = await res.json();
     },
 
     //Fetch api pay of room
@@ -70,18 +62,11 @@ export const useAppStore = defineStore("app", {
       // Assuming your JSON file is in the public folder
       setInterval(async () => {
         const res = await fetch("http://localhost:3000/Profit/0");
-        this.payment = await res.json();
+        this.payment = await res.json();        
       }, 100);
     },
 
-    //Fetch api debt of room
-    fetchDebt() {      
-      // Assuming your JSON file is in the public folder
-      setInterval(async () => {
-        const res = await fetch("http://localhost:3000/Profit/0");
-        this.debt = await res.json();
-      }, 100);
-    },
+    
 
 
 
@@ -322,9 +307,24 @@ export const useAppStore = defineStore("app", {
     //Payment
     Payment(total) {      
       axios
-        .put(`http://localhost:3000/Profit/0`, {
-          income: this.payment.income + Number(total),
-          debt: 0         
+        .patch(`http://localhost:3000/Profit/0`, {
+          income: this.payment.income + Number(total),  
+          debt:this.payment.debt - Number(total)                
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });      
+    },
+
+
+    //Debt
+    Debt(total) {      
+      axios
+        .patch(`http://localhost:3000/Profit/0`, {
+          debt: this.payment.debt + Number(total),                  
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);

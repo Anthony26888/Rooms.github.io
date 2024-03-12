@@ -1,6 +1,6 @@
 <template>
   <form
-    v-on:submit.prevent="
+    v-on:submit="
       store.CreateRoom(
         LocationRoom,
         QtyMember,
@@ -75,10 +75,10 @@ export default {
     return {
       LocationRoom: "",
       NameRoom: "",
-      RoomCharge: "",
+      RoomCharge: 0,
       DateRoom: "",
       QtyMember: "",
-      LastElectric:"",
+      LastElectric:0,
       WifiService: false,
       CableService: false,
     };

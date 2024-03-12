@@ -14,7 +14,7 @@
         </template>
         <v-card-text>
           <p><b>Số người:</b> {{ item.qty }} người</p>
-          <p><b>Tiền phòng:</b> {{ (item.roomcharge).toLocaleString() }} vnđ</p>
+          <p><b>Tiền phòng:</b> {{ item.roomcharge.toLocaleString("en-US") }} vnđ</p>
           <div class="d-flex">
             <b>Dịch vụ thêm:</b>
             <p v-if="item.wifi == 'true'" class="ms-2">Wifi</p>
@@ -69,7 +69,7 @@
                 color="red"
                 variant="tonal"
                 @click="
-                  notifyRoom = true;
+                  notifyRoom = true;                  
                   store.GetRoom(item.number, item.id);
                 "
               >
@@ -231,6 +231,7 @@
             @click="
               notifyMember = false;
               store.DeleteMember();
+              reloadPage()
             "
             color="red"
           >
@@ -257,7 +258,8 @@
           <v-btn
             @click="
               notifyRoom = false;
-              store.DeleteRoom();             
+              store.DeleteRoom(); 
+              reloadPage()            
             "
             color="red"
           >
@@ -276,7 +278,7 @@ import RoomCharge from "@/components/Form/RoomCharge.vue";
 import { useAppStore } from "@/store/app";
 const store = useAppStore();
 store.fetchRoom();
-store.FetchService()
+store.fetchService()
 </script>
 <script>
 export default {

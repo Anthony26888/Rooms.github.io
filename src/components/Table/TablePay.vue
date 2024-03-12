@@ -21,13 +21,23 @@
           <td>
             <v-btn              
               color="success"
-              variant="text"              
+              prepend-icon="mdi-cash-check" 
+              variant="tonal"             
               @click="                
                 store.PaidCharge(item.id);
                 store.Payment(item.total);
-                
               "
-            >Thanh toán</v-btn>            
+            >Thanh Toán</v-btn>  
+            
+            <v-btn              
+              color="red"
+              prepend-icon="mdi-delete" 
+              variant="tonal" 
+              class="ms-2"             
+              @click="                
+                store.DeletePaid(item.id);                
+              "
+            >Xóa</v-btn> 
           </td>
         </tr>
       </tbody>

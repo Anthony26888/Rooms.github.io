@@ -1,26 +1,15 @@
 {
   "Room": [
     {
-      "id": "7781",
-      "number": "2A",
-      "qty": "3",
-      "location": "Dãy A",
-      "date": "2024-03-07",
-      "roomcharge": "2500000",
-      "wifi": false,
-      "cable": false,
-      "electric": "4925"
-    },
-    {
-      "id": "2d98",
-      "number": "3",
+      "number": "11",
       "qty": "2",
       "location": "Dãy B",
-      "date": "2024-03-11",
-      "roomcharge": "1700000",
-      "wifi": "true",
+      "date": "2024-03-12",
+      "roomcharge": "1500000",
+      "wifi": false,
       "cable": false,
-      "electric": "47250"
+      "electric": "1444",
+      "id": 1
     }
   ],
   "Profile": [
@@ -86,53 +75,53 @@
   ],
   "Profit": [
     {
-      "income": 0,
-      "debt": 0,
+      "income": 4359000,
+      "debt": null,
       "id": "0"
     }
   ],
   "History": [
     {
-      "id": "388f",
-      "status": "false",
-      "date": "2024-03-11",
-      "name": "2A",
-      "roomcharge": "2500000",
-      "electric": 187500,
-      "water": 60000,
+      "status": "true",
+      "date": "2024-03-12",
+      "name": "11",
+      "roomcharge": "1500000",
+      "electric": 52800,
+      "water": 40000,
       "trash": 35000,
       "wifi": 0,
       "cable": 0,
       "other": 0,
-      "total": 2782500
+      "total": 1627800,
+      "id": 1
     },
     {
-      "id": "8504",
       "status": "false",
       "date": "2024-03-11",
-      "name": "3",
-      "roomcharge": "1700000",
-      "electric": 238800,
+      "name": "11",
+      "roomcharge": "1500000",
+      "electric": 136200,
       "water": 40000,
       "trash": 35000,
-      "wifi": 20000,
+      "wifi": 0,
       "cable": 0,
       "other": 0,
-      "total": 2033800
+      "total": 1711200,
+      "id": 2
     },
     {
-      "id": "21f7",
       "status": "false",
-      "date": "2024-04-16",
-      "name": "3",
-      "roomcharge": "1700000",
-      "electric": 255000,
+      "date": "2024-03-23",
+      "name": "11",
+      "roomcharge": "1500000",
+      "electric": 225300,
       "water": 40000,
       "trash": 35000,
-      "wifi": 20000,
+      "wifi": 0,
       "cable": 0,
-      "other": 0,
-      "total": 2050000
+      "other": "15555",
+      "total": 1815855,
+      "id": 3
     }
   ]
 }

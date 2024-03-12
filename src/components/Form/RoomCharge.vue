@@ -180,6 +180,7 @@
             Status
           );
           store.Parameter(ElectricNew);
+          store.Debt(Total)
         "
         >Lưu</v-btn
       >
@@ -191,7 +192,7 @@ import { useAppStore } from "@/store/app";
 </script>
 <script>
 const store = useAppStore();
-store.FetchService();
+store.fetchService();
 export default {
   name: "FormRoomCharge",
   data() {
