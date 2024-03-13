@@ -103,14 +103,14 @@
             <th scope="row" class="text-start">Tiền phòng</th>
             <td></td>
             <td></td>
-            <td class="text-end">{{ RoomCharge.toLocaleString("en-US") }}</td>
+            <td class="text-end">{{ RoomCharge }}</td>
           </tr>
           <tr>
             <th scope="row" class="text-start">Điện</th>
             <td></td>
             <td></td>
             <td class="text-end">
-              {{ ElectricCharge.toLocaleString("en-US") }}
+              {{ ElectricCharge }}
             </td>
           </tr>
           <tr>
@@ -212,7 +212,7 @@ export default {
       WaterCharge: 0,
       ElectricCharge: 0,
       RoomCharge: store.editRoom.roomcharge,
-      TrashCharge: store.service[0].Trash,
+      TrashCharge: store.service.Trash,
       WifiCharge: 0,
       CableCharge: 0,
       DebtCharge: 0,
@@ -232,11 +232,11 @@ export default {
       this.ResultWater = this.WaterNew - this.WaterOld;
 
       //Electric
-      const Charge0 = store.service[0].Electric0;
-      const Charge50 = store.service[0].Electric50;
-      const Charge100 = store.service[0].Electric100;
-      const Charge200 = store.service[0].Electric200;
-      const Charge300 = store.service[0].Electric300;
+      const Charge0 = store.service.Electric0;
+      const Charge50 = store.service.Electric50;
+      const Charge100 = store.service.Electric100;
+      const Charge200 = store.service.Electric200;
+      const Charge300 = store.service.Electric300;
       if (this.ResultElectric <= 50) {
         this.ElectricCharge = this.ResultElectric * Charge0;
       } else if (this.ResultElectric > 50 && this.ResultElectric <= 100) {
@@ -265,17 +265,17 @@ export default {
       }
 
       //Water
-      this.WaterCharge = store.service[0].Water * store.editRoom.qty;
+      this.WaterCharge = store.service.Water * store.editRoom.qty;
 
       //Service
       if (store.editRoom.cable == "true") {
-        this.CableCharge = store.service[0].Cable;
+        this.CableCharge = store.service.Cable;
       } else {
         this.CableCharge = 0;
       }
 
       if (store.editRoom.wifi == "true") {
-        this.WifiCharge = store.service[0].Wifi;
+        this.WifiCharge = store.service.Wifi;
       } else {
         this.WifiCharge = 0;
       }

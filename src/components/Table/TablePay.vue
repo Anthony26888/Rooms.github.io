@@ -34,8 +34,10 @@
               prepend-icon="mdi-delete" 
               variant="tonal" 
               class="ms-2"             
-              @click="                
-                store.DeletePaid(item.id);                
+              @click="    
+                notify = true;
+                store.GetIdPay(item.id)
+                store.fetchEditPay(item.id)                              
               "
             >Xóa</v-btn> 
           </td>
@@ -43,6 +45,35 @@
       </tbody>
     </v-table>
   </v-card>
+
+
+  <!--Notifition Delete Room-->
+  <v-dialog
+    v-model="notify"
+    width="500"
+    transition="dialog-bottom-transition"
+    persistent
+  >
+    <v-card title="Bạn có muốn xóa?">
+      <VSpacer />
+      <template v-slot:actions class="mx-auto">
+        <div class="mx-auto">
+          <v-btn @click="notify = false" color="primary"> Từ chối </v-btn>
+
+          <v-btn
+            @click="
+              notifyRoom = false;
+              DeletePaid()            
+                        
+            "
+            color="red"
+          >
+            Đồng ý
+          </v-btn>
+        </div>
+      </template>
+    </v-card>
+  </v-dialog>
 </template>
 <script setup>
 import { useAppStore } from "@/store/app";
@@ -57,7 +88,7 @@ export default {
   data() {
     return {
       Now:"",
-
+      notify: false,
       headers: [
         {title: "Phòng"},
         { title: "Tình trạng"},
@@ -80,6 +111,18 @@ export default {
     reloadPage() {
       window.location.reload();
     },
+
+    DeletePaid(){
+      if(store.editPay.status == "true"){
+        store.DivPaid(store.editPay.total);
+        store.DeletePaid(store.IdPay); 
+      }
+      else{
+        store.DivPay(store.editPay.total);
+        store.DeletePaid(store.IdPay); 
+      }
+    }
+
     
    
   },

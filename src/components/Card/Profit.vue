@@ -27,7 +27,8 @@
 <script setup>
 import { useAppStore } from "@/store/app";
 const store = useAppStore();
-store.fetchPayment()
+store.fetchPayment();
+store.fetchDebt()
 </script>
 <script>
 

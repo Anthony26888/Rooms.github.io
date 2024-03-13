@@ -9,12 +9,14 @@ export const useAppStore = defineStore("app", {
       User,
       NumberRoom: useLocalStorage("NumberRoom", ""),
       IdRoom: useLocalStorage("IdRoom", ""),
-      IdMember: useLocalStorage("IdMember", ""),
+      IdMember: "",
+      IdPay:"",
       data: [],
       profile: [],
       member: [],
       pay: [],
       editRoom: [],
+      editPay:[],
       service: [],
       payment:0,
       debt:0,
@@ -30,8 +32,8 @@ export const useAppStore = defineStore("app", {
   },
   actions: {
      //Fetch service Charge
-     async fetchService() {
-      const res = await fetch("http://localhost:3000/Service");
+    async fetchService() {
+      const res = await fetch("http://localhost:3000/Service/0");
       this.service = await res.json();  
     },
 
@@ -48,6 +50,7 @@ export const useAppStore = defineStore("app", {
       this.profile = await res.json();
     },
 
+
     //Fetch api pay of room
     fetchPay(){
       setInterval(async () => {
@@ -58,15 +61,37 @@ export const useAppStore = defineStore("app", {
    
 
     //Fetch api payment of room
-    fetchPayment() {      
-      // Assuming your JSON file is in the public folder
+    fetchPayment() {            
       setInterval(async () => {
         const res = await fetch("http://localhost:3000/Profit/0");
-        this.payment = await res.json();        
+        this.payment = await res.json();              
       }, 100);
     },
 
-    
+    fetchDebt() {   
+      setInterval(async () => {
+        const res = await fetch("http://localhost:3000/Profit/0");        
+        this.debt = await res.json()       
+      }, 100);
+    },
+
+    //Fetch api profile of member
+    fetchMember(id) {
+      // Assuming your JSON file is in the public folder
+      this.member = this.profile.find((value) => value.name === id);
+    },
+
+    //Fetch api profile of room for edit
+    fetchEditRoom(id) {
+      // Assuming your JSON file is in the public folder
+      this.editRoom = this.data.find((value) => value.id === id);
+    },
+
+    //Fetch api pay for edit
+    fetchEditPay(id) {
+      // Assuming your JSON file is in the public folder
+      this.editPay = this.pay.find((value) => value.id === id);
+    },
 
 
 
@@ -75,14 +100,19 @@ export const useAppStore = defineStore("app", {
     GetDetail(id) {
       this.Info = this.data.find((value) => value.id === id);
     },
-    GetRoom(number, id) {
+    GetRoom(number) {
       //Get id room for create new member
-      this.NumberRoom = number;
-      this.IdRoom = id;
+      this.NumberRoom = number;      
     },
     GetIdMember(id) {
       this.IdMember = id;
+    },  
+    GetIdPay(id){
+      this.IdPay = id
     },
+
+
+
 
     //Create a new room
     CreateRoom(
@@ -227,17 +257,7 @@ export const useAppStore = defineStore("app", {
 
    
 
-    //Fetch api profile of member
-    fetchMember(id) {
-      // Assuming your JSON file is in the public folder
-      this.member = this.profile.find((value) => value.name === id);
-    },
-
-    //Fetch api profile of room for edit
-    fetchEditRoom(id) {
-      // Assuming your JSON file is in the public folder
-      this.editRoom = this.data.find((value) => value.id === id);
-    },
+    
 
     //Caculator Room Charge
     CaculatorCharge(
@@ -333,5 +353,45 @@ export const useAppStore = defineStore("app", {
           console.error("Error submitting form:", error);
         });      
     },
+
+    //Delete Payment
+    DeletePaid(id){
+
+      axios
+        .delete("http://localhost:3000/History/" + id)
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
+    },
+
+
+    DivPaid(total){
+      axios
+        .patch(`http://localhost:3000/Profit/0`, {
+          income: this.payment.income - Number(total),                           
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });    
+    },
+
+    DivPay(total){
+      axios
+        .patch(`http://localhost:3000/Profit/0`, {
+          debt: this.payment.debt - Number(total),                           
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });    
+    }
   },
 });
