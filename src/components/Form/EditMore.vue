@@ -2,9 +2,9 @@
   <v-form>
     <v-card-text>
       <v-text-field
-        label="Giá tiền nước /m³"
+        label="Giá tiền rác"
         variant="outlined"
-        v-model="Water"
+        v-model="Trash"
       ></v-text-field>
     </v-card-text>
     <v-card-actions>
@@ -22,7 +22,7 @@ store.fetchService();
 export default {
   data() {
     return {
-      Water: store.service.Water,
+      Trash: store.service.Trash,
     };
   },
 };

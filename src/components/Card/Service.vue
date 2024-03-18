@@ -39,7 +39,7 @@
     </v-card>
   </v-dialog>
 
-  <!--Edit Electric-->
+  <!--Edit Water-->
   <v-dialog
     v-model="editWater"
     width="500"
@@ -57,10 +57,50 @@
       <edit-water></edit-water>
     </v-card>
   </v-dialog>
+
+  <!--Edit Trash-->
+  <v-dialog
+    v-model="editTrash"
+    width="500"
+    transition="dialog-bottom-transition"
+  >
+    <v-card title="Chỉnh sửa tiền rác">
+      <template v-slot:append>
+        <v-btn
+          class="mx-auto"
+          variant="text"
+          icon="mdi-close"
+          @click="editTrash = false"
+        ></v-btn>
+      </template>
+      <edit-trash></edit-trash>
+    </v-card>
+  </v-dialog>
+
+  <!--Edit Wifi-->
+  <v-dialog
+    v-model="editMore"
+    width="500"
+    transition="dialog-bottom-transition"
+  >
+    <v-card title="Chỉnh sửa tiền wifi và cáp">
+      <template v-slot:append>
+        <v-btn
+          class="mx-auto"
+          variant="text"
+          icon="mdi-close"
+          @click="editMore = false"
+        ></v-btn>
+      </template>
+      <edit-trash></edit-trash>
+    </v-card>
+  </v-dialog> 
 </template>
 <script setup>
 import EditElectric from "@/components/Form/EditElectric.vue"
 import EditWater from "@/components/Form/EditWater.vue"
+import EditTrash from "@/components/Form/EditTrash.vue"
+import EditMore from "@/components/Form/EditMore.vue"
 </script>
 <script>
 
@@ -89,22 +129,15 @@ export default {
         },
         {
           id:"3",
-          icon: "mdi-wifi",
-          title: "WIFI",
+          icon: "mdi-view-grid-plus",
+          title: "Dịch vụ thêm",
           color: "indigo",
-        },
-        {
-          id:"4",
-          icon: "mdi-television-classic",
-          title: "CÁP",
-          color: "cyan",
-        },
+        }
       ],
       editElectric: false,
       editWater:false,
       editTrash:false,
-      editWifi:false,
-      editCable:false
+      editMore:false,      
     };
   },
   methods: {
@@ -122,12 +155,8 @@ export default {
       };
 
       if(item == 3){
-        return this.editWifi = true
-      };
-
-      if(item == 4){
-        return this.editCable = true
-      };
+        return this.editMore = true
+      }
     }
   },
 };
