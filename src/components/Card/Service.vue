@@ -26,7 +26,7 @@
     width="500"
     transition="dialog-bottom-transition"
   >
-    <v-card title="Chỉnh sửa ĐIỆN">
+    <v-card title="Chỉnh sửa tiền điện">
       <template v-slot:append>
         <v-btn
           class="mx-auto"
@@ -35,7 +35,7 @@
           @click="editElectric = false"
         ></v-btn>
       </template>
-      <EditRoom />
+      <edit-electric></edit-electric>
     </v-card>
   </v-dialog>
 
@@ -45,7 +45,7 @@
     width="500"
     transition="dialog-bottom-transition"
   >
-    <v-card title="Chỉnh sửa NƯỚC">
+    <v-card title="Chỉnh sửa tiền nước">
       <template v-slot:append>
         <v-btn
           class="mx-auto"
@@ -54,11 +54,16 @@
           @click="editWater = false"
         ></v-btn>
       </template>
-      <EditRoom />
+      <edit-water></edit-water>
     </v-card>
   </v-dialog>
 </template>
+<script setup>
+import EditElectric from "@/components/Form/EditElectric.vue"
+import EditWater from "@/components/Form/EditWater.vue"
+</script>
 <script>
+
 export default {
   name:"Service",
   data() {

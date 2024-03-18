@@ -1,5 +1,5 @@
 <template lang="">
-  <form v-on:submit.prevent="store.EditMember(IdMember, NameMember, BirthMember, PhoneMember, SexMember, CccdMember, WorkMember, LocationMember)">
+  <v-form v-model="form" v-on:submit.prevent="store.EditMember(IdMember, NameMember, BirthMember, PhoneMember, SexMember, CccdMember, WorkMember, LocationMember)">
     <v-card-text>
       <v-row>
         <v-col cols="6">
@@ -31,9 +31,9 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" type="submit">Lưu</v-btn>
+      <v-btn :disabled="!form" color="primary" type="submit">Lưu</v-btn>
     </v-card-actions>
-  </form> 
+  </v-form> 
 </template>
 <script setup>
 import { useAppStore } from "@/store/app";
@@ -44,6 +44,7 @@ const store = useAppStore();
 export default {
   data() {
     return {
+      form: false,
       IdMember:store.member.id,
       NumberRoom:store.member.number,
       NameMember: store.member.name,

@@ -1,5 +1,5 @@
 <template lang="">
-  <form v-on:submit.prevent="store.EditRoom(LocationRoom, NameRoom, QtyMember, RoomCharge, DateRoom, WifiService, CableService)">
+  <v-form v-model="form" v-on:submit.prevent="store.EditRoom(LocationRoom, NameRoom, QtyMember, RoomCharge, DateRoom, WifiService, CableService)">
     <v-card-text>
       <v-select
         v-model="LocationRoom"
@@ -41,9 +41,9 @@
     </v-card-text>
     <v-card-actions>
       <v-spacer></v-spacer>
-      <v-btn color="primary" type="submit">Lưu</v-btn>
+      <v-btn :disabled="!form" color="primary" type="submit">Lưu</v-btn>
     </v-card-actions>
-  </form>
+  </v-form>
 </template>
 <script setup>
 import { useAppStore } from "@/store/app";
@@ -53,16 +53,18 @@ const store = useAppStore();
 export default {
   data() {
     return {
-      LocationRoom:store.editRoom.location,
-      NameRoom:store.editRoom.number,
-      QtyMember:store.editRoom.qty,
+      form: false,
+      LocationRoom: store.editRoom.location,
+      NameRoom: store.editRoom.number,
+      QtyMember: store.editRoom.qty,
       RoomCharge: store.editRoom.roomcharge,
-      DateRoom:store.editRoom.date,
-      WifiService:store.editRoom.wifi,
-      CableService:store.editRoom.cable
+      DateRoom: store.editRoom.date,
+      WifiService: store.editRoom.wifi,
+      CableService: store.editRoom.cable
 
     };
   },
+ 
 };
 </script>
 <style lang=""></style>
