@@ -2,9 +2,14 @@
   <v-form>
     <v-card-text>
       <v-text-field
-        label="Giá tiền rác"
+        label="Giá tiền wifi"
         variant="outlined"
-        v-model="Trash"
+        v-model="Wifi"
+      ></v-text-field>
+      <v-text-field
+        label="Giá tiền cáp"
+        variant="outlined"
+        v-model="Cable"
       ></v-text-field>
     </v-card-text>
     <v-card-actions>
@@ -22,7 +27,8 @@ store.fetchService();
 export default {
   data() {
     return {
-      Trash: store.service.Trash,
+      Wifi: store.service.Wifi,
+      Cable: store.service.Cable,
     };
   },
 };

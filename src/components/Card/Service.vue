@@ -1,7 +1,7 @@
 <template lang="">
-  <div class="d-flex justify-item-start">
+  <div class="d-flex flex-wrap justify-center algin-center">
     <v-sheet
-      class="pa-4 text-center mx-auto"
+      class="ma-2 mb-2 pa-4 text-center mx-auto"
       elevation="5"
       width="150"
       height="120"
@@ -92,7 +92,7 @@
           @click="editMore = false"
         ></v-btn>
       </template>
-      <edit-trash></edit-trash>
+      <edit-more></edit-more>
     </v-card>
   </v-dialog> 
 </template>

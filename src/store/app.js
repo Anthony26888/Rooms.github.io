@@ -231,6 +231,33 @@ export const useAppStore = defineStore("app", {
         });
     },
 
+    //Edit Electric
+    EditElectric(
+      Electric0,
+      Electric50,
+      Electric100,
+      Electric200,
+      Electric300,
+    ) {
+      axios
+        .patch(`http://localhost:3000/Service/0`, {
+          location: LocationRoom,
+          number: NameRoom,
+          qty: QtyMember,
+          roomcharge: RoomCharge,
+          date: DateRoom,
+          wifi: WifiService,
+          cable: CableService,
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
+    },
+
+
     //Delete profile of member
     DeleteMember() {
       axios
