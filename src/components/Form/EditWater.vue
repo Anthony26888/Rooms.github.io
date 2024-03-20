@@ -1,5 +1,5 @@
 <template lang="">
-  <v-form>
+  <v-form v-on:submit="store.EditWater(Water)">
     <v-card-text>
       <v-text-field
         label="Giá tiền nước /m³"

@@ -5,16 +5,21 @@
         class="ma-2 mb-2"
         width="400"
         :title="`Phòng ` + item.number"
-        :subtitle="item.location"
+        :subtitle="item.location"        
       >
         <template v-slot:prepend>
           <v-avatar color="blue-darken-2">
             <v-icon icon="mdi-home"></v-icon>
           </v-avatar>
         </template>
+        <template v-slot:append>
+          <div class="ribbon-wrap " >
+            <div class="ribbon bg-success"></div>
+          </div>
+        </template>
         <v-card-text>
           <p><b>Số người:</b> {{ item.qty }} người</p>
-          <p><b>Tiền phòng:</b> {{ item.roomcharge.toLocaleString("en-US") }} vnđ</p>
+          <p><b>Tiền phòng:</b> {{ item.roomcharge }} vnđ</p>
           <div class="d-flex">
             <b>Dịch vụ thêm:</b>
             <p v-if="item.wifi == 'true'" class="ms-2">Wifi</p>
@@ -30,8 +35,7 @@
                 variant="tonal"
                 @click="
                   dialog = true;
-                  store.fetchProfile(item.number);
-                  store.GetRoom(item.number, item.id);
+                  store.fetchProfile(item.number);                  
                 "
               >
                 Thông tin
@@ -43,8 +47,7 @@
                 variant="tonal"
                 @click="
                   editRoom = true;
-                  store.fetchEditRoom(item.id);
-                  store.GetRoom(item.number, item.id);
+                  store.fetchEditRoom(item.id);                  
                 "
               >
                 Sửa
@@ -56,8 +59,7 @@
                 variant="tonal"
                 @click="
                   caculator = true;
-                  store.fetchEditRoom(item.id);
-                  store.GetRoom(item.number, item.id);
+                  store.fetchEditRoom(item.id);                  
                 "
               >
                 Tính tiền
@@ -70,7 +72,7 @@
                 variant="tonal"
                 @click="
                   notifyRoom = true;                  
-                  store.GetRoom(item.number, item.id);
+                  store.fetchEditRoom(item.id);
                 "
               >
                 Xóa
@@ -120,7 +122,7 @@
                   size="10"
                   @click="
                     editMember = true;
-                    store.fetchMember(item.name);
+                    store.fetchMember(item.name, item.id);
                   "
                 ></v-btn>
                 <v-btn
@@ -131,7 +133,7 @@
                   class="ms-5"
                   @click="
                     notifyMember = true;
-                    store.GetIdMember(item.id);
+                    store.fetchMember(item.name, item.id);
                   "
                 ></v-btn>
               </td>
@@ -225,7 +227,7 @@
       <VSpacer />
       <template v-slot:actions class="mx-auto">
         <div class="mx-auto">
-          <v-btn @click="notify = false" color="primary"> Từ chối </v-btn>
+          <v-btn @click="notifyMember = false" color="primary"> Từ chối </v-btn>
 
           <v-btn
             @click="
@@ -308,4 +310,19 @@ export default {
   },
 };
 </script>
-<style scoped></style>
+<style scoped>
+.ribbon-wrap {
+  width: 80px;
+  height: 80px;  
+  
+  pointer-events: none;
+}
+.ribbon {
+  width: 200px;
+  font-size: 0.8rem;
+  text-align: center;
+  padding: 20px 0;
+  transform: rotate(45deg);
+  
+}
+</style>

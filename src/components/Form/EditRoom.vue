@@ -1,5 +1,5 @@
 <template lang="">
-  <v-form v-model="form" v-on:submit.prevent="store.EditRoom(LocationRoom, NameRoom, QtyMember, RoomCharge, DateRoom, WifiService, CableService)">
+  <v-form v-model="form" v-on:submit="store.EditRoom(LocationRoom, NameRoom, QtyMember, RoomCharge, DateRoom, WifiService, CableService)">
     <v-card-text>
       <v-select
         v-model="LocationRoom"

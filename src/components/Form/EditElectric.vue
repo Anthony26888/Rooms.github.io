@@ -1,5 +1,5 @@
 <template lang="">
-  <v-form v-on:submit.prevent="store.EditElectric(Electric0, Electric50,Electric100, Electric200, Electric300)">
+  <v-form v-on:submit="store.EditElectric(Electric0, Electric50,Electric100, Electric200, Electric300)">
     <v-card-text>        
         <v-text-field label="51 - 100 Kw" variant="outlined" v-model="Electric0"></v-text-field>
         <v-text-field label="301 - 400 Kw" variant="outlined" v-model="Electric50"></v-text-field>

@@ -2,7 +2,7 @@
   "Room": [
     {
       "location": "Dãy B",
-      "number": "11",
+      "number": "12",
       "qty": "2",
       "roomcharge": "1500000",
       "date": "2024-03-12",
@@ -20,6 +20,16 @@
       "wifi": false,
       "cable": false,
       "electric": "123666"
+    },
+    {
+      "location": "Dãy A",
+      "number": "2A",
+      "qty": "3",
+      "roomcharge": "1500000",
+      "date": "2024-03-20",
+      "wifi": "true",
+      "cable": false,
+      "id": "c2a9"
     }
   ],
   "Profile": [
@@ -35,7 +45,7 @@
       "work": "Nhân viên"
     },
     {
-      "id": "0a6e",
+      "id": "1555",
       "room": "1A",
       "name": "Nguyễn Nhật Đăng",
       "birth": "1995-11-11",
@@ -71,15 +81,15 @@
   "Service": [
     {
       "Electric": 3500,
-      "Electric0": 2400,
+      "Electric0": "2400",
       "Electric50": 2700,
       "Electric100": 3000,
       "Electric200": 3200,
       "Electric300": 3500,
-      "Water": 20000,
-      "Trash": 35000,
-      "Wifi": 20000,
-      "Cable": 20000,
+      "Water": "20000",
+      "Trash": "35000",
+      "Wifi": "20000",
+      "Cable": "20000",
       "id": "0"
     }
   ],

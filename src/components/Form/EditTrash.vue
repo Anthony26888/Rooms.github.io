@@ -1,5 +1,5 @@
 <template lang="">
-  <v-form>
+  <v-form v-on:submit="store.EditTrash(Trash)">
     <v-card-text>
       <v-text-field
         label="Giá tiền rác"

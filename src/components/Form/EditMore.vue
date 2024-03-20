@@ -1,5 +1,5 @@
 <template lang="">
-  <v-form>
+  <v-form v-on:submit="store.EditMore(Wifi, Cable)">
     <v-card-text>
       <v-text-field
         label="Giá tiền wifi"
