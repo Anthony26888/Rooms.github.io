@@ -15,27 +15,32 @@
   >
     <v-card-text>
       <v-select
+        variant="outlined"
         v-model="LocationRoom"
         label="Vị trí"
         :items="['Dãy A', 'Dãy B']"
       ></v-select>
-      <v-text-field label="Nhập tên phòng" v-model="NameRoom"></v-text-field>
+      <v-text-field variant="outlined" label="Nhập tên phòng" v-model="NameRoom"></v-text-field>
       <v-text-field
+        variant="outlined"
         label="Nhập số tiền phòng"
         type="number"
         v-model="RoomCharge"
       ></v-text-field>
       <v-select
+        variant="outlined"
         v-model="QtyMember"
         label="Số lượng người"
         :items="['1', '2', '3', '4', '5', '6']"
       ></v-select>
       <v-text-field
+        variant="outlined"
         label="Ngày vào"
         type="date"
         v-model="DateRoom"
       ></v-text-field>
       <v-text-field
+        variant="outlined"
         label="Số điện cuối"
         type="number"
         v-model="LastElectric"
@@ -43,6 +48,7 @@
       <b>Dịch vụ thêm:</b>
       <div class="d-flex">
         <v-checkbox
+          variant="outlined"
           label="Wifi"
           color="secondary"
           value="true"

@@ -1,9 +1,9 @@
 <template>
     <v-main>
-        <v-navigation-drawer permanent location="left">
+        <v-navigation-drawer permanent location="left" expand-on-hover rail>
             <template v-slot:prepend>
                 <v-list-item lines="two" prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
-                    :title="title" subtitle="Đăng xuất"></v-list-item>
+                    :title="title"></v-list-item>
             </template>
 
             <v-divider></v-divider>
@@ -19,6 +19,13 @@
                     <v-list-item prepend-icon="mdi-check" title="Dịch vụ" value="service"></v-list-item> 
                 </router-link>   
             </v-list>
+            <template v-slot:append>
+                <div class="pa-2">
+                    <router-link to="/" style="text-decoration: none; color: inherit">
+                        <v-list-item prepend-icon="mdi-logout" title="Đăng xuất"></v-list-item>
+                    </router-link> 
+                </div>
+            </template>
         </v-navigation-drawer>
     </v-main>
 </template>

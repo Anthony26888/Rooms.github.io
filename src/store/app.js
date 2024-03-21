@@ -24,10 +24,10 @@ export const useAppStore = defineStore("app", {
   },
   getters: {
     FilterPaid() {
-      return this.pay.filter((value) => value.status === "true");
+      return this.pay.filter((value) => value.status === true);
     },
     FilterNotPay() {
-      return this.pay.filter((value) => value.status === "false");
+      return this.pay.filter((value) => value.status === false);
     },
   },
   actions: {
@@ -92,10 +92,6 @@ export const useAppStore = defineStore("app", {
       this.editPay = this.pay.find((value) => value.id === id);
     },
 
-    GetDetail(id) {
-      this.Info = this.data.find((value) => value.id === id);
-    },
-
     GetIdPay(id) {
       this.IdPay = id;
     },
@@ -125,6 +121,7 @@ export const useAppStore = defineStore("app", {
           wifi: WifiService,
           cable: CableService,
           electric: LastElectric,
+          status:'true'
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -212,6 +209,7 @@ export const useAppStore = defineStore("app", {
           date: DateRoom,
           wifi: WifiService,
           cable: CableService,
+          status:'true'
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -296,9 +294,15 @@ export const useAppStore = defineStore("app", {
     },
 
     //Delete room
-    DeleteRoom() {
+    Checkout() {
       axios
-        .delete("http://localhost:3000/Room/" + this.IdRoom)
+        .patch("http://localhost:3000/Room/" + this.IdRoom, {
+          qty:0,
+          status:false,
+          date:"",
+          wifi:false,
+          cable:false
+        })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -310,6 +314,8 @@ export const useAppStore = defineStore("app", {
     //Caculator Room Charge
     CaculatorCharge(
       DateNow,
+      Month,
+      Year,
       NameRoom,
       RoomCharge,
       ElectricCharge,
@@ -324,7 +330,7 @@ export const useAppStore = defineStore("app", {
       axios
         .post("http://localhost:3000/History", {
           status: Status,
-          date: DateNow,
+          date: DateNow,          
           name: NameRoom,
           roomcharge: RoomCharge,
           electric: ElectricCharge,
@@ -334,6 +340,8 @@ export const useAppStore = defineStore("app", {
           cable: CableCharge,
           other: OtherCharge,
           total: Total,
+          month:Month,
+          year:Year,
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -361,7 +369,7 @@ export const useAppStore = defineStore("app", {
     PaidCharge(id) {
       axios
         .patch("http://localhost:3000/History/" + id, {
-          status: "true",
+          status: true,
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);

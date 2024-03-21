@@ -14,7 +14,8 @@
         </template>
         <template v-slot:append>
           <div class="ribbon-wrap " >
-            <div class="ribbon bg-success"></div>
+            <div class="ribbon bg-success" v-if="item.status == 'true'">Đã thuê</div>  
+            <div class="ribbon bg-red" v-else>Trống</div>            
           </div>
         </template>
         <v-card-text>
@@ -61,6 +62,19 @@
                   caculator = true;
                   store.fetchEditRoom(item.id);                  
                 "
+                v-if="item.status == 'true'"
+              >
+                Tính tiền
+              </v-btn>
+              <v-btn
+                color="success"
+                variant="tonal"
+                disabled
+                @click="
+                  caculator = true;
+                  store.fetchEditRoom(item.id);                  
+                "
+                v-else
               >
                 Tính tiền
               </v-btn>
@@ -74,8 +88,21 @@
                   notifyRoom = true;                  
                   store.fetchEditRoom(item.id);
                 "
+                v-if="item.status == 'true'"
               >
-                Xóa
+                Trả
+              </v-btn>
+              <v-btn
+                color="red"
+                variant="tonal"
+                disabled
+                @click="
+                  notifyRoom = true;                  
+                  store.fetchEditRoom(item.id);
+                "
+                v-else
+              >
+                Trả
               </v-btn>
             </div>
           </div>
@@ -244,14 +271,14 @@
     </v-card>
   </v-dialog>
 
-  <!--Notifition Delete Room-->
+  <!--Notifition Checkout Room-->
   <v-dialog
     v-model="notifyRoom"
     width="500"
     transition="dialog-bottom-transition"
     persistent
   >
-    <v-card title="Bạn có muốn xóa phòng này?">
+    <v-card title="Bạn có muốn trả phòng này?">
       <VSpacer />
       <template v-slot:actions class="mx-auto">
         <div class="mx-auto">
@@ -260,7 +287,7 @@
           <v-btn
             @click="
               notifyRoom = false;
-              store.DeleteRoom(); 
+              store.Checkout(); 
               reloadPage()            
             "
             color="red"
@@ -312,17 +339,16 @@ export default {
 </script>
 <style scoped>
 .ribbon-wrap {
-  width: 80px;
-  height: 80px;  
+  width: 120px;
+  height: 50px;
   
-  pointer-events: none;
 }
 .ribbon {
   width: 200px;
   font-size: 0.8rem;
   text-align: center;
-  padding: 20px 0;
-  transform: rotate(45deg);
+  padding: 5px 0;
+  transform: rotate(40deg);
   
 }
 </style>

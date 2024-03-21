@@ -1,6 +1,7 @@
 <template>
-  <v-app class="bg-grey-lighten-4">   
-    <DefaultView/>    
+  <v-app class="bg-grey-lighten-4">  
+    <DefaultView/> 
+        
     <DefaultNavigation/> 
     <DefaultBar/>
   </v-app>

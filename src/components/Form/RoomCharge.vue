@@ -4,7 +4,8 @@
       <VRow>
         <VCol cols="6">
           <v-text-field
-            label="Số mới"
+            variant="outlined"
+            label="Thời gian"
             v-model="DateNow"
             type="date"
           ></v-text-field>
@@ -19,6 +20,7 @@
         </VCol>
         <VCol cols="3">
           <v-text-field
+            variant="outlined"
             label="Số cũ"
             v-model="ElectricOld"
             type="number"
@@ -28,6 +30,7 @@
         </VCol>
         <VCol cols="3">
           <v-text-field
+            variant="outlined"
             label="Số mới"
             v-model="ElectricNew"
             type="number"
@@ -168,6 +171,8 @@
         @click="
           store.CaculatorCharge(
             DateNow,
+            Month,
+            Year,
             NameRoom,
             RoomCharge,
             ElectricCharge,
@@ -194,11 +199,10 @@ import { useAppStore } from "@/store/app";
 const store = useAppStore();
 store.fetchService();
 export default {
-  name: "FormRoomCharge",
+  name: "RoomCharge",
   data() {
     return {
       List: ["Tiền phòng", "Điện", "Nước", "Rác + Wifi", "Tiền khác"],
-      Calander: ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"],
 
       ElectricOld: store.editRoom.electric,
       ElectricNew: 0,
@@ -218,11 +222,13 @@ export default {
       DebtCharge: 0,
 
       DateNow: "",
-      NameRoom: store.NumberRoom,
-      Status: "false",
+      NameRoom: store.editRoom.number,
+      Status: false,
       rules: {
         required: (value) => !!value || "Nhập thông tin",
       },
+      Month:0,
+      Year:0
     };
   },
   mounted() {
@@ -290,6 +296,11 @@ export default {
         Number(this.TrashCharge) +
         Number(this.OtherCharge) -
         Number(this.DebtCharge);
+
+
+      const time = new Date(this.DateNow)
+      this.Month = time.getMonth() + 1
+      this.Year = time.getUTCFullYear()
     }, 10);
   },
   computed: {

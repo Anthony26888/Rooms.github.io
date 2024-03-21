@@ -1,35 +1,16 @@
 {
   "Room": [
     {
-      "location": "Dãy B",
-      "number": "12",
+      "id": "da90",
+      "number": "1A",
       "qty": "2",
-      "roomcharge": "1500000",
-      "date": "2024-03-12",
-      "wifi": false,
-      "cable": false,
-      "id": "123"
-    },
-    {
-      "id": "3449",
-      "number": "123",
-      "qty": "2",
-      "location": "Dãy B",
-      "date": "2024-03-13",
-      "roomcharge": "1500000",
-      "wifi": false,
-      "cable": false,
-      "electric": "123666"
-    },
-    {
       "location": "Dãy A",
-      "number": "2A",
-      "qty": "3",
-      "roomcharge": "1500000",
-      "date": "2024-03-20",
-      "wifi": "true",
+      "date": "2024-03-21",
+      "roomcharge": "2000000",
+      "wifi": false,
       "cable": false,
-      "id": "c2a9"
+      "electric": "123520",
+      "status": "true"
     }
   ],
   "Profile": [
@@ -95,10 +76,27 @@
   ],
   "Profit": [
     {
-      "income": 0,
+      "income": 2125400,
       "debt": 0,
       "id": "0"
     }
   ],
-  "History": []
+  "History": [
+    {
+      "id": "cb40",
+      "status": true,
+      "date": "2024-03-21",
+      "name": "1A",
+      "roomcharge": "2000000",
+      "electric": 50400,
+      "water": 40000,
+      "trash": "35000",
+      "wifi": 0,
+      "cable": 0,
+      "other": 0,
+      "total": 2125400,
+      "month": 3,
+      "year": 2024
+    }
+  ]
 }
