@@ -1,9 +1,14 @@
 <template>
   <v-app class="bg-grey-lighten-4">  
-    <DefaultView/> 
-        
-    <DefaultNavigation/> 
-    <DefaultBar/>
+    <div class="d-lg-none d-xl-flex">
+      <DefaultView/> 
+      <DefaultNavigation/>
+    </div>
+    <div class="d-none d-lg-flex d-xl-none">
+      <DefaultView/> 
+      <DefaultBottom/>
+    </div>
+    
   </v-app>
 </template>
 
@@ -11,4 +16,5 @@
   import DefaultBar from './AppBar.vue'
   import DefaultView from './View.vue'
   import DefaultNavigation from './Navigation.vue'
+  import DefaultBottom from './BottomNavigation.vue'
 </script>

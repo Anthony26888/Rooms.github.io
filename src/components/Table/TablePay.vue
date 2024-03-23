@@ -62,7 +62,7 @@
 
           <v-btn
             @click="
-              notifyRoom = false;
+              notify = false;
               DeletePaid()            
                         
             "
