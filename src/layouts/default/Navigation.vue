@@ -1,6 +1,6 @@
 <template>
     <v-main>
-        <v-navigation-drawer permanent location="left" expand-on-hover rail>
+        <v-navigation-drawer location="left">
             <template v-slot:prepend>
                 <v-list-item lines="two" prepend-avatar="https://randomuser.me/api/portraits/women/81.jpg"
                     :title="title"></v-list-item>

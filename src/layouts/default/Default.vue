@@ -1,10 +1,10 @@
 <template>
   <v-app class="bg-grey-lighten-4">  
-    <div class="d-lg-none d-xl-flex">
+    <div class="d-none d-lg-flex d-xl-none">
       <DefaultView/> 
       <DefaultNavigation/>
     </div>
-    <div class="d-none d-lg-flex d-xl-none">
+    <div class="d-lg-none d-xl-flex">
       <DefaultView/> 
       <DefaultBottom/>
     </div>
