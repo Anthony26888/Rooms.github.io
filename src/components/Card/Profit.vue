@@ -1,25 +1,29 @@
 <template>
   <VRow class="mt-1">
-    <VCol cols="3">
-      <v-card title="Tổng Thu" class="w-100">
-        <v-card-text class="text-center text text-green">{{ store.payment.income }}</v-card-text>
+    <VCol  xs="12">
+      <v-card>
+        <v-card-title class="text-title">Tổng Thu</v-card-title>
+        <v-card-text class="text-center text-num text-green">{{ store.payment.income }}</v-card-text>
       </v-card>
     </VCol>
-    <VCol cols="3">
-      <v-card title="Tổng Nợ" class="w-100">
-        <v-card-text class="text-center text text-red">{{ store.payment.debt }}</v-card-text>
+    <VCol xs="12">
+      <v-card>
+        <v-card-title class="text-title">Tổng Nợ</v-card-title>
+        <v-card-text class="text-center text-num text-red">{{ store.payment.debt }}</v-card-text>
       </v-card>
     </VCol>
-    <VCol cols="3">
-      <v-card title="Phòng đã đóng tiền" class="w-100">
-        <v-card-text class="text-center text text-blue" v-if="store.FilterPaid.length == null">0</v-card-text>
-        <v-card-text class="text-center text text-blue" v-else>{{ store.FilterPaid.length }}</v-card-text>
+    <VCol xs="6">
+      <v-card>
+        <v-card-title class="text-title">Đã đóng</v-card-title>
+        <v-card-text class="text-center text-num text-blue" v-if="store.FilterPaid.length == null">0</v-card-text>
+        <v-card-text class="text-center text-num text-blue" v-else>{{ store.FilterPaid.length }}</v-card-text>
       </v-card>
     </VCol>
-    <VCol cols="3">
-      <v-card title="Phòng chưa đóng tiền" class="w-100">
-        <v-card-text class="text-center text text-deep-orange" v-if="store.FilterNotPay.length == null">0</v-card-text>
-        <v-card-text class="text-center text text-deep-orange" v-else>{{ store.FilterNotPay.length }}</v-card-text>
+    <VCol xs="6">
+      <v-card>
+        <v-card-title class="text-title">Chưa đóng </v-card-title>
+        <v-card-text class="text-center text-num text-deep-orange" v-if="store.FilterNotPay.length == null">0</v-card-text>
+        <v-card-text class="text-center text-num text-deep-orange" v-else>{{ store.FilterNotPay.length }}</v-card-text>
       </v-card>
     </VCol>
   </VRow>
@@ -50,8 +54,29 @@ export default {
 } 
 </script>
 <style scoped>
-.text {
-  font-size: 35px;
-  font-weight: 700;
+
+@media only screen and (min-width: 400px) {
+  .text-title{
+    font-size: 20px;
+  }
+  .text-num {
+    font-size: 20px;
+    font-weight: 700;
+  }
+}
+@media only screen and (min-width: 700px) {
+  .text-title{
+    font-size: 18px;
+  }
+  .text-num {
+    font-size: 18px;
+    font-weight: 700;
+  }
+}
+@media only screen and (min-width: 1024px) {
+  .text-num {
+    font-size: 25px;
+    font-weight: 700;
+  }
 }
 </style>
