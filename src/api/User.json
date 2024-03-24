@@ -81,22 +81,5 @@
       "id": "0"
     }
   ],
-  "History": [
-    {
-      "id": "cb40",
-      "status": true,
-      "date": "2024-03-21",
-      "name": "1A",
-      "roomcharge": "2000000",
-      "electric": 50400,
-      "water": 40000,
-      "trash": "35000",
-      "wifi": 0,
-      "cable": 0,
-      "other": 0,
-      "total": 2125400,
-      "month": 3,
-      "year": 2024
-    }
-  ]
+  "History": []
 }

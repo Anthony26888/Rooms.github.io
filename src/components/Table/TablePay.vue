@@ -127,8 +127,12 @@ export default {
         store.DivPaid(store.editPay.total);
         store.DeletePaid(store.IdPay);
       } else {
-        store.DivPay(store.editPay.total);
-        store.DeletePaid(store.IdPay);
+        if(store.service == 0){
+          store.DeletePaid(store.IdPay);
+        }else{
+          store.DivPay(store.editPay.total);
+          store.DeletePaid(store.IdPay);
+        }
       }
     },
   },
@@ -158,10 +162,12 @@ export default {
 }
 @media only screen and (min-width: 1024px) {
   .text-title {
-    font-size: 22px;
+    font-size: 18px;
+    
   }
   td {
-    font-size: 22px;
+    font-size: 18px;
+    
   }
 }
 </style>
