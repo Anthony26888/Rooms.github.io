@@ -94,6 +94,13 @@ export const useAppStore = defineStore("app", {
       this.editPay = this.pay.find((value) => value.id === id);
     },
 
+    FilterTimePay(select){
+      setInterval(async () => {
+        const res = await fetch(`http://localhost:3000/History?time=${select}`);
+        this.FilterTime = await res.json();
+      }, 100);
+    },
+
     GetIdPay(id) {
       this.IdPay = id;
     },
@@ -447,8 +454,6 @@ export const useAppStore = defineStore("app", {
     },
 
 
-    FilterTimePay(select){
-      this.FilterTime =  this.pay.filter((value) => value.time === select )
-    }
+  
   },
 });

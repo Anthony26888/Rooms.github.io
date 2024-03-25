@@ -96,6 +96,21 @@
       "other": 0,
       "total": 2185400,
       "time": "3/2024"
+    },
+    {
+      "id": "3b14",
+      "status": false,
+      "date": "2024-03-25",
+      "name": "1A",
+      "roomcharge": "2000000",
+      "electric": 110400,
+      "water": 40000,
+      "trash": "35000",
+      "wifi": 0,
+      "cable": 0,
+      "other": 0,
+      "total": 2185400,
+      "time": "4/2024"
     }
   ]
 }
