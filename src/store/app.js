@@ -20,6 +20,7 @@ export const useAppStore = defineStore("app", {
       service: [],
       payment: 0,
       debt: 0,
+      FilterTime:[]
     };
   },
   getters: {
@@ -29,6 +30,7 @@ export const useAppStore = defineStore("app", {
     FilterNotPay() {
       return this.pay.filter((value) => value.status === false);
     },
+    
   },
   actions: {
     //Fetch service Charge
@@ -314,8 +316,7 @@ export const useAppStore = defineStore("app", {
     //Caculator Room Charge
     CaculatorCharge(
       DateNow,
-      Month,
-      Year,
+      Time,
       NameRoom,
       RoomCharge,
       ElectricCharge,
@@ -340,8 +341,7 @@ export const useAppStore = defineStore("app", {
           cable: CableCharge,
           other: OtherCharge,
           total: Total,
-          month:Month,
-          year:Year,
+          time: Time
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -445,5 +445,10 @@ export const useAppStore = defineStore("app", {
           console.error("Error submitting form:", error);
         });
     },
+
+
+    FilterTimePay(select){
+      this.FilterTime =  this.pay.filter((value) => value.time === select )
+    }
   },
 });

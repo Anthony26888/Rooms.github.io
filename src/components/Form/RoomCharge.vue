@@ -171,8 +171,7 @@
         @click="
           store.CaculatorCharge(
             DateNow,
-            Month,
-            Year,
+            Time,
             NameRoom,
             RoomCharge,
             ElectricCharge,
@@ -182,7 +181,7 @@
             CableCharge,
             OtherCharge,
             Total,
-            Status
+            Status,
           );
           store.Parameter(ElectricNew);
           store.Debt(Total)
@@ -228,7 +227,8 @@ export default {
         required: (value) => !!value || "Nhập thông tin",
       },
       Month:0,
-      Year:0
+      Year:0,
+      Time:""
     };
   },
   mounted() {
@@ -298,9 +298,10 @@ export default {
         Number(this.DebtCharge);
 
 
-      const time = new Date(this.DateNow)
-      this.Month = time.getMonth() + 1
-      this.Year = time.getUTCFullYear()
+      const now = new Date(this.DateNow)
+      const Month = now.getMonth() +1
+      const Year = now.getFullYear()
+      this.Time = Month + "/" +Year
     }, 10);
   },
   computed: {

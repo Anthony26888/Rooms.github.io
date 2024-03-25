@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="item in store.pay">
+        <tr v-for="item in store.FilterTime">
           <td>Phòng {{ item.name }}</td>
           <td>
             <p v-if="item.status == false" class="text-red">Chưa thanh toán</p>
@@ -21,6 +21,7 @@
           <td>
             <div class="d-flex">
               <v-btn
+                disabled
                 class="button"                
                 color="success"
                 icon="mdi-check"
@@ -33,7 +34,7 @@
               ></v-btn>
               <v-btn
                 class="button"
-                disabled
+                
                 color="success"
                 icon="mdi-check"
                 variant="text"
