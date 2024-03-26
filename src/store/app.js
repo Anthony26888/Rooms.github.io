@@ -121,7 +121,7 @@ export const useAppStore = defineStore("app", {
       LastElectric
     ) {
       axios
-        .post("http://localhost:3000/Room", {
+        .post("https://rooms-test.onrender.com/Room", {
           number: NameRoom,
           qty: QtyMember,
           location: LocationRoom,
@@ -151,7 +151,7 @@ export const useAppStore = defineStore("app", {
       LocationMember
     ) {
       axios
-        .post("http://localhost:3000/Profile", {
+        .post("https://rooms-test.onrender.com/Profile", {
           room: this.NumberRoom,
           name: NameMember,
           birth: BirthMember,
@@ -181,7 +181,7 @@ export const useAppStore = defineStore("app", {
       LocationMember
     ) {
       axios
-        .put(`http://localhost:3000/Profile/${IdMember}`, {
+        .put(`https://rooms-test.onrender.com/Profile/${IdMember}`, {
           name: NameMember,
           room: this.NumberRoom,
           birth: BirthMember,
@@ -210,7 +210,7 @@ export const useAppStore = defineStore("app", {
       CableService
     ) {
       axios
-        .put(`http://localhost:3000/Room/${this.IdRoom}`, {
+        .put(`https://rooms-test.onrender.com/Room/${this.IdRoom}`, {
           location: LocationRoom,
           number: NameRoom,
           qty: QtyMember,
@@ -231,7 +231,7 @@ export const useAppStore = defineStore("app", {
     //Edit Electric
     EditElectric(Electric0, Electric50, Electric100, Electric200, Electric300) {
       axios
-        .patch(`http://localhost:3000/Service/0`, {
+        .patch(`https://rooms-test.onrender.com/Service/0`, {
           Electric0: Electric0,
           Electric50: Electric50,
           Electric100: Electric100,
@@ -249,7 +249,7 @@ export const useAppStore = defineStore("app", {
     //Edit Water
     EditWater(Water) {
       axios
-        .patch(`http://localhost:3000/Service/0`, {
+        .patch(`https://rooms-test.onrender.com/Service/0`, {
           Water: Water,
         })
         .then((response) => {
@@ -263,7 +263,7 @@ export const useAppStore = defineStore("app", {
     //Edit Trash
     EditTrash(Trash) {
       axios
-        .patch(`http://localhost:3000/Service/0`, {
+        .patch(`https://rooms-test.onrender.com/Service/0`, {
           Trash: Trash,
         })
         .then((response) => {
@@ -278,7 +278,7 @@ export const useAppStore = defineStore("app", {
     //Edit Wifi and Cable
     EditMore(Wifi, Cable) {
       axios
-        .patch(`http://localhost:3000/Service/0`, {
+        .patch(`https://rooms-test.onrender.com/Service/0`, {
           Wifi: Wifi,
           Cable:Cable
         })
@@ -293,7 +293,7 @@ export const useAppStore = defineStore("app", {
     //Delete profile of member
     DeleteMember() {
       axios
-        .delete("http://localhost:3000/Profile/" + this.IdMember)
+        .delete("https://rooms-test.onrender.com/Profile/" + this.IdMember)
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -305,7 +305,7 @@ export const useAppStore = defineStore("app", {
     //Delete room
     Checkout() {
       axios
-        .patch("http://localhost:3000/Room/" + this.IdRoom, {
+        .patch("https://rooms-test.onrender.com/Room/" + this.IdRoom, {
           qty:0,
           status:false,
           date:"",
@@ -361,7 +361,7 @@ export const useAppStore = defineStore("app", {
     //Parameter of Electric and Water
     Parameter(ElectricNew) {
       axios
-        .patch(`http://localhost:3000/Room/${this.IdRoom}`, {
+        .patch(`https://rooms-test.onrender.com/Room/${this.IdRoom}`, {
           electric: ElectricNew,
         })
         .then((response) => {
@@ -375,7 +375,7 @@ export const useAppStore = defineStore("app", {
     //Accept paid room charge
     PaidCharge(id) {
       axios
-        .patch("http://localhost:3000/History/" + id, {
+        .patch("https://rooms-test.onrender.com/History/" + id, {
           status: true,
         })
         .then((response) => {
@@ -389,7 +389,7 @@ export const useAppStore = defineStore("app", {
     //Payment
     Payment(total) {
       axios
-        .patch(`http://localhost:3000/Profit/0`, {
+        .patch(`https://rooms-test.onrender.com/Profit/0`, {
           income: this.payment.income + Number(total),
           debt: this.payment.debt - Number(total),
         })
@@ -404,7 +404,7 @@ export const useAppStore = defineStore("app", {
     //Debt
     Debt(total) {
       axios
-        .patch(`http://localhost:3000/Profit/0`, {
+        .patch(`https://rooms-test.onrender.com/Profit/0`, {
           debt: this.payment.debt + Number(total),
         })
         .then((response) => {
@@ -418,7 +418,7 @@ export const useAppStore = defineStore("app", {
     //Delete Payment
     DeletePaid(id) {
       axios
-        .delete("http://localhost:3000/History/" + id)
+        .delete("https://rooms-test.onrender.com/History/" + id)
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -429,7 +429,7 @@ export const useAppStore = defineStore("app", {
 
     DivPaid(total) {
       axios
-        .patch(`http://localhost:3000/Profit/0`, {
+        .patch(`https://rooms-test.onrender.com/Profit/0`, {
           income: this.payment.income - Number(total),
         })
         .then((response) => {
@@ -442,7 +442,7 @@ export const useAppStore = defineStore("app", {
 
     DivPay(total) {
       axios
-        .patch(`http://localhost:3000/Profit/0`, {
+        .patch(`https://rooms-test.onrender.com/Profit/0`, {
           debt: this.payment.debt - Number(total),
         })
         .then((response) => {
