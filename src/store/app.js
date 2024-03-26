@@ -20,7 +20,7 @@ export const useAppStore = defineStore("app", {
       service: [],
       payment: 0,
       debt: 0,
-      FilterTime:[]
+      FilterTime: [],
     };
   },
   getters: {
@@ -30,84 +30,13 @@ export const useAppStore = defineStore("app", {
     FilterNotPay() {
       return this.pay.filter((value) => value.status === false);
     },
-    
   },
   actions: {
-    //Fetch service Charge
-    async fetchService() {
-      const res = await fetch("http://localhost:3000/Service/0");
-      this.service = await res.json();
-    },
-
     //Fetch api room
     async fetchRoom() {
       const res = await fetch("http://localhost:3000/Room");
       this.data = await res.json();
     },
-
-    //Fetch api list of member
-    async fetchProfile(number) {
-      const res = await fetch("http://localhost:3000/Profile?room=" + number);
-      this.profile = await res.json();
-    },
-
-    //Fetch api pay of room
-    fetchPay() {
-      setInterval(async () => {
-        const res = await fetch("http://localhost:3000/History");
-        this.pay = await res.json();
-      }, 100);
-    },
-
-    //Fetch api payment of room
-    fetchPayment() {
-      setInterval(async () => {
-        const res = await fetch("http://localhost:3000/Profit/0");
-        this.payment = await res.json();
-      }, 100);
-    },
-
-    fetchDebt() {
-      setInterval(async () => {
-        const res = await fetch("http://localhost:3000/Profit/0");
-        this.debt = await res.json();
-      }, 100);
-    },
-
-    //Fetch api profile of member
-    fetchMember(name, id) {
-      // Assuming your JSON file is in the public folder
-      this.member = this.profile.find((value) => value.name === name);
-      this.IdMember = id;
-    },
-
-    //Fetch api profile of room for edit
-    fetchEditRoom(id) {
-      // Assuming your JSON file is in the public folder
-      this.editRoom = this.data.find((value) => value.id === id);
-      this.IdRoom = id;
-    },
-
-    //Fetch api pay for edit
-    fetchEditPay(id) {
-      // Assuming your JSON file is in the public folder
-      this.editPay = this.pay.find((value) => value.id === id);
-    },
-
-    FilterTimePay(select){
-      setInterval(async () => {
-        const res = await fetch(`http://localhost:3000/History?time=${select}`);
-        this.FilterTime = await res.json();
-      }, 100);
-    },
-
-    GetIdPay(id) {
-      this.IdPay = id;
-    },
-
-
-
-    
 
     //Create a new room
     CreateRoom(
@@ -121,7 +50,7 @@ export const useAppStore = defineStore("app", {
       LastElectric
     ) {
       axios
-        .post("https://rooms-test.onrender.com/Room", {
+        .post("http://localhost:3000/Room", {
           number: NameRoom,
           qty: QtyMember,
           location: LocationRoom,
@@ -130,7 +59,7 @@ export const useAppStore = defineStore("app", {
           wifi: WifiService,
           cable: CableService,
           electric: LastElectric,
-          status:'true'
+          status: "true",
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -138,6 +67,59 @@ export const useAppStore = defineStore("app", {
         .catch((error) => {
           console.error("Error submitting form:", error);
         });
+    },
+
+    //Edit profile of room
+    EditRoom(
+      LocationRoom,
+      NameRoom,
+      QtyMember,
+      RoomCharge,
+      DateRoom,
+      WifiService,
+      CableService
+    ) {
+      axios
+        .put(`http://localhost:3000/Room/${this.IdRoom}`, {
+          location: LocationRoom,
+          number: NameRoom,
+          qty: QtyMember,
+          roomcharge: RoomCharge,
+          date: DateRoom,
+          wifi: WifiService,
+          cable: CableService,
+          status: "true",
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
+    },
+
+    //Delete room
+    Checkout() {
+      axios
+        .patch("http://localhost:3000/Room/" + this.IdRoom, {
+          qty: 0,
+          status: false,
+          date: "",
+          wifi: false,
+          cable: false,
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
+    },
+
+    //Fetch api list of member
+    async fetchProfile(number) {
+      const res = await fetch("http://localhost:3000/Profile?room=" + number);
+      this.profile = await res.json();
     },
 
     //Create a new member in that room
@@ -151,7 +133,7 @@ export const useAppStore = defineStore("app", {
       LocationMember
     ) {
       axios
-        .post("https://rooms-test.onrender.com/Profile", {
+        .post("http://localhost:3000/Profile", {
           room: this.NumberRoom,
           name: NameMember,
           birth: BirthMember,
@@ -181,7 +163,7 @@ export const useAppStore = defineStore("app", {
       LocationMember
     ) {
       axios
-        .put(`https://rooms-test.onrender.com/Profile/${IdMember}`, {
+        .put(`http://localhost:3000/Profile/${IdMember}`, {
           name: NameMember,
           room: this.NumberRoom,
           birth: BirthMember,
@@ -199,27 +181,10 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-    //Edit profile of room
-    EditRoom(
-      LocationRoom,
-      NameRoom,
-      QtyMember,
-      RoomCharge,
-      DateRoom,
-      WifiService,
-      CableService
-    ) {
+    //Delete profile of member
+    DeleteMember() {
       axios
-        .put(`https://rooms-test.onrender.com/Room/${this.IdRoom}`, {
-          location: LocationRoom,
-          number: NameRoom,
-          qty: QtyMember,
-          roomcharge: RoomCharge,
-          date: DateRoom,
-          wifi: WifiService,
-          cable: CableService,
-          status:'true'
-        })
+        .delete("http://localhost:3000/Profile/" + this.IdMember)
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -228,10 +193,18 @@ export const useAppStore = defineStore("app", {
         });
     },
 
+
+
+    //Fetch service Charge
+    async fetchService() {
+      const res = await fetch("http://localhost:3000/Service/0");
+      this.service = await res.json();
+    },
+
     //Edit Electric
     EditElectric(Electric0, Electric50, Electric100, Electric200, Electric300) {
       axios
-        .patch(`https://rooms-test.onrender.com/Service/0`, {
+        .patch(`http://localhost:3000/Service/0`, {
           Electric0: Electric0,
           Electric50: Electric50,
           Electric100: Electric100,
@@ -249,7 +222,7 @@ export const useAppStore = defineStore("app", {
     //Edit Water
     EditWater(Water) {
       axios
-        .patch(`https://rooms-test.onrender.com/Service/0`, {
+        .patch(`http://localhost:3000/Service/0`, {
           Water: Water,
         })
         .then((response) => {
@@ -263,7 +236,7 @@ export const useAppStore = defineStore("app", {
     //Edit Trash
     EditTrash(Trash) {
       axios
-        .patch(`https://rooms-test.onrender.com/Service/0`, {
+        .patch(`http://localhost:3000/Service/0`, {
           Trash: Trash,
         })
         .then((response) => {
@@ -274,13 +247,12 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-
     //Edit Wifi and Cable
     EditMore(Wifi, Cable) {
       axios
-        .patch(`https://rooms-test.onrender.com/Service/0`, {
+        .patch(`http://localhost:3000/Service/0`, {
           Wifi: Wifi,
-          Cable:Cable
+          Cable: Cable,
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -290,35 +262,22 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-    //Delete profile of member
-    DeleteMember() {
-      axios
-        .delete("https://rooms-test.onrender.com/Profile/" + this.IdMember)
-        .then((response) => {
-          console.log("Form submitted successfully!", response.data);
-        })
-        .catch((error) => {
-          console.error("Error submitting form:", error);
-        });
+
+    //Fetch api pay of room
+    fetchPay() {
+      setInterval(async () => {
+        const res = await fetch("http://localhost:3000/History");
+        this.pay = await res.json();
+      }, 100);
     },
 
-    //Delete room
-    Checkout() {
-      axios
-        .patch("https://rooms-test.onrender.com/Room/" + this.IdRoom, {
-          qty:0,
-          status:false,
-          date:"",
-          wifi:false,
-          cable:false
-        })
-        .then((response) => {
-          console.log("Form submitted successfully!", response.data);
-        })
-        .catch((error) => {
-          console.error("Error submitting form:", error);
-        });
+    //Fetch select time for pay
+    
+    async FilterTimePay(select) {
+      const res = await fetch(`http://localhost:3000/History?time=${select}`);
+      this.FilterTime = await res.json();
     },
+    
 
     //Caculator Room Charge
     CaculatorCharge(
@@ -338,7 +297,7 @@ export const useAppStore = defineStore("app", {
       axios
         .post("http://localhost:3000/History", {
           status: Status,
-          date: DateNow,          
+          date: DateNow,
           name: NameRoom,
           roomcharge: RoomCharge,
           electric: ElectricCharge,
@@ -348,7 +307,7 @@ export const useAppStore = defineStore("app", {
           cable: CableCharge,
           other: OtherCharge,
           total: Total,
-          time: Time
+          time: Time,
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -358,10 +317,38 @@ export const useAppStore = defineStore("app", {
         });
     },
 
+    //Delete Payment
+    DeletePaid(id) {
+      axios
+        .delete("http://localhost:3000/History/" + id)
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
+    },
+
+
+    //Fetch api payment of room
+    fetchPayment() {
+      setInterval(async () => {
+        const res = await fetch("http://localhost:3000/Profit/0");
+        this.payment = await res.json();
+      }, 100);
+    },
+
+    fetchDebt() {
+      setInterval(async () => {
+        const res = await fetch("http://localhost:3000/Profit/0");
+        this.debt = await res.json();
+      }, 100);
+    },
+
     //Parameter of Electric and Water
     Parameter(ElectricNew) {
       axios
-        .patch(`https://rooms-test.onrender.com/Room/${this.IdRoom}`, {
+        .patch(`http://localhost:3000/Room/${this.IdRoom}`, {
           electric: ElectricNew,
         })
         .then((response) => {
@@ -375,7 +362,7 @@ export const useAppStore = defineStore("app", {
     //Accept paid room charge
     PaidCharge(id) {
       axios
-        .patch("https://rooms-test.onrender.com/History/" + id, {
+        .patch("http://localhost:3000/History/" + id, {
           status: true,
         })
         .then((response) => {
@@ -389,7 +376,7 @@ export const useAppStore = defineStore("app", {
     //Payment
     Payment(total) {
       axios
-        .patch(`https://rooms-test.onrender.com/Profit/0`, {
+        .patch(`http://localhost:3000/Profit/0`, {
           income: this.payment.income + Number(total),
           debt: this.payment.debt - Number(total),
         })
@@ -404,7 +391,7 @@ export const useAppStore = defineStore("app", {
     //Debt
     Debt(total) {
       axios
-        .patch(`https://rooms-test.onrender.com/Profit/0`, {
+        .patch(`http://localhost:3000/Profit/0`, {
           debt: this.payment.debt + Number(total),
         })
         .then((response) => {
@@ -415,21 +402,11 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-    //Delete Payment
-    DeletePaid(id) {
-      axios
-        .delete("https://rooms-test.onrender.com/History/" + id)
-        .then((response) => {
-          console.log("Form submitted successfully!", response.data);
-        })
-        .catch((error) => {
-          console.error("Error submitting form:", error);
-        });
-    },
+    
 
     DivPaid(total) {
       axios
-        .patch(`https://rooms-test.onrender.com/Profit/0`, {
+        .patch(`http://localhost:3000/Profit/0`, {
           income: this.payment.income - Number(total),
         })
         .then((response) => {
@@ -442,7 +419,7 @@ export const useAppStore = defineStore("app", {
 
     DivPay(total) {
       axios
-        .patch(`https://rooms-test.onrender.com/Profit/0`, {
+        .patch(`http://localhost:3000/Profit/0`, {
           debt: this.payment.debt - Number(total),
         })
         .then((response) => {
@@ -453,7 +430,36 @@ export const useAppStore = defineStore("app", {
         });
     },
 
+    //Fetch api profile of member
+    fetchMember(name, id) {
+      // Assuming your JSON file is in the public folder
+      this.member = this.profile.find((value) => value.name === name);
+      this.IdMember = id;
+    },
 
-  
+    //Fetch api profile of room for edit
+    fetchEditRoom(id) {
+      // Assuming your JSON file is in the public folder
+      this.editRoom = this.data.find((value) => value.id === id);
+      this.IdRoom = id;
+    },
+
+    //Fetch api pay for edit
+    fetchEditPay(id) {
+      // Assuming your JSON file is in the public folder
+      this.editPay = this.pay.find((value) => value.id === id);
+    },
+
+    
+
+    GetIdPay(id) {
+      this.IdPay = id;
+    },
+
+    
+    
+
+    
+    
   },
 });

@@ -1,18 +1,20 @@
 <template lang="">
-  <VRow>
-    <VCol cols="3">
-      <v-select
-        v-model="SelectMonth"
-        width="200"
-        label="Chọn thời gian"
-        :items="List"
-        variant="solo"
-        @click="store.FilterTimePay(SelectMonth)"
-      ></v-select>
-    </VCol>
-    <VCol cols="9"></VCol>
-    
-  </VRow>
+  <v-form v-on:submit="store.FilterTimePay(SelectMonth)">
+    <VRow>
+      <VCol cols="3">
+        <v-select
+          v-model="SelectMonth"
+          label="Chọn thời gian"
+          :items="List"
+          variant="solo"
+        ></v-select>
+      </VCol>
+      <VCol cols="2">
+        <VBtn class="mt-2">Tìm kiếm</VBtn>
+      </VCol>
+      <VCol cols="7"></VCol>
+    </VRow>
+  </v-form>
 </template>
 <script setup>
 import { useAppStore } from "@/store/app";
@@ -40,13 +42,12 @@ export default {
       SelectMonth: "",
     };
   },
-  mounted(){
-    const now = new Date()
-    const Month = now.getMonth() +1
-    const Year = now.getFullYear()
-    this.SelectMonth = Month + "/" +Year
-    
-  }
+  mounted() {
+    const now = new Date();
+    const Month = now.getMonth() + 1;
+    const Year = now.getFullYear();
+    this.SelectMonth = Month + "/" + Year;
+  },
 };
 </script>
 <style lang=""></style>
