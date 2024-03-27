@@ -9,7 +9,7 @@
       "roomcharge": "2000000",
       "wifi": false,
       "cable": false,
-      "electric": "123566",
+      "electric": "123999",
       "status": "true"
     }
   ],
@@ -76,41 +76,26 @@
   ],
   "Profit": [
     {
-      "income": 2125400,
-      "debt": 2185400,
+      "income": 0,
+      "debt": 2363000,
       "id": "0"
     }
   ],
   "History": [
     {
-      "id": "3b14",
+      "id": "ef0b",
       "status": false,
-      "date": "2024-03-25",
+      "date": "2024-3-27",
       "name": "1A",
       "roomcharge": "2000000",
-      "electric": 110400,
+      "electric": 288000,
       "water": 40000,
       "trash": "35000",
       "wifi": 0,
       "cable": 0,
       "other": 0,
-      "total": 2185400,
+      "total": 2363000,
       "time": "3/2024"
-    },
-    {
-      "id": "3b14",
-      "status": false,
-      "date": "2024-04-25",
-      "name": "1A",
-      "roomcharge": "2000000",
-      "electric": 110400,
-      "water": 40000,
-      "trash": "35000",
-      "wifi": 0,
-      "cable": 0,
-      "other": 0,
-      "total": 2185400,
-      "time": "4/2024"
     }
   ]
 }

@@ -20,7 +20,8 @@ export const useAppStore = defineStore("app", {
       service: [],
       payment: 0,
       debt: 0,
-      FilterTime: [],
+      FilterTime:"",
+      Current:""
     };
   },
   getters: {
@@ -30,6 +31,20 @@ export const useAppStore = defineStore("app", {
     FilterNotPay() {
       return this.pay.filter((value) => value.status === false);
     },
+    Time(){
+      const now = new Date();
+      const Month = now.getMonth() + 1;
+      const Year = now.getFullYear();
+      this.Current = Month + "/" + Year;
+    },
+    
+    FilterPay(){
+      if(this.FilterTime == ""){
+        return this.pay.filter((value) => value.time === this.Current)
+      }else{
+        return this.pay.filter((value) => value.time === this.FilterTime)
+      }
+    }
   },
   actions: {
     //Fetch api room
@@ -273,9 +288,8 @@ export const useAppStore = defineStore("app", {
 
     //Fetch select time for pay
     
-    async FilterTimePay(select) {
-      const res = await fetch(`http://localhost:3000/History?time=${select}`);
-      this.FilterTime = await res.json();
+    async FilterTimePay(select) {      
+      this.FilterTime = select;
     },
     
 

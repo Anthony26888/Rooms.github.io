@@ -2,13 +2,10 @@
   <form >
     <v-card-text>
       <VRow>
-        <VCol cols="6">
-          <v-text-field
-            variant="outlined"
-            label="Thời gian"
-            v-model="DateNow"
-            type="date"
-          ></v-text-field>
+        <VCol cols="4">
+          <v-card>
+            <v-card-text>Thời gian: {{ DateNow }}</v-card-text>
+          </v-card>
         </VCol>
 
         <VCol cols="6"></VCol>
@@ -16,7 +13,7 @@
 
       <VRow>
         <VCol cols="2">
-          <h3 class="text-center mt-4">Điện</h3>
+          <h3 class="text-start mt-4">Điện</h3>
         </VCol>
         <VCol cols="3">
           <v-text-field
@@ -82,7 +79,7 @@
 
       <VRow>
         <VCol cols="2">
-          <h3 class="text-center mt-4">Tiền khác</h3>
+          <h3 class="text-start mt-4">Tiền khác</h3>
         </VCol>
         <VCol cols="8">
           <v-text-field v-model="OtherCharge" suffix="vnđ"></v-text-field>
@@ -91,7 +88,7 @@
 
       <VRow>
         <VCol cols="2">
-          <h3 class="text-center mt-4">Tiền nợ</h3>
+          <h3 class="text-start mt-4">Tiền nợ</h3>
         </VCol>
         <VCol cols="8">
           <v-text-field v-model="DebtCharge" suffix="vnđ"></v-text-field>
@@ -228,7 +225,7 @@ export default {
       },
       Month:0,
       Year:0,
-      Time:""
+      Time:"",     
     };
   },
   mounted() {
@@ -298,10 +295,12 @@ export default {
         Number(this.DebtCharge);
 
 
-      const now = new Date(this.DateNow)
+      const now = new Date()
+      const Day = now.getDate()
       const Month = now.getMonth() +1
       const Year = now.getFullYear()
       this.Time = Month + "/" +Year
+      this.DateNow = Year + "-" + Month + "-" + Day
     }, 10);
   },
   computed: {
