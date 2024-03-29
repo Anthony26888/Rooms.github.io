@@ -20,8 +20,10 @@ export const useAppStore = defineStore("app", {
       service: [],
       payment: 0,
       debt: 0,
-      FilterTime:"",
-      Current:""
+      FilterTime:null,
+      Current:"",
+      Total:0,
+          
     };
   },
   getters: {
@@ -38,12 +40,19 @@ export const useAppStore = defineStore("app", {
       this.Current = Month + "/" + Year;
     },
     
-    FilterPay(){
-      if(this.FilterTime == ""){
-        return this.pay.filter((value) => value.time === this.Current)
+    FilterPay(){  
+      if(this.FilterTime !== null){
+        return this.pay.filter((value) => value.time === this.FilterTime)        
       }else{
-        return this.pay.filter((value) => value.time === this.FilterTime)
+        return this.pay.filter((value) => value.time === this.Current)
       }
+    },
+
+    TotalCaculator(){
+      const check = this.pay.filter((value) => value.status == true)
+      check.forEach((value) =>{
+        this.Total += value.total
+      })
     }
   },
   actions: {
@@ -343,21 +352,7 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-
-    //Fetch api payment of room
-    fetchPayment() {
-      setInterval(async () => {
-        const res = await fetch("http://localhost:3000/Profit/0");
-        this.payment = await res.json();
-      }, 100);
-    },
-
-    fetchDebt() {
-      setInterval(async () => {
-        const res = await fetch("http://localhost:3000/Profit/0");
-        this.debt = await res.json();
-      }, 100);
-    },
+    
 
     //Parameter of Electric and Water
     Parameter(ElectricNew) {
@@ -387,62 +382,9 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-    //Payment
-    Payment(total) {
-      axios
-        .patch(`http://localhost:3000/Profit/0`, {
-          income: this.payment.income + Number(total),
-          debt: this.payment.debt - Number(total),
-        })
-        .then((response) => {
-          console.log("Form submitted successfully!", response.data);
-        })
-        .catch((error) => {
-          console.error("Error submitting form:", error);
-        });
-    },
-
-    //Debt
-    Debt(total) {
-      axios
-        .patch(`http://localhost:3000/Profit/0`, {
-          debt: this.payment.debt + Number(total),
-        })
-        .then((response) => {
-          console.log("Form submitted successfully!", response.data);
-        })
-        .catch((error) => {
-          console.error("Error submitting form:", error);
-        });
-    },
-
     
 
-    DivPaid(total) {
-      axios
-        .patch(`http://localhost:3000/Profit/0`, {
-          income: this.payment.income - Number(total),
-        })
-        .then((response) => {
-          console.log("Form submitted successfully!", response.data);
-        })
-        .catch((error) => {
-          console.error("Error submitting form:", error);
-        });
-    },
 
-    DivPay(total) {
-      axios
-        .patch(`http://localhost:3000/Profit/0`, {
-          debt: this.payment.debt - Number(total),
-        })
-        .then((response) => {
-          console.log("Form submitted successfully!", response.data);
-        })
-        .catch((error) => {
-          console.error("Error submitting form:", error);
-        });
-    },
 
     //Fetch api profile of member
     fetchMember(name, id) {

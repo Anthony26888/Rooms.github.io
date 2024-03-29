@@ -3,13 +3,13 @@
     <VCol  xs="12">
       <v-card>
         <v-card-title class="text-title">Tổng Thu</v-card-title>
-        <v-card-text class="text-center text-num text-green">{{ store.payment.income }}</v-card-text>
+        <v-card-text class="text-center text-num text-green">{{ store.Total }}</v-card-text>
       </v-card>
     </VCol>
     <VCol xs="12">
       <v-card>
         <v-card-title class="text-title">Tổng Nợ</v-card-title>
-        <v-card-text class="text-center text-num text-red">{{ store.payment.debt }}</v-card-text>
+        <v-card-text class="text-center text-num text-red">{{  }}</v-card-text>
       </v-card>
     </VCol>
     <VCol xs="6">
@@ -31,8 +31,7 @@
 <script setup>
 import { useAppStore } from "@/store/app";
 const store = useAppStore();
-store.fetchPayment();
-store.fetchDebt()
+
 </script>
 <script>
 
@@ -40,11 +39,11 @@ export default {
   name: "Profit",
   data() {
     return {
-      
+      Total:0,
     }
   },
   mounted() {
-    
+   
 
 
   },

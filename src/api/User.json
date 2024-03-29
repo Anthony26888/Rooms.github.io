@@ -73,18 +73,11 @@
       "Cable": "20000",
       "id": "0"
     }
-  ],
-  "Profit": [
-    {
-      "income": 0,
-      "debt": 2363000,
-      "id": "0"
-    }
-  ],
+  ], 
   "History": [
     {
       "id": "ef0b",
-      "status": false,
+      "status": true,
       "date": "2024-3-27",
       "name": "1A",
       "roomcharge": "2000000",

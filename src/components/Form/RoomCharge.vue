@@ -179,9 +179,7 @@
             OtherCharge,
             Total,
             Status,
-          );
-          store.Parameter(ElectricNew);
-          store.Debt(Total)
+          );      
         "
         >Lưu</v-btn
       >
