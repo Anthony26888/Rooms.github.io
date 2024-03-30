@@ -26,43 +26,24 @@ export const useAppStore = defineStore("app", {
       Pay: 0,
     };
   },
-  getters: {
-    FilterPaid() {
-      return this.pay.filter((value) => value.status === true);
-    },
-    FilterNotPay() {
-      return this.pay.filter((value) => value.status === false);
-    },
-
-    FilterCaculator() {
+  getters: { 
+    Filter() {
       const now = new Date();
       const Month = now.getMonth() + 1;
       const Year = now.getFullYear();
       const Current = Month + "/" + Year;
-      let sum = 0;
-      let debt = 0;
-      if (this.FilterTime !== null) {
-        this.FilterPay = this.pay.filter((value) => value.time === this.FilterTime);
-      } else {
-        this.FilterPay = this.pay.filter((value) => value.time === Current);
+      if(this.FilterTime == null){
+        return this.pay.filter((value) => value.time === Current)
+      }else{
+        return this.pay.filter((value) => value.time === this.FilterTime)
       }
-      const checkTrue = this.FilterPay.filter((value) => value.status === true);
-      const checkFalse = this.FilterPay.filter(
-        (value) => value.status === false
-      );
-      checkTrue.forEach(function (value) {
-        sum += parseFloat(value.total);
-      });
-      checkFalse.forEach(function (value) {
-        debt += parseFloat(value.total);
-      });
-      this.Sum = sum;
-      this.Debt = debt;
-      this.Paid = checkTrue.length;
-      this.Pay = checkFalse.length;
+      
+      
     },
+   
   },
   actions: {
+    
     //Fetch api room
     async fetchRoom() {
       const res = await fetch("http://localhost:3000/Room");
@@ -301,8 +282,26 @@ export const useAppStore = defineStore("app", {
 
     //Fetch select time for pay
 
-    async FilterTimePay(select) {
-      this.FilterTime = select;
+    async FilterTimePay(select) {      
+      const res = await fetch(`http://localhost:3000/History?time=${select}`);
+      const json = await res.json();
+      this.FilterPay = json
+      let sum = 0;
+      let debt = 0;   
+      const checkTrue = json.filter((value) => value.status === true);
+      const checkFalse = json.filter(
+        (value) => value.status === false
+      );
+      checkTrue.forEach(function (value) {
+        sum += parseFloat(value.total);
+      });
+      checkFalse.forEach(function (value) {
+        debt += parseFloat(value.total);
+      });
+      this.Sum = sum;
+      this.Debt = debt;
+      this.Paid = checkTrue.length;
+      this.Pay = checkFalse.length;
     },
 
     //Caculator Room Charge

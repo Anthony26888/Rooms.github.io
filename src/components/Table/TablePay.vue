@@ -1,8 +1,9 @@
 <template lang="">
+  
   <v-card class="mt-3 mx-auto">
     <v-data-table-virtual
       :headers="Headers"
-      :items="store.FilterPay"      
+      :items="store.Filter"      
       item-value="name"
     >
       <template v-slot:item.status="{ value }">
@@ -30,8 +31,7 @@
           @click="
             notify = true;
             store.GetIdPay(item.id);           
-          "
-          
+          "          
         ></v-btn>
         
       </template>
@@ -68,14 +68,17 @@
 
 <script setup>
 import { useAppStore } from "@/store/app";
+const store = useAppStore();
+store.fetchPay()
 </script>
 <script>
-const store = useAppStore();
-store.fetchPay();
+
+
 export default {
   name: "TablePay",
   data() {
     return {
+      
       Now: "",
       notify: false,
       headers: [
@@ -93,87 +96,15 @@ export default {
         { title: "Thời gian", align: "start", key: "date" },
         { title: "Tùy chỉnh", align: "start", key: "actions", sortable: false },
       ],
-
-      boats: [
-        {
-          name: "Speedster",
-          speed: 35,
-          length: 22,
-          price: 300000,
-          year: 2021,
-        },
-        {
-          name: "OceanMaster",
-          speed: 25,
-          length: 35,
-          price: 500000,
-          year: 2020,
-        },
-        {
-          name: "Voyager",
-          speed: 20,
-          length: 45,
-          price: 700000,
-          year: 2019,
-        },
-        {
-          name: "WaveRunner",
-          speed: 40,
-          length: 19,
-          price: 250000,
-          year: 2022,
-        },
-        {
-          name: "SeaBreeze",
-          speed: 28,
-          length: 31,
-          price: 450000,
-          year: 2018,
-        },
-        {
-          name: "HarborGuard",
-          speed: 18,
-          length: 50,
-          price: 800000,
-          year: 2017,
-        },
-        {
-          name: "SlickFin",
-          speed: 33,
-          length: 24,
-          price: 350000,
-          year: 2021,
-        },
-        {
-          name: "StormBreaker",
-          speed: 22,
-          length: 38,
-          price: 600000,
-          year: 2020,
-        },
-        {
-          name: "WindSail",
-          speed: 15,
-          length: 55,
-          price: 900000,
-          year: 2019,
-        },
-        {
-          name: "FastTide",
-          speed: 37,
-          length: 20,
-          price: 280000,
-          year: 2022,
-        },
-      ],
+      
+     
     };
   },
   mounted() {
-    setInterval(() => {
-      const date = new Date();
-      const now = date.toISOString().substring(0, 10);
-      this.Now = now;
-    }, 10);
+    const now = new Date();
+    const Month = now.getMonth() + 1;
+    const Year = now.getFullYear();
+    
   },
   methods: {
     reloadPage() {
