@@ -18,12 +18,12 @@ export const useAppStore = defineStore("app", {
       editRoom: [],
       editPay: [],
       service: [],
-      payment: 0,
-      debt: 0,
-      FilterTime:null,
-      Current:"",
-      Total:0,
-          
+      FilterTime: null,
+      FilterPay: [],
+      Sum: 0,
+      Debt: 0,
+      Paid: 0,
+      Pay: 0,
     };
   },
   getters: {
@@ -33,27 +33,34 @@ export const useAppStore = defineStore("app", {
     FilterNotPay() {
       return this.pay.filter((value) => value.status === false);
     },
-    Time(){
+
+    FilterCaculator() {
       const now = new Date();
       const Month = now.getMonth() + 1;
       const Year = now.getFullYear();
-      this.Current = Month + "/" + Year;
-    },
-    
-    FilterPay(){  
-      if(this.FilterTime !== null){
-        return this.pay.filter((value) => value.time === this.FilterTime)        
-      }else{
-        return this.pay.filter((value) => value.time === this.Current)
+      const Current = Month + "/" + Year;
+      let sum = 0;
+      let debt = 0;
+      if (this.FilterTime !== null) {
+        this.FilterPay = this.pay.filter((value) => value.time === this.FilterTime);
+      } else {
+        this.FilterPay = this.pay.filter((value) => value.time === Current);
       }
+      const checkTrue = this.FilterPay.filter((value) => value.status === true);
+      const checkFalse = this.FilterPay.filter(
+        (value) => value.status === false
+      );
+      checkTrue.forEach(function (value) {
+        sum += parseFloat(value.total);
+      });
+      checkFalse.forEach(function (value) {
+        debt += parseFloat(value.total);
+      });
+      this.Sum = sum;
+      this.Debt = debt;
+      this.Paid = checkTrue.length;
+      this.Pay = checkFalse.length;
     },
-
-    TotalCaculator(){
-      const check = this.pay.filter((value) => value.status == true)
-      check.forEach((value) =>{
-        this.Total += value.total
-      })
-    }
   },
   actions: {
     //Fetch api room
@@ -217,8 +224,6 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-
-
     //Fetch service Charge
     async fetchService() {
       const res = await fetch("http://localhost:3000/Service/0");
@@ -286,7 +291,6 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-
     //Fetch api pay of room
     fetchPay() {
       setInterval(async () => {
@@ -296,11 +300,10 @@ export const useAppStore = defineStore("app", {
     },
 
     //Fetch select time for pay
-    
-    async FilterTimePay(select) {      
+
+    async FilterTimePay(select) {
       this.FilterTime = select;
     },
-    
 
     //Caculator Room Charge
     CaculatorCharge(
@@ -352,8 +355,6 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-    
-
     //Parameter of Electric and Water
     Parameter(ElectricNew) {
       axios
@@ -382,10 +383,6 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-    
-
-
-
     //Fetch api profile of member
     fetchMember(name, id) {
       // Assuming your JSON file is in the public folder
@@ -406,16 +403,8 @@ export const useAppStore = defineStore("app", {
       this.editPay = this.pay.find((value) => value.id === id);
     },
 
-    
-
     GetIdPay(id) {
       this.IdPay = id;
     },
-
-    
-    
-
-    
-    
   },
 });

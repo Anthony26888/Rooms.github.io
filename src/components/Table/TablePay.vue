@@ -11,29 +11,17 @@
       </template>
       <template v-slot:item.actions="{ item }">
         <v-btn
-          disabled
+          
           class="button"
           color="success"
           icon="mdi-check"
           variant="text"
           @click="
-            store.PaidCharge(item.id);
-            store.Payment(item.total);
+            store.PaidCharge(item.id);           
           "
-          v-if="store.pay.status == false"
+          
         ></v-btn>
-        <v-btn
-          class="button"
-          color="success"
-          icon="mdi-check"
-          variant="text"
-          @click="
-            store.PaidCharge(item.id);
-            store.Payment(item.total);
-          "
-          v-else
-        ></v-btn>  
-
+        
         <v-btn
           class="button ms-5"
           color="red"
@@ -41,23 +29,11 @@
           variant="text"
           @click="
             notify = true;
-            store.GetIdPay(item.id);
-            store.fetchEditPay(item.id);
+            store.GetIdPay(item.id);           
           "
-          v-if="store.pay.status == false"
+          
         ></v-btn>
-        <v-btn
-          class="button ms-5"
-          color="red"
-          icon="mdi-delete"
-          variant="text"
-          @click="
-            notify = true;
-            store.GetIdPay(item.id);
-            store.fetchEditPay(item.id);
-          "
-          v-else
-        ></v-btn>
+        
       </template>
     </v-data-table-virtual>
   </v-card>

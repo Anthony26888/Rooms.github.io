@@ -11,6 +11,30 @@
       "cable": false,
       "electric": "123999",
       "status": "true"
+    },
+    {
+      "number": "2A",
+      "qty": "2",
+      "location": "Dãy B",
+      "date": "2024-03-30",
+      "roomcharge": "2000000",
+      "wifi": "true",
+      "cable": false,
+      "electric": "13333",
+      "status": "true",
+      "id": "kV-j-KF"
+    },
+    {
+      "number": "4F",
+      "qty": "6",
+      "location": "Dãy A",
+      "date": "2024-03-30",
+      "roomcharge": "1700000",
+      "wifi": "true",
+      "cable": false,
+      "electric": "12222",
+      "status": "true",
+      "id": "iRuxFCz"
     }
   ],
   "Profile": [
@@ -73,7 +97,7 @@
       "Cable": "20000",
       "id": "0"
     }
-  ], 
+  ],
   "History": [
     {
       "id": "ef0b",
@@ -89,6 +113,36 @@
       "other": 0,
       "total": 2363000,
       "time": "3/2024"
+    },
+    {
+      "status": true,
+      "date": "2024-3-30",
+      "name": "2A",
+      "roomcharge": "2000000",
+      "electric": 52800,
+      "water": 40000,
+      "trash": "35000",
+      "wifi": "20000",
+      "cable": 0,
+      "other": 0,
+      "total": 2147800,
+      "time": "3/2024",
+      "id": "afU58jQ"
+    },
+    {
+      "status": false,
+      "date": "2024-4-30",
+      "name": "4F",
+      "roomcharge": "1700000",
+      "electric": 79200,
+      "water": 120000,
+      "trash": "35000",
+      "wifi": "20000",
+      "cable": 0,
+      "other": 0,
+      "total": 1954200,
+      "time": "4/2024",
+      "id": "haachIi"
     }
   ]
 }
