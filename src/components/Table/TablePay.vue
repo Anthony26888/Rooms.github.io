@@ -2,7 +2,7 @@
   <v-card class="mt-3 mx-auto">
     <v-data-table-virtual
       :headers="Headers"
-      :items="store.FilterPay"
+      :items="check"
       item-value="name"
     >
       <template v-slot:item.status="{ value }">
@@ -50,6 +50,7 @@
             @click="
               notify = false;
               store.DeletePaid();
+              reloadPage()
             "
             color="red"
           >
@@ -91,8 +92,12 @@ export default {
     };
   },
   computed: {
-    checkPay(){
-     
+    check(){
+     if(store.FilterTime = null){
+      return store.pay
+     }else{
+      return store.FilterPay
+     }
     }
   },
   methods: {

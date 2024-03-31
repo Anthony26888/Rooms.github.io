@@ -43,10 +43,7 @@ export default {
     };
   },
   mounted() {
-    const now = new Date();
-    const Month = now.getMonth() + 1;
-    const Year = now.getFullYear();
-    this.SelectMonth = Month + "/" + Year
+    
   },
 };
 </script>

@@ -8,13 +8,16 @@
     "preview": "vite preview",
     "lint": "eslint . --fix --ignore-path .gitignore",
     "db": "json-server --watch src/api/User.json --port 3000",
-    "start":"node index.js"
+    "start": "node index.js"
   },
   "dependencies": {
     "@vueuse/components": "^10.7.2",
     "@vueuse/core": "^10.7.2",
     "axios": "^1.6.7",
     "core-js": "^3.29.0",
+    "cors": "^2.8.5",
+    "json-serve": "^0.1.0",
+    "json-server": "^1.0.0-alpha.23",
     "pinia": "^2.0.0",
     "roboto-fontface": "*",
     "vue": "^3.2.0",

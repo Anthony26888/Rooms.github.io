@@ -1,6 +1,6 @@
 <template lang="">
   <div class="d-flex flex-wrap justify-center algin-center">
-    <div v-for="item in store.data" :key="item">
+    <div v-for="(item,index) in store.data" :key="item">
       <v-card
         class="ma-2 mb-2"
         width="400"

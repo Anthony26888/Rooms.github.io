@@ -19,7 +19,7 @@ export const useAppStore = defineStore("app", {
       editPay: [],
       service: [],
       FilterTime: null,
-      Filter:[],
+      Filter: [],
       FilterPay: [],
       Sum: 0,
       Debt: 0,
@@ -27,24 +27,20 @@ export const useAppStore = defineStore("app", {
       Pay: 0,
     };
   },
-  getters: { 
+  getters: {
     Filter() {
       const now = new Date();
       const Month = now.getMonth() + 1;
       const Year = now.getFullYear();
       const Current = Month + "/" + Year;
-      if(this.FilterTime == null){
-        return this.pay.filter((value) => value.time === Current)
-      }else{
-        return this.pay.filter((value) => value.time === this.FilterTime)
+      if (this.FilterTime == null) {
+        return this.pay.filter((value) => value.time === Current);
+      } else {
+        return this.pay.filter((value) => value.time === this.FilterTime);
       }
-      
-      
     },
-   
   },
   actions: {
-    
     //Fetch api room
     async fetchRoom() {
       const res = await fetch("http://localhost:3000/Room");
@@ -283,27 +279,25 @@ export const useAppStore = defineStore("app", {
 
     //Fetch select time for pay
 
-    FilterTimePay(select) {      
-      setInterval(async () => {
-        const res = await fetch(`http://localhost:3000/History?time=${select}`);
-        this.FilterPay = await res.json();
-        let sum = 0;
-        let debt = 0;   
-        const checkTrue = this.FilterPay.filter((value) => value.status === true);
-        const checkFalse = this.FilterPay.filter((value) => value.status === false);
-        checkTrue.forEach(function (value) {
-          sum += parseFloat(value.total);
-        });
-        checkFalse.forEach(function (value) {
-          debt += parseFloat(value.total);
-        });
-        this.Sum = sum;
-        this.Debt = debt;
-        this.Paid = checkTrue.length;
-        this.Pay = checkFalse.length;      
-      }, 500);
-      
-      
+    async FilterTimePay(select) {
+      const res = await fetch(`http://localhost:3000/History?time=${select}`);
+      this.FilterPay = await res.json();
+      let sum = 0;
+      let debt = 0;
+      const checkTrue = this.FilterPay.filter((value) => value.status === true);
+      const checkFalse = this.FilterPay.filter(
+        (value) => value.status === false
+      );
+      checkTrue.forEach(function (value) {
+        sum += parseFloat(value.total);
+      });
+      checkFalse.forEach(function (value) {
+        debt += parseFloat(value.total);
+      });
+      this.Sum = sum;
+      this.Debt = debt;
+      this.Paid = checkTrue.length;
+      this.Pay = checkFalse.length;
     },
 
     //Caculator Room Charge
@@ -359,7 +353,7 @@ export const useAppStore = defineStore("app", {
     //Parameter of Electric and Water
     Parameter(ElectricNew) {
       axios
-        .patch(`http://localhost:3000/Room/${this.IdRoom}`, {
+        .patch("http://localhost:3000/Room/" + this.IdRoom, {
           electric: ElectricNew,
         })
         .then((response) => {

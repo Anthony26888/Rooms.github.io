@@ -179,7 +179,8 @@
             OtherCharge,
             Total,
             Status,
-          );      
+          );  
+          store.Parameter(ElectricNew);   
         "
         >Lưu</v-btn
       >
