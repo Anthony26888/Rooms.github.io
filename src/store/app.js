@@ -19,6 +19,7 @@ export const useAppStore = defineStore("app", {
       editPay: [],
       service: [],
       FilterTime: null,
+      Filter:[],
       FilterPay: [],
       Sum: 0,
       Debt: 0,
@@ -282,26 +283,27 @@ export const useAppStore = defineStore("app", {
 
     //Fetch select time for pay
 
-    async FilterTimePay(select) {      
-      const res = await fetch(`http://localhost:3000/History?time=${select}`);
-      const json = await res.json();
-      this.FilterPay = json
-      let sum = 0;
-      let debt = 0;   
-      const checkTrue = json.filter((value) => value.status === true);
-      const checkFalse = json.filter(
-        (value) => value.status === false
-      );
-      checkTrue.forEach(function (value) {
-        sum += parseFloat(value.total);
-      });
-      checkFalse.forEach(function (value) {
-        debt += parseFloat(value.total);
-      });
-      this.Sum = sum;
-      this.Debt = debt;
-      this.Paid = checkTrue.length;
-      this.Pay = checkFalse.length;
+    FilterTimePay(select) {      
+      setInterval(async () => {
+        const res = await fetch(`http://localhost:3000/History?time=${select}`);
+        this.FilterPay = await res.json();
+        let sum = 0;
+        let debt = 0;   
+        const checkTrue = this.FilterPay.filter((value) => value.status === true);
+        const checkFalse = this.FilterPay.filter((value) => value.status === false);
+        checkTrue.forEach(function (value) {
+          sum += parseFloat(value.total);
+        });
+        checkFalse.forEach(function (value) {
+          debt += parseFloat(value.total);
+        });
+        this.Sum = sum;
+        this.Debt = debt;
+        this.Paid = checkTrue.length;
+        this.Pay = checkFalse.length;      
+      }, 500);
+      
+      
     },
 
     //Caculator Room Charge
@@ -343,9 +345,9 @@ export const useAppStore = defineStore("app", {
     },
 
     //Delete Payment
-    DeletePaid(id) {
+    DeletePaid() {
       axios
-        .delete("http://localhost:3000/History/" + id)
+        .delete("http://localhost:3000/History/" + this.IdPay)
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
