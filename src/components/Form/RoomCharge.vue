@@ -125,25 +125,25 @@
             <th scope="row" class="text-start">Rác</th>
             <td></td>
             <td></td>
-            <td class="text-end">{{ TrashCharge.toLocaleString("en-US") }}</td>
+            <td class="text-end">{{ TrashCharge }}</td>
           </tr>
           <tr>
             <th scope="row" class="text-start">Wifi</th>
             <td></td>
             <td></td>
-            <td class="text-end">{{ WifiCharge.toLocaleString("en-US") }}</td>
+            <td class="text-end">{{ WifiCharge }}</td>
           </tr>
           <tr>
             <th scope="row" class="text-start">Cáp</th>
             <td></td>
             <td></td>
-            <td class="text-end">{{ CableCharge.toLocaleString("en-US") }}</td>
+            <td class="text-end">{{ CableCharge }}</td>
           </tr>
           <tr>
             <th scope="row" class="text-start">Tiền khác</th>
             <td></td>
             <td></td>
-            <td class="text-end">{{ OtherCharge.toLocaleString("en-US") }}</td>
+            <td class="text-end">{{ OtherCharge }}</td>
           </tr>
         </tbody>
       </table>
@@ -156,7 +156,7 @@
         </VCol>
         <VCol cols="8"></VCol>
         <VCol cols="2" class="text-end">
-          <h3>{{ Total.toLocaleString("en-US") }}</h3>
+          <h3>{{ Total }}</h3>
         </VCol>
       </VRow>
     </v-card-text>

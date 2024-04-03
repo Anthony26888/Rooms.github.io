@@ -20,9 +20,21 @@
       "roomcharge": "1000000",
       "wifi": false,
       "cable": false,
-      "electric": "12",
+      "electric": "15",
       "status": "true",
       "id": "2"
+    },
+    {
+      "id": "bb0e",
+      "number": "4H",
+      "qty": "2",
+      "location": "Dãy B",
+      "date": "2024-04-03",
+      "roomcharge": "1000000",
+      "wifi": "true",
+      "cable": false,
+      "electric": "12",
+      "status": "true"
     }
   ],
   "Profile": [
@@ -131,6 +143,21 @@
       "other": 0,
       "total": 1420600,
       "time": "3/2024"
+    },
+    {
+      "id": "0caf",
+      "status": false,
+      "date": "2024-4-3",
+      "name": "11G",
+      "roomcharge": "1000000",
+      "electric": 7200,
+      "water": 40000,
+      "trash": "35000",
+      "wifi": 0,
+      "cable": 0,
+      "other": 0,
+      "total": 1082200,
+      "time": "4/2024"
     }
   ]
 }

@@ -2,7 +2,7 @@
   <v-card class="mt-3 mx-auto">
     <v-data-table-virtual
       :headers="Headers"
-      :items="check"
+      :items="store.Filter"
       item-value="name"
     >
       <template v-slot:item.status="{ value }">
