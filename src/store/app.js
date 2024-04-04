@@ -69,14 +69,13 @@ export const useAppStore = defineStore("app", {
   },
   actions: {
     //Fetch api room
-    fetchRoom() {
-      setInterval(async () => {        
-        this.data = this.User.Room;
-      }, 100);
+    async fetchRoom() {
+      const res = await fetch('https://data-room-l5hx.onrender.com/Room')
+      this.data = await res.json()
     },
 
     //Create a new room
-    CreateRoom(
+    async CreateRoom(
       LocationRoom,
       QtyMember,
       NameRoom,
@@ -86,8 +85,16 @@ export const useAppStore = defineStore("app", {
       CableService,
       LastElectric
     ) {
-      axios
-        .post("http://localhost:3000/Room", {
+      await fetch('https://data-room-l5hx.onrender.com/Room', {
+        method:'POST', 
+        mode:"cors", 
+        cache: "no-cache",   
+        credentials: "same-origin",   
+        headers:{
+          "Content-Type": "application/json",
+          
+        },
+        body: JSON.stringify({
           number: NameRoom,
           qty: QtyMember,
           location: LocationRoom,
@@ -98,12 +105,9 @@ export const useAppStore = defineStore("app", {
           electric: LastElectric,
           status: "true",
         })
-        .then((response) => {
-          console.log("Form submitted successfully!", response.data);
-        })
-        .catch((error) => {
-          console.error("Error submitting form:", error);
-        });
+      })
+      
+      
     },
 
     //Edit profile of room

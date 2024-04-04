@@ -26,7 +26,7 @@
             <p v-if="item.wifi == 'true'" class="ms-2">Wifi</p>
             <p v-if="item.cable == 'true'" class="ms-2">Cáp</p>
           </div>
-          <p><b>Ngày vào:</b> {{ item.date.toLocaleString('en-GB', { timeZone: 'UTC' }) }}</p>
+          <p><b>Ngày vào:</b> {{ item.date }}</p>
         </v-card-text>
         <v-card-actions>
           <div class="d-flex justify-center algin-center">
