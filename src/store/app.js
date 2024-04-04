@@ -28,15 +28,11 @@ export const useAppStore = defineStore("app", {
   },
   getters: {
     Filter() {
-      const now = new Date();
-      const Month = now.getMonth() + 1;
-      const Year = now.getFullYear();
-      const Current = Month + "/" + Year;         
-      
       let sum = 0;
       let debt = 0;
-      const checkTrue = this.FilterPay.filter((value) => value.status === true);
-      const checkFalse = this.FilterPay.filter(
+      const array = this.pay.filter((value) => value.time === this.FilterTime)
+      const checkTrue = array.filter((value) => value.status === true);
+      const checkFalse = array.filter(
         (value) => value.status === false
       );
       checkTrue.forEach(function (value) {
@@ -50,9 +46,25 @@ export const useAppStore = defineStore("app", {
       this.Paid = checkTrue.length;
       this.Pay = checkFalse.length;
       if(this.FilterTime == null ){
-        return this.FilterPay = this.pay.filter((value) => value.time === Current)
+        const array = this.pay
+        const checkTrue = array.filter((value) => value.status === true);
+        const checkFalse = array.filter(
+          (value) => value.status === false
+        );
+        checkTrue.forEach(function (value) {
+          sum += parseFloat(value.total);
+        });
+        checkFalse.forEach(function (value) {
+          debt += parseFloat(value.total);
+        });
+        this.Sum = sum;
+        this.Debt = debt;
+        this.Paid = checkTrue.length;
+        this.Pay = checkFalse.length;
+        return array
       }
-      return this.FilterPay = this.pay.filter((value) => value.time === this.FilterTime)
+      return array
+      
     },
   },
   actions: {

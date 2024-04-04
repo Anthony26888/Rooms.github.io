@@ -1,14 +1,13 @@
 {
   "Room": [
     {
-      "number": "3F",
-      "qty": "4",
       "location": "Dãy A",
-      "date": "2024-03-31",
+      "number": "3F",
+      "qty": "2",
       "roomcharge": "1200000",
+      "date": "2024-04-10",
       "wifi": false,
       "cable": false,
-      "electric": "155",
       "status": "true",
       "id": "aaa"
     },
