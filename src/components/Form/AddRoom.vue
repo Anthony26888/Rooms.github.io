@@ -1,6 +1,6 @@
 <template>
   <form
-    v-on:submit="
+    v-on:submit.prevent="
       store.CreateRoom(
         LocationRoom,
         QtyMember,
@@ -10,7 +10,8 @@
         WifiService,
         CableService,
         LastElectric
-      )
+      );
+      
     "
   >
     <v-card-text>
@@ -88,6 +89,11 @@ export default {
       WifiService: false,
       CableService: false,
     };
+  },
+  methods: {
+    reloadPage() {
+      window.location.reload();
+    },
   },
 };
 </script>

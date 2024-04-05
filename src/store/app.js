@@ -7,18 +7,18 @@ export const useAppStore = defineStore("app", {
   state: () => {
     return {
       User,
-      NumberRoom: useLocalStorage("NumberRoom", ""),
+      NumberRoom: "",
       IdRoom: useLocalStorage("IdRoom", ""),
       IdMember: "",
       IdPay: "",
-      data: [],
+      Room: [],
       profile: [],
       member: [],
       pay: [],
       editRoom: [],
       editPay: [],
       service: [],
-      FilterTime: null,      
+      FilterTime: null,
       FilterPay: [],
       Sum: 0,
       Debt: 0,
@@ -30,11 +30,9 @@ export const useAppStore = defineStore("app", {
     Filter() {
       let sum = 0;
       let debt = 0;
-      const array = this.pay.filter((value) => value.time === this.FilterTime)
+      const array = this.pay.filter((value) => value.time === this.FilterTime);
       const checkTrue = array.filter((value) => value.status === true);
-      const checkFalse = array.filter(
-        (value) => value.status === false
-      );
+      const checkFalse = array.filter((value) => value.status === false);
       checkTrue.forEach(function (value) {
         sum += parseFloat(value.total);
       });
@@ -45,12 +43,10 @@ export const useAppStore = defineStore("app", {
       this.Debt = debt;
       this.Paid = checkTrue.length;
       this.Pay = checkFalse.length;
-      if(this.FilterTime == null ){
-        const array = this.pay
+      if (this.FilterTime == null) {
+        const array = this.pay;
         const checkTrue = array.filter((value) => value.status === true);
-        const checkFalse = array.filter(
-          (value) => value.status === false
-        );
+        const checkFalse = array.filter((value) => value.status === false);
         checkTrue.forEach(function (value) {
           sum += parseFloat(value.total);
         });
@@ -61,17 +57,19 @@ export const useAppStore = defineStore("app", {
         this.Debt = debt;
         this.Paid = checkTrue.length;
         this.Pay = checkFalse.length;
-        return array
+        return array;
       }
-      return array
-      
+      return array;
     },
   },
   actions: {
     //Fetch api room
     async fetchRoom() {
-      const res = await fetch('https://data-room-l5hx.onrender.com/Room')
-      this.data = await res.json()
+      setInterval(async () => {
+        const res = await fetch("https://data-room-l5hx.onrender.com/Room");
+        this.Room = await res.json();
+      }, 1000);
+      
     },
 
     //Create a new room
@@ -85,16 +83,8 @@ export const useAppStore = defineStore("app", {
       CableService,
       LastElectric
     ) {
-      await fetch('https://data-room-l5hx.onrender.com/Room', {
-        method:'POST', 
-        mode:"cors", 
-        cache: "no-cache",   
-        credentials: "same-origin",   
-        headers:{
-          "Content-Type": "application/json",
-          
-        },
-        body: JSON.stringify({
+      axios
+        .post("https://data-room-l5hx.onrender.com/Room", {
           number: NameRoom,
           qty: QtyMember,
           location: LocationRoom,
@@ -105,13 +95,13 @@ export const useAppStore = defineStore("app", {
           electric: LastElectric,
           status: "true",
         })
-      })
-      
+        .then((response) => console.log(response.data))
+        .then((error) => console.log(error));
       
     },
 
     //Edit profile of room
-    EditRoom(
+    async EditRoom(
       LocationRoom,
       NameRoom,
       QtyMember,
@@ -119,9 +109,9 @@ export const useAppStore = defineStore("app", {
       DateRoom,
       WifiService,
       CableService
-    ) {
+    ) {      
       axios
-        .put(`http://localhost:3000/Room/${this.IdRoom}`, {
+        .put(`https://data-room-l5hx.onrender.com/Room/${this.IdRoom}`, {
           location: LocationRoom,
           number: NameRoom,
           qty: QtyMember,
@@ -140,9 +130,9 @@ export const useAppStore = defineStore("app", {
     },
 
     //Delete room
-    Checkout() {
+    async Checkout() {
       axios
-        .patch("http://localhost:3000/Room/" + this.IdRoom, {
+        .patch("https://data-room-l5hx.onrender.com/Room/" + this.IdRoom, {
           qty: 0,
           status: false,
           date: "",
@@ -159,8 +149,9 @@ export const useAppStore = defineStore("app", {
 
     //Fetch api list of member
     async fetchProfile(number) {
-      const res = await fetch("http://localhost:3000/Profile?room=" + number);
+      const res = await fetch("https://data-room-l5hx.onrender.com/Profile?room=" + number);
       this.profile = await res.json();
+      this.NumberRoom = number
     },
 
     //Create a new member in that room
@@ -174,7 +165,7 @@ export const useAppStore = defineStore("app", {
       LocationMember
     ) {
       axios
-        .post("http://localhost:3000/Profile", {
+        .post("https://data-room-l5hx.onrender.com/Profile", {
           room: this.NumberRoom,
           name: NameMember,
           birth: BirthMember,
@@ -204,7 +195,7 @@ export const useAppStore = defineStore("app", {
       LocationMember
     ) {
       axios
-        .put(`http://localhost:3000/Profile/${IdMember}`, {
+        .put(`https://data-room-l5hx.onrender.com/Profile/${IdMember}`, {
           name: NameMember,
           room: this.NumberRoom,
           birth: BirthMember,
@@ -225,7 +216,7 @@ export const useAppStore = defineStore("app", {
     //Delete profile of member
     DeleteMember() {
       axios
-        .delete("http://localhost:3000/Profile/" + this.IdMember)
+        .delete("https://data-room-l5hx.onrender.com/Profile/" + this.IdMember)
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -236,7 +227,7 @@ export const useAppStore = defineStore("app", {
 
     //Fetch service Charge
     fetchService() {
-      setInterval(async () => {        
+      setInterval(async () => {
         this.service = this.User.Service[0];
       }, 100);
     },
@@ -244,7 +235,7 @@ export const useAppStore = defineStore("app", {
     //Edit Electric
     EditElectric(Electric0, Electric50, Electric100, Electric200, Electric300) {
       axios
-        .patch(`http://localhost:3000/Service/0`, {
+        .patch(`https://data-room-l5hx.onrender.com/Service/0`, {
           Electric0: Electric0,
           Electric50: Electric50,
           Electric100: Electric100,
@@ -262,7 +253,7 @@ export const useAppStore = defineStore("app", {
     //Edit Water
     EditWater(Water) {
       axios
-        .patch(`http://localhost:3000/Service/0`, {
+        .patch(`https://data-room-l5hx.onrender.com/Service/0`, {
           Water: Water,
         })
         .then((response) => {
@@ -276,7 +267,7 @@ export const useAppStore = defineStore("app", {
     //Edit Trash
     EditTrash(Trash) {
       axios
-        .patch(`http://localhost:3000/Service/0`, {
+        .patch(`https://data-room-l5hx.onrender.com/Service/0`, {
           Trash: Trash,
         })
         .then((response) => {
@@ -290,7 +281,7 @@ export const useAppStore = defineStore("app", {
     //Edit Wifi and Cable
     EditMore(Wifi, Cable) {
       axios
-        .patch(`http://localhost:3000/Service/0`, {
+        .patch(`https://data-room-l5hx.onrender.com/Service/0`, {
           Wifi: Wifi,
           Cable: Cable,
         })
@@ -304,16 +295,15 @@ export const useAppStore = defineStore("app", {
 
     //Fetch api pay of room
     fetchPay() {
-      setInterval(async () => {        
+      setInterval(async () => {
         this.pay = this.User.History;
       }, 100);
     },
 
     //Fetch select time for pay
 
-    FilterTimePay(select) {      
+    FilterTimePay(select) {
       this.FilterTime = select;
-      
     },
 
     //Caculator Room Charge
@@ -332,7 +322,7 @@ export const useAppStore = defineStore("app", {
       Status
     ) {
       axios
-        .post("http://localhost:3000/History", {
+        .post("https://data-room-l5hx.onrender.com/History", {
           status: Status,
           date: DateNow,
           name: NameRoom,
@@ -357,7 +347,7 @@ export const useAppStore = defineStore("app", {
     //Delete Payment
     DeletePaid() {
       axios
-        .delete("http://localhost:3000/History/" + this.IdPay)
+        .delete("https://data-room-l5hx.onrender.com/History/" + this.IdPay)
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -369,7 +359,7 @@ export const useAppStore = defineStore("app", {
     //Parameter of Electric and Water
     Parameter(ElectricNew) {
       axios
-        .patch("http://localhost:3000/Room/" + this.IdRoom, {
+        .patch("https://data-room-l5hx.onrender.com/Room/" + this.IdRoom, {
           electric: ElectricNew,
         })
         .then((response) => {
@@ -383,7 +373,7 @@ export const useAppStore = defineStore("app", {
     //Accept paid room charge
     PaidCharge(id) {
       axios
-        .patch("http://localhost:3000/History/" + id, {
+        .patch("https://data-room-l5hx.onrender.com/History/" + id, {
           status: true,
         })
         .then((response) => {
@@ -404,7 +394,7 @@ export const useAppStore = defineStore("app", {
     //Fetch api profile of room for edit
     fetchEditRoom(id) {
       // Assuming your JSON file is in the public folder
-      this.editRoom = this.data.find((value) => value.id === id);
+      this.editRoom = this.Room.find((value) => value.id === id);
       this.IdRoom = id;
     },
 
