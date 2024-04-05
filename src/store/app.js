@@ -24,6 +24,7 @@ export const useAppStore = defineStore("app", {
       Debt: 0,
       Paid: 0,
       Pay: 0,
+      NewProfile:false
     };
   },
   getters: {
@@ -164,6 +165,7 @@ export const useAppStore = defineStore("app", {
       WorkMember,
       LocationMember
     ) {
+      this.NewProfile = false
       axios
         .post("https://data-room-l5hx.onrender.com/Profile", {
           room: this.NumberRoom,

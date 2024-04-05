@@ -1,7 +1,7 @@
 <template lang="">
   <v-form v-on:submit.prevent="store.FilterTimePay(SelectMonth)">
     <VRow>
-      <VCol cols="3">
+      <VCol xs="12" md="3">
         <v-select
           v-model="SelectMonth"
           label="Chọn thời gian"
@@ -9,10 +9,10 @@
           variant="solo"
         ></v-select>
       </VCol>
-      <VCol cols="2">
+      <VCol xs="12" md="3">
         <VBtn type="submit" class="mt-2">Tìm kiếm</VBtn>
       </VCol>
-      <VCol cols="7"></VCol>
+      
     </VRow>
   </v-form>
 </template>

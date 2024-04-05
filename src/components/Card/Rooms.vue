@@ -35,7 +35,7 @@
                 color="primary"
                 variant="tonal"
                 @click="
-                  dialog = true;
+                  dialog=true;
                   store.fetchProfile(item.number);                  
                 "
               >
@@ -115,7 +115,7 @@
   <v-dialog v-model="dialog" width="800" transition="dialog-bottom-transition">
     <v-card title="Thông tin">
       <template v-slot:append>
-        <v-btn color="primary" variant="text" @click="news = true">Thêm</v-btn>
+        <v-btn color="primary" variant="text" @click="store.NewProfile = true">Thêm</v-btn>
         <v-btn
           class="mx-auto"
           variant="text"
@@ -210,14 +210,14 @@
   </v-dialog>
 
   <!--Add New member-->
-  <v-dialog v-model="news" width="500" transition="dialog-bottom-transition">
+  <v-dialog v-model="store.NewProfile" width="500" transition="dialog-bottom-transition">
     <v-card title="Thêm thành viên">
       <template v-slot:append>
         <v-btn
           class="mx-auto"
           variant="text"
           icon="mdi-close"
-          @click="news = false"
+          @click="store.NewProfile = false"
         ></v-btn>
       </template>
       <NewMember />
