@@ -67,7 +67,7 @@ export const useAppStore = defineStore("app", {
     //Fetch api room
     async fetchRoom() {
       setInterval(async () => {
-        const res = await fetch("https://data-room-l5hx.onrender.com/Room");
+        const res = await fetch("https://w872nj-3000.csb.app/Room");
         this.Room = await res.json();
       }, 1000);
       
@@ -85,7 +85,7 @@ export const useAppStore = defineStore("app", {
       LastElectric
     ) {
       axios
-        .post("https://data-room-l5hx.onrender.com/Room", {
+        .post("https://w872nj-3000.csb.app/Room", {
           number: NameRoom,
           qty: QtyMember,
           location: LocationRoom,
@@ -112,7 +112,7 @@ export const useAppStore = defineStore("app", {
       CableService
     ) {      
       axios
-        .put(`https://data-room-l5hx.onrender.com/Room/${this.IdRoom}`, {
+        .put(`https://w872nj-3000.csb.app/Room/${this.IdRoom}`, {
           location: LocationRoom,
           number: NameRoom,
           qty: QtyMember,
@@ -133,7 +133,7 @@ export const useAppStore = defineStore("app", {
     //Delete room
     async Checkout() {
       axios
-        .patch("https://data-room-l5hx.onrender.com/Room/" + this.IdRoom, {
+        .patch("https://w872nj-3000.csb.app/Room/" + this.IdRoom, {
           qty: 0,
           status: false,
           date: "",
@@ -148,9 +148,23 @@ export const useAppStore = defineStore("app", {
         });
     },
 
+    //Parameter of Electric and Water
+    Parameter(ElectricNew) {
+      axios
+        .patch("https://w872nj-3000.csb.app/Room/" + this.IdRoom, {
+          electric: ElectricNew,
+        })
+        .then((response) => {
+          console.log("Form submitted successfully!", response.data);
+        })
+        .catch((error) => {
+          console.error("Error submitting form:", error);
+        });
+    },
+
     //Fetch api list of member
     async fetchProfile(number) {
-      const res = await fetch("https://data-room-l5hx.onrender.com/Profile?room=" + number);
+      const res = await fetch("https://w872nj-3000.csb.app/Profile?room=" + number);
       this.profile = await res.json();
       this.NumberRoom = number
     },
@@ -167,7 +181,7 @@ export const useAppStore = defineStore("app", {
     ) {
       this.NewProfile = false
       axios
-        .post("https://data-room-l5hx.onrender.com/Profile", {
+        .post("https://w872nj-3000.csb.app/Profile", {
           room: this.NumberRoom,
           name: NameMember,
           birth: BirthMember,
@@ -197,7 +211,7 @@ export const useAppStore = defineStore("app", {
       LocationMember
     ) {
       axios
-        .put(`https://data-room-l5hx.onrender.com/Profile/${IdMember}`, {
+        .put(`https://w872nj-3000.csb.app/Profile/${IdMember}`, {
           name: NameMember,
           room: this.NumberRoom,
           birth: BirthMember,
@@ -218,7 +232,7 @@ export const useAppStore = defineStore("app", {
     //Delete profile of member
     DeleteMember() {
       axios
-        .delete("https://data-room-l5hx.onrender.com/Profile/" + this.IdMember)
+        .delete("https://w872nj-3000.csb.app/Profile/" + this.IdMember)
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -237,7 +251,7 @@ export const useAppStore = defineStore("app", {
     //Edit Electric
     EditElectric(Electric0, Electric50, Electric100, Electric200, Electric300) {
       axios
-        .patch(`https://data-room-l5hx.onrender.com/Service/0`, {
+        .patch(`https://w872nj-3000.csb.app/Service/0`, {
           Electric0: Electric0,
           Electric50: Electric50,
           Electric100: Electric100,
@@ -255,7 +269,7 @@ export const useAppStore = defineStore("app", {
     //Edit Water
     EditWater(Water) {
       axios
-        .patch(`https://data-room-l5hx.onrender.com/Service/0`, {
+        .patch(`https://w872nj-3000.csb.app/Service/0`, {
           Water: Water,
         })
         .then((response) => {
@@ -269,7 +283,7 @@ export const useAppStore = defineStore("app", {
     //Edit Trash
     EditTrash(Trash) {
       axios
-        .patch(`https://data-room-l5hx.onrender.com/Service/0`, {
+        .patch(`https://w872nj-3000.csb.app/Service/0`, {
           Trash: Trash,
         })
         .then((response) => {
@@ -283,7 +297,7 @@ export const useAppStore = defineStore("app", {
     //Edit Wifi and Cable
     EditMore(Wifi, Cable) {
       axios
-        .patch(`https://data-room-l5hx.onrender.com/Service/0`, {
+        .patch(`https://w872nj-3000.csb.app/Service/0`, {
           Wifi: Wifi,
           Cable: Cable,
         })
@@ -324,7 +338,7 @@ export const useAppStore = defineStore("app", {
       Status
     ) {
       axios
-        .post("https://data-room-l5hx.onrender.com/History", {
+        .post("https://w872nj-3000.csb.app/History", {
           status: Status,
           date: DateNow,
           name: NameRoom,
@@ -349,7 +363,7 @@ export const useAppStore = defineStore("app", {
     //Delete Payment
     DeletePaid() {
       axios
-        .delete("https://data-room-l5hx.onrender.com/History/" + this.IdPay)
+        .delete("https://w872nj-3000.csb.app/History/" + this.IdPay)
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -358,24 +372,12 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-    //Parameter of Electric and Water
-    Parameter(ElectricNew) {
-      axios
-        .patch("https://data-room-l5hx.onrender.com/Room/" + this.IdRoom, {
-          electric: ElectricNew,
-        })
-        .then((response) => {
-          console.log("Form submitted successfully!", response.data);
-        })
-        .catch((error) => {
-          console.error("Error submitting form:", error);
-        });
-    },
+    
 
     //Accept paid room charge
     PaidCharge(id) {
       axios
-        .patch("https://data-room-l5hx.onrender.com/History/" + id, {
+        .patch("https://w872nj-3000.csb.app/History/" + id, {
           status: true,
         })
         .then((response) => {

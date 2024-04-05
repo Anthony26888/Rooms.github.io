@@ -1,11 +1,10 @@
 <template lang="">
   <div class="d-flex flex-wrap justify-center algin-center">
-    <div v-for="(item,index) in store.Room" :key="item">
+    <div v-for="(item, index) in store.Room" :key="item">
       <v-card
-        class="ma-2 mb-2"
-        width="400"
+        class="ma-2 mb-2 card-room"        
         :title="`Phòng ` + item.number"
-        :subtitle="item.location"        
+        :subtitle="item.location"
       >
         <template v-slot:prepend>
           <v-avatar color="blue-darken-2">
@@ -13,9 +12,11 @@
           </v-avatar>
         </template>
         <template v-slot:append>
-          <div class="ribbon-wrap " >
-            <div class="ribbon bg-success" v-if="item.status == 'true'">Đã thuê</div>  
-            <div class="ribbon bg-red" v-else>Trống</div>            
+          <div class="ribbon-wrap">
+            <div class="ribbon bg-success" v-if="item.status == 'true'">
+              Đã thuê
+            </div>
+            <div class="ribbon bg-red" v-else>Trống</div>
           </div>
         </template>
         <v-card-text>
@@ -29,14 +30,15 @@
           <p><b>Ngày vào:</b> {{ item.date }}</p>
         </v-card-text>
         <v-card-actions>
-          <div class="d-flex justify-center algin-center">
+          <div class="d-flex flex-wrap justify-center algin-center mx-auto">
             <div class="ma-1 mb-1">
               <v-btn
+                class="button-card"
                 color="primary"
                 variant="tonal"
                 @click="
-                  dialog=true;
-                  store.fetchProfile(item.number);                  
+                  dialog = true;
+                  store.fetchProfile(item.number);
                 "
               >
                 Thông tin
@@ -44,11 +46,12 @@
             </div>
             <div class="ma-1 mb-1">
               <v-btn
+                class="button-card"
                 color="orange"
                 variant="tonal"
                 @click="
                   editRoom = true;
-                  store.fetchEditRoom(item.id);                  
+                  store.fetchEditRoom(item.id);
                 "
               >
                 Sửa
@@ -56,23 +59,25 @@
             </div>
             <div class="ma-1 mb-1">
               <v-btn
+                class="button-card"
                 color="success"
                 variant="tonal"
                 @click="
                   caculator = true;
-                  store.fetchEditRoom(item.id);                  
+                  store.fetchEditRoom(item.id);
                 "
                 v-if="item.status == 'true'"
               >
                 Tính tiền
               </v-btn>
               <v-btn
+                class="button-card"
                 color="success"
                 variant="tonal"
                 disabled
                 @click="
                   caculator = true;
-                  store.fetchEditRoom(item.id);                  
+                  store.fetchEditRoom(item.id);
                 "
                 v-else
               >
@@ -82,10 +87,11 @@
 
             <div class="ma-1 mb-1">
               <v-btn
+                class="button-card"
                 color="red"
                 variant="tonal"
                 @click="
-                  notifyRoom = true;                  
+                  notifyRoom = true;
                   store.fetchEditRoom(item.id);
                 "
                 v-if="item.status == 'true'"
@@ -97,7 +103,7 @@
                 variant="tonal"
                 disabled
                 @click="
-                  notifyRoom = true;                  
+                  notifyRoom = true;
                   store.fetchEditRoom(item.id);
                 "
                 v-else
@@ -115,7 +121,9 @@
   <v-dialog v-model="dialog" width="800" transition="dialog-bottom-transition">
     <v-card title="Thông tin">
       <template v-slot:append>
-        <v-btn color="primary" variant="text" @click="store.NewProfile = true">Thêm</v-btn>
+        <v-btn color="primary" variant="text" @click="store.NewProfile = true"
+          >Thêm</v-btn
+        >
         <v-btn
           class="mx-auto"
           variant="text"
@@ -210,7 +218,11 @@
   </v-dialog>
 
   <!--Add New member-->
-  <v-dialog v-model="store.NewProfile" width="500" transition="dialog-bottom-transition">
+  <v-dialog
+    v-model="store.NewProfile"
+    width="500"
+    transition="dialog-bottom-transition"
+  >
     <v-card title="Thêm thành viên">
       <template v-slot:append>
         <v-btn
@@ -260,7 +272,7 @@
             @click="
               notifyMember = false;
               store.DeleteMember();
-              reloadPage()
+              reloadPage();
             "
             color="red"
           >
@@ -287,8 +299,7 @@
           <v-btn
             @click="
               notifyRoom = false;
-              store.Checkout(); 
-                         
+              store.Checkout();
             "
             color="red"
           >
@@ -307,7 +318,7 @@ import RoomCharge from "@/components/Form/RoomCharge.vue";
 import { useAppStore } from "@/store/app";
 const store = useAppStore();
 store.fetchRoom();
-store.fetchService()
+store.fetchService();
 </script>
 <script>
 export default {
@@ -341,7 +352,6 @@ export default {
 .ribbon-wrap {
   width: 120px;
   height: 50px;
-  
 }
 .ribbon {
   width: 200px;
@@ -349,6 +359,41 @@ export default {
   text-align: center;
   padding: 5px 0;
   transform: rotate(40deg);
+}
+@media only screen and (max-width: 700px) {
+  .button-card{
+    width: 50px;
+    font-size:9px
+    
+  }
+  .card-room{
+    width: 350px;
+  }
+}
+@media only screen and (max-width: 1024px) {
+  .button-card{
+    width: 70px;
+    font-size:10px
+    
+  }
+  .card-room{
+    width: 350px;
+  }
+}
+@media only screen and (max-width: 1440px) {
+  .button-card{
+    width: 70px;
+    font-size:10px
+    
+  }
+  .card-room{
+    width: 350px;
+  }
+}
+@media only screen and (max-width: 1920px) {
   
+  .card-room{
+    width: 380px;
+  }
 }
 </style>
