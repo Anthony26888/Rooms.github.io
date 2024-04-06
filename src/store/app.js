@@ -6,7 +6,7 @@ import { useLocalStorage } from "@vueuse/core";
 export const useAppStore = defineStore("app", {
   state: () => {
     return {
-      Url:"http://localhost:3000",
+      Url:"https://z2z4vm-3000.csb.app",
       NumberRoom: "",
       IdRoom: useLocalStorage("IdRoom", ""),
       IdMember: "",
