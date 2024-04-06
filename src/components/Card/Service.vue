@@ -22,7 +22,7 @@
 
   <!--Edit Electric-->
   <v-dialog
-    v-model="editElectric"
+    v-model="store.EditElectricDialog"
     width="500"
     transition="dialog-bottom-transition"
   >
@@ -41,7 +41,7 @@
 
   <!--Edit Water-->
   <v-dialog
-    v-model="editWater"
+    v-model="store.EditWaterDialog"
     width="500"
     transition="dialog-bottom-transition"
   >
@@ -60,7 +60,7 @@
 
   <!--Edit Trash-->
   <v-dialog
-    v-model="editTrash"
+    v-model="store.EditTrashDialog"
     width="500"
     transition="dialog-bottom-transition"
   >
@@ -79,7 +79,7 @@
 
   <!--Edit Wifi-->
   <v-dialog
-    v-model="editMore"
+    v-model="store.EditMoreDialog"
     width="500"
     transition="dialog-bottom-transition"
   >
@@ -101,9 +101,10 @@ import EditElectric from "@/components/Form/EditElectric.vue"
 import EditWater from "@/components/Form/EditWater.vue"
 import EditTrash from "@/components/Form/EditTrash.vue"
 import EditMore from "@/components/Form/EditMore.vue"
+import { useAppStore } from "@/store/app";
 </script>
 <script>
-
+const store = useAppStore();
 export default {
   name:"Service",
   data() {
@@ -143,19 +144,19 @@ export default {
   methods: {
     edit(item){
       if(item == 0){
-        return this.editElectric = true
+        return store.EditElectricDialog = true
       };
 
       if(item == 1){
-        return this.editWater = true
+        return store.EditWaterDialog= true
       };
 
       if(item == 2){
-        return this.editTrash = true
+        return store.EditTrashDialog = true
       };
 
       if(item == 3){
-        return this.editMore = true
+        return store.EditMoreDialog = true
       }
     }
   },

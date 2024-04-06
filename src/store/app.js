@@ -27,7 +27,11 @@ export const useAppStore = defineStore("app", {
       AddRoomDialog:false,
       EditRoomDialog:false,
       EditMemberDialog:false,
-      NewProfile:false
+      NewProfile:false,
+      EditElectricDialog:false,
+      EditWaterDialog:false,
+      EditTrashDialog:false,
+      EditMoreDialog:false
     };
   },
   getters: {
@@ -169,9 +173,12 @@ export const useAppStore = defineStore("app", {
 
     //Fetch api list of member
     async fetchProfile(number) {
-      const res = await fetch(`${this.Url}/Profile?room=` + number);
-      this.profile = await res.json();
-      this.NumberRoom = number
+      setInterval(async () => {
+        const res = await fetch(`${this.Url}/Profile?room=` + number);
+        this.profile = await res.json();
+        this.NumberRoom = number
+      }, 1000);
+      
     },
 
     //Create a new member in that room
@@ -215,6 +222,7 @@ export const useAppStore = defineStore("app", {
       WorkMember,
       LocationMember
     ) {
+      this.EditMemberDialog = false
       axios
         .put(`${this.Url}/Profile/${IdMember}`, {
           name: NameMember,
@@ -256,6 +264,7 @@ export const useAppStore = defineStore("app", {
 
     //Edit Electric
     EditElectric(Electric0, Electric50, Electric100, Electric200, Electric300) {
+      this.EditElectricDialog = false
       axios
         .patch(`${this.Url}/Service/0`, {
           Electric0: Electric0,
@@ -274,6 +283,7 @@ export const useAppStore = defineStore("app", {
 
     //Edit Water
     EditWater(Water) {
+      this.EditWaterDialog = false
       axios
         .patch(`${this.Url}/Service/0`, {
           Water: Water,
@@ -288,6 +298,7 @@ export const useAppStore = defineStore("app", {
 
     //Edit Trash
     EditTrash(Trash) {
+      this.EditTrashDialog = false
       axios
         .patch(`${this.Url}/Service/0`, {
           Trash: Trash,
@@ -302,6 +313,7 @@ export const useAppStore = defineStore("app", {
 
     //Edit Wifi and Cable
     EditMore(Wifi, Cable) {
+      this.EditMoreDialog = false
       axios
         .patch(`${this.Url}/Service/0`, {
           Wifi: Wifi,

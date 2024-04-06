@@ -1,16 +1,6 @@
 {
   "Room": [
-    {
-      "location": "Dãy A",
-      "number": "3o",
-      "qty": "2",
-      "roomcharge": "1200000",
-      "date": "2024-04-10",
-      "wifi": false,
-      "cable": false,
-      "status": "true",
-      "id": "aaa"
-    },
+   
     {
       "number": "11G",
       "qty": "2",
@@ -60,17 +50,6 @@
       "work": "Sinh viên"
     },
     {
-      "id": "0d3c",
-      "room": "2A",
-      "name": "Nguyễn Văn Hương",
-      "birth": "1954-12-01",
-      "location": "Hóc Môn",
-      "phone": "0984121483",
-      "sex": "Nam",
-      "cccd": "02156345",
-      "work": "Không có"
-    },
-    {
       "name": "Trần Thị Mỹ Hạnh",
       "room": "2A",
       "birth": "1966-12-13",
@@ -91,13 +70,24 @@
       "sex": "Nam",
       "cccd": "",
       "work": ""
+    },
+    {
+      "name": "Nguyễn Minh",
+      "room": "2A",
+      "birth": "",
+      "location": "",
+      "phone": "",
+      "sex": "Nam",
+      "cccd": "025421428",
+      "work": "",
+      "id": "b1a0"
     }
   ],
   "Service": [
     {
       "Electric": 3500,
       "Electric0": "2400",
-      "Electric50": 2700,
+      "Electric50": "2700",
       "Electric100": 3000,
       "Electric200": 3200,
       "Electric300": 3500,

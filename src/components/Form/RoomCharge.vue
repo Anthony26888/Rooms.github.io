@@ -2,20 +2,15 @@
   <form >
     <v-card-text>
       <VRow>
-        <VCol cols="4">
+        <VCol xs="12" sm="4">
           <v-card>
             <v-card-text>Thời gian: {{ DateNow }}</v-card-text>
           </v-card>
         </VCol>
-
-        <VCol cols="6"></VCol>
       </VRow>
-
-      <VRow>
-        <VCol cols="2">
-          <h3 class="text-start mt-4">Điện</h3>
-        </VCol>
-        <VCol cols="3">
+      <h3 class="text-start mt-4">Điện</h3>
+      <VRow class="mt-1">        
+        <VCol xs="4">
           <v-text-field
             variant="outlined"
             label="Số cũ"
@@ -25,7 +20,7 @@
             :rules="[rules.required]"
           ></v-text-field>
         </VCol>
-        <VCol cols="3">
+        <VCol xs="4">
           <v-text-field
             variant="outlined"
             label="Số mới"
@@ -35,7 +30,7 @@
             :rules="[rules.required]"
           ></v-text-field>
         </VCol>
-        <VCol cols="4">
+        <VCol xs="4">
           <div class="d-flex text-center mt-4">
             <h3>= {{ ResultElectric }}</h3>
             <p class="ms-2">Kw</p>
@@ -76,21 +71,16 @@
         </VCol>
       </VRow>
       -->
-
-      <VRow>
-        <VCol cols="2">
-          <h3 class="text-start mt-4">Tiền khác</h3>
-        </VCol>
-        <VCol cols="8">
+      <h3 class="text-start mt-4">Tiền khác</h3>
+      <VRow class="mt-1">        
+        <VCol cols="12">
           <v-text-field v-model="OtherCharge" suffix="vnđ"></v-text-field>
         </VCol>
       </VRow>
 
-      <VRow>
-        <VCol cols="2">
-          <h3 class="text-start mt-4">Tiền nợ</h3>
-        </VCol>
-        <VCol cols="8">
+      <h3 class="text-start mt-4">Tiền nợ</h3>
+      <VRow class="mt-1">        
+        <VCol cols="12">
           <v-text-field v-model="DebtCharge" suffix="vnđ"></v-text-field>
         </VCol>
       </VRow>
@@ -211,7 +201,7 @@ export default {
       WaterCharge: 0,
       ElectricCharge: 0,
       RoomCharge: store.editRoom.roomcharge,
-      TrashCharge: store.service.Trash,
+      TrashCharge: store.service[0].Trash,
       WifiCharge: 0,
       CableCharge: 0,
       DebtCharge: 0,
@@ -234,11 +224,11 @@ export default {
       this.ResultWater = this.WaterNew - this.WaterOld;
 
       //Electric
-      const Charge0 = store.service.Electric0;
-      const Charge50 = store.service.Electric50;
-      const Charge100 = store.service.Electric100;
-      const Charge200 = store.service.Electric200;
-      const Charge300 = store.service.Electric300;
+      const Charge0 = store.service[0].Electric0;
+      const Charge50 = store.service[0].Electric50;
+      const Charge100 = store.service[0].Electric100;
+      const Charge200 = store.service[0].Electric200;
+      const Charge300 = store.service[0].Electric300;
       if (this.ResultElectric <= 50) {
         this.ElectricCharge = this.ResultElectric * Charge0;
       } else if (this.ResultElectric > 50 && this.ResultElectric <= 100) {
@@ -267,7 +257,7 @@ export default {
       }
 
       //Water
-      this.WaterCharge = store.service.Water * store.editRoom.qty;
+      this.WaterCharge = store.service[0].Water * store.editRoom.qty;
 
       //Service
       if (store.editRoom.cable == "true") {

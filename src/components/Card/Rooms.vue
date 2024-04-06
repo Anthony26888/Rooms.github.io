@@ -156,7 +156,7 @@
                   variant="text"
                   size="10"
                   @click="
-                    editMember = true;
+                    store.EditMemberDialog = true;
                     store.fetchMember(item.name, item.id);
                   "
                 ></v-btn>
@@ -191,7 +191,7 @@
           class="mx-auto"
           variant="text"
           icon="mdi-close"
-          @click="store.EditMembjerDialog = false"
+          @click="store.EditMemberDialog = false"
         ></v-btn>
       </template>
       <EditMember />
@@ -324,10 +324,7 @@ store.fetchService();
 export default {
   data() {
     return {
-      dialog: false,
-      editMember: false,
-      editRoom: false,
-      news: false,
+      dialog: false,      
       notifyMember: false,
       notifyRoom: false,
       caculator: false,
