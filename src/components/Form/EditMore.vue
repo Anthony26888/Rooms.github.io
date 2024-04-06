@@ -27,8 +27,8 @@ store.fetchService();
 export default {
   data() {
     return {
-      Wifi: store.service.Wifi,
-      Cable: store.service.Cable,
+      Wifi: store.service[0].Wifi,
+      Cable: store.service[0].Cable,
     };
   },
 };

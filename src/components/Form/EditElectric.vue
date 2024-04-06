@@ -1,8 +1,8 @@
 <template lang="">
-  <v-form v-on:submit="store.EditElectric(Electric0, Electric50,Electric100, Electric200, Electric300)">
+  <v-form v-on:submit.prevent="store.EditElectric(Electric0, Electric50,Electric100, Electric200, Electric300)">
     <v-card-text>        
-        <v-text-field label="51 - 100 Kw" variant="outlined" v-model="Electric0"></v-text-field>
-        <v-text-field label="301 - 400 Kw" variant="outlined" v-model="Electric50"></v-text-field>
+        <v-text-field label="0 - 50 Kw" variant="outlined" v-model="Electric0"></v-text-field>
+        <v-text-field label="51 - 100 Kw" variant="outlined" v-model="Electric50"></v-text-field>
         <v-text-field label="101 - 200 Kw" variant="outlined" v-model="Electric100"></v-text-field>
         <v-text-field label="201 - 300 Kw" variant="outlined" v-model="Electric200"></v-text-field>
         <v-text-field label="301 - 400 Kw" variant="outlined" v-model="Electric300"></v-text-field>
@@ -23,11 +23,11 @@ export default {
     name:"EditElectric",
     data() {
         return {            
-            Electric0:store.service.Electric0,
-            Electric50:store.service.Electric50,
-            Electric100:store.service.Electric100,
-            Electric200:store.service.Electric200,
-            Electric300:store.service.Electric300,
+            Electric0:store.service[0].Electric0,
+            Electric50:store.service[0].Electric50,
+            Electric100:store.service[0].Electric100,
+            Electric200:store.service[0].Electric200,
+            Electric300:store.service[0].Electric300,
         }
     },
 };

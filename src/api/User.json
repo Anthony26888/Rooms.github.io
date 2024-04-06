@@ -80,6 +80,17 @@
       "cccd": "02546321",
       "work": "Nội Trợ",
       "id": "3ca9"
+    },
+    {
+      "id": "2cec",
+      "room": "3F",
+      "name": "Nguyễn Hải Đăng",
+      "birth": "",
+      "location": "",
+      "phone": "",
+      "sex": "Nam",
+      "cccd": "",
+      "work": ""
     }
   ],
   "Service": [

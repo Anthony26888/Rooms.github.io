@@ -50,7 +50,7 @@
                 color="orange"
                 variant="tonal"
                 @click="
-                  editRoom = true;
+                  store.EditRoomDialog = true;
                   store.fetchEditRoom(item.id);
                 "
               >
@@ -181,7 +181,7 @@
 
   <!--Edit member-->
   <v-dialog
-    v-model="editMember"
+    v-model="store.EditMemberDialog"
     width="500"
     transition="dialog-bottom-transition"
   >
@@ -191,7 +191,7 @@
           class="mx-auto"
           variant="text"
           icon="mdi-close"
-          @click="editMember = false"
+          @click="store.EditMembjerDialog = false"
         ></v-btn>
       </template>
       <EditMember />
@@ -200,7 +200,7 @@
 
   <!--Edit room-->
   <v-dialog
-    v-model="editRoom"
+    v-model="store.EditRoomDialog"
     width="500"
     transition="dialog-bottom-transition"
   >
@@ -210,7 +210,7 @@
           class="mx-auto"
           variant="text"
           icon="mdi-close"
-          @click="editRoom = false"
+          @click="store.EditRoomDialog = false"
         ></v-btn>
       </template>
       <EditRoom />
@@ -381,11 +381,7 @@ export default {
   }
 }
 @media only screen and (max-width: 1440px) {
-  .button-card{
-    width: 70px;
-    font-size:10px
-    
-  }
+ 
   .card-room{
     width: 350px;
   }

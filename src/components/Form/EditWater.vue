@@ -22,7 +22,7 @@ store.fetchService();
 export default {
   data() {
     return {
-      Water: store.service.Water,
+      Water: store.service[0].Water,
     };
   },
 };

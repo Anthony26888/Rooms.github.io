@@ -22,7 +22,7 @@ store.fetchService();
 export default {
   data() {
     return {
-      Trash: store.service.Trash,
+      Trash: store.service[0].Trash,
     };
   },
 };

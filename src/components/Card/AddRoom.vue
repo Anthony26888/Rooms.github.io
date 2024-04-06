@@ -4,18 +4,18 @@
     color="success"
     variant="tonal"
     class="mb-3"
-    @click="form = true"
+    @click="store.AddRoomDialog = true"
   >
     Thêm phòng
   </v-btn>
   <v-divider :thickness="2"></v-divider>
-  <v-dialog v-model="form" width="500">
+  <v-dialog v-model="store.AddRoomDialog" width="500">
     <v-card title="Tạo phòng">
       <template v-slot:append>
         <v-btn          
           variant="text"
           icon="mdi-close"
-          @click="form = false"
+          @click="store.AddRoomDialog = false"
         ></v-btn>
       </template>
       <v-card-text>
@@ -26,8 +26,10 @@
 </template>
 <script setup>
 import FormAdd from "@/components/Form/AddRoom.vue";
+import { useAppStore } from "@/store/app";
 </script>
 <script>
+const store = useAppStore();
 export default {
   data() {
     return {

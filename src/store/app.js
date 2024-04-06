@@ -6,7 +6,7 @@ import { useLocalStorage } from "@vueuse/core";
 export const useAppStore = defineStore("app", {
   state: () => {
     return {
-      User,
+      Url:"http://localhost:3000",
       NumberRoom: "",
       IdRoom: useLocalStorage("IdRoom", ""),
       IdMember: "",
@@ -24,6 +24,9 @@ export const useAppStore = defineStore("app", {
       Debt: 0,
       Paid: 0,
       Pay: 0,
+      AddRoomDialog:false,
+      EditRoomDialog:false,
+      EditMemberDialog:false,
       NewProfile:false
     };
   },
@@ -67,7 +70,7 @@ export const useAppStore = defineStore("app", {
     //Fetch api room
     async fetchRoom() {
       setInterval(async () => {
-        const res = await fetch("https://w872nj-3000.csb.app/Room");
+        const res = await fetch(`${this.Url}/Room`);
         this.Room = await res.json();
       }, 1000);
       
@@ -84,8 +87,9 @@ export const useAppStore = defineStore("app", {
       CableService,
       LastElectric
     ) {
+      this.AddRoomDialog = false
       axios
-        .post("https://w872nj-3000.csb.app/Room", {
+        .post(`${this.Url}/Room`, {
           number: NameRoom,
           qty: QtyMember,
           location: LocationRoom,
@@ -110,9 +114,10 @@ export const useAppStore = defineStore("app", {
       DateRoom,
       WifiService,
       CableService
-    ) {      
+    ) {     
+      this.EditRoomDialog = false 
       axios
-        .put(`https://w872nj-3000.csb.app/Room/${this.IdRoom}`, {
+        .put(`${this.Url}/Room/${this.IdRoom}`, {
           location: LocationRoom,
           number: NameRoom,
           qty: QtyMember,
@@ -133,7 +138,7 @@ export const useAppStore = defineStore("app", {
     //Delete room
     async Checkout() {
       axios
-        .patch("https://w872nj-3000.csb.app/Room/" + this.IdRoom, {
+        .patch(`${this.Url}/Room/${this.IdRoom}`, {
           qty: 0,
           status: false,
           date: "",
@@ -151,7 +156,7 @@ export const useAppStore = defineStore("app", {
     //Parameter of Electric and Water
     Parameter(ElectricNew) {
       axios
-        .patch("https://w872nj-3000.csb.app/Room/" + this.IdRoom, {
+        .patch(`${this.Url}/Room/${this.IdRoom}`, {
           electric: ElectricNew,
         })
         .then((response) => {
@@ -164,7 +169,7 @@ export const useAppStore = defineStore("app", {
 
     //Fetch api list of member
     async fetchProfile(number) {
-      const res = await fetch("https://w872nj-3000.csb.app/Profile?room=" + number);
+      const res = await fetch(`${this.Url}/Profile?room=` + number);
       this.profile = await res.json();
       this.NumberRoom = number
     },
@@ -181,7 +186,7 @@ export const useAppStore = defineStore("app", {
     ) {
       this.NewProfile = false
       axios
-        .post("https://w872nj-3000.csb.app/Profile", {
+        .post(`${this.Url}/Profile`, {
           room: this.NumberRoom,
           name: NameMember,
           birth: BirthMember,
@@ -211,7 +216,7 @@ export const useAppStore = defineStore("app", {
       LocationMember
     ) {
       axios
-        .put(`https://w872nj-3000.csb.app/Profile/${IdMember}`, {
+        .put(`${this.Url}/Profile/${IdMember}`, {
           name: NameMember,
           room: this.NumberRoom,
           birth: BirthMember,
@@ -232,7 +237,7 @@ export const useAppStore = defineStore("app", {
     //Delete profile of member
     DeleteMember() {
       axios
-        .delete("https://w872nj-3000.csb.app/Profile/" + this.IdMember)
+        .delete(`${this.Url}/Profile/${this.IdMember}`)
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -244,14 +249,15 @@ export const useAppStore = defineStore("app", {
     //Fetch service Charge
     fetchService() {
       setInterval(async () => {
-        this.service = this.User.Service[0];
+        const res = await fetch(`${this.Url}/Service`);
+        this.service = await res.json();
       }, 100);
     },
 
     //Edit Electric
     EditElectric(Electric0, Electric50, Electric100, Electric200, Electric300) {
       axios
-        .patch(`https://w872nj-3000.csb.app/Service/0`, {
+        .patch(`${this.Url}/Service/0`, {
           Electric0: Electric0,
           Electric50: Electric50,
           Electric100: Electric100,
@@ -269,7 +275,7 @@ export const useAppStore = defineStore("app", {
     //Edit Water
     EditWater(Water) {
       axios
-        .patch(`https://w872nj-3000.csb.app/Service/0`, {
+        .patch(`${this.Url}/Service/0`, {
           Water: Water,
         })
         .then((response) => {
@@ -283,7 +289,7 @@ export const useAppStore = defineStore("app", {
     //Edit Trash
     EditTrash(Trash) {
       axios
-        .patch(`https://w872nj-3000.csb.app/Service/0`, {
+        .patch(`${this.Url}/Service/0`, {
           Trash: Trash,
         })
         .then((response) => {
@@ -297,7 +303,7 @@ export const useAppStore = defineStore("app", {
     //Edit Wifi and Cable
     EditMore(Wifi, Cable) {
       axios
-        .patch(`https://w872nj-3000.csb.app/Service/0`, {
+        .patch(`${this.Url}/Service/0`, {
           Wifi: Wifi,
           Cable: Cable,
         })
@@ -312,8 +318,9 @@ export const useAppStore = defineStore("app", {
     //Fetch api pay of room
     fetchPay() {
       setInterval(async () => {
-        this.pay = this.User.History;
-      }, 100);
+        const res = await fetch(`${this.Url}/History`);
+        this.pay = await res.json();
+      }, 1000);
     },
 
     //Fetch select time for pay
@@ -338,7 +345,7 @@ export const useAppStore = defineStore("app", {
       Status
     ) {
       axios
-        .post("https://w872nj-3000.csb.app/History", {
+        .post(`${this.Url}/History`, {
           status: Status,
           date: DateNow,
           name: NameRoom,
@@ -363,7 +370,7 @@ export const useAppStore = defineStore("app", {
     //Delete Payment
     DeletePaid() {
       axios
-        .delete("https://w872nj-3000.csb.app/History/" + this.IdPay)
+        .delete(`${this.Url}/History/${this.IdPay}`)
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -377,7 +384,7 @@ export const useAppStore = defineStore("app", {
     //Accept paid room charge
     PaidCharge(id) {
       axios
-        .patch("https://w872nj-3000.csb.app/History/" + id, {
+        .patch(`${this.Url}/History/` + id, {
           status: true,
         })
         .then((response) => {
