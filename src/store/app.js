@@ -32,7 +32,8 @@ export const useAppStore = defineStore("app", {
       EditElectricDialog:false,
       EditWaterDialog:false,
       EditTrashDialog:false,
-      EditMoreDialog:false
+      EditMoreDialog:false,
+      ViewPayDialog:false
     };
   },
   getters: {
@@ -174,11 +175,9 @@ export const useAppStore = defineStore("app", {
 
     //Fetch api list of member
     async fetchProfile(number) {
-      setInterval(async () => {
-        const res = await fetch(`${this.Url}/Profile?room=` + number);
-        this.profile = await res.json();
-        this.NumberRoom = number
-      }, 1000);
+      const res = await fetch(`${this.Url}/Profile?room=` + number);
+      this.profile = await res.json();
+      this.NumberRoom = number
       
     },
 
@@ -223,7 +222,8 @@ export const useAppStore = defineStore("app", {
       WorkMember,
       LocationMember
     ) {
-      this.EditMemberDialog = false
+      this.EditMemberDialog = false,
+      
       axios
         .put(`${this.Url}/Profile/${IdMember}`, {
           name: NameMember,
@@ -353,7 +353,7 @@ export const useAppStore = defineStore("app", {
       TrashCharge,
       WifiCharge,
       CableCharge,
-      OtherCharge,
+      DebtCharge,
       Total,
       Status
     ) {
@@ -368,7 +368,7 @@ export const useAppStore = defineStore("app", {
           trash: TrashCharge,
           wifi: WifiCharge,
           cable: CableCharge,
-          other: OtherCharge,
+          debt: DebtCharge,
           total: Total,
           time: Time,
         })
@@ -381,9 +381,10 @@ export const useAppStore = defineStore("app", {
     },
 
     //Delete Payment
-    DeletePaid() {
+    DeletePaid(id) {
+      this.ViewPayDialog = false
       axios
-        .delete(`${this.Url}/History/${this.IdPay}`)
+        .delete(`${this.Url}/History/${id}`)
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -396,6 +397,7 @@ export const useAppStore = defineStore("app", {
 
     //Accept paid room charge
     PaidCharge(id) {
+      this.ViewPayDialog = false
       axios
         .patch(`${this.Url}/History/` + id, {
           status: true,

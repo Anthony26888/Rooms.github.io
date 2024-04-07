@@ -1,18 +1,6 @@
 {
   "Room": [
     {
-      "number": "11G",
-      "qty": "2",
-      "location": "Dãy B",
-      "date": "2024-03-31",
-      "roomcharge": "1000000",
-      "wifi": false,
-      "cable": false,
-      "electric": "15",
-      "status": "true",
-      "id": "2"
-    },
-    {
       "id": "bb0e",
       "number": "4H",
       "qty": "2",
@@ -21,7 +9,19 @@
       "roomcharge": "1000000",
       "wifi": "true",
       "cable": false,
-      "electric": "12",
+      "electric": "99",
+      "status": "true"
+    },
+    {
+      "id": "1a2c",
+      "number": "4F",
+      "qty": "1",
+      "location": "Dãy A",
+      "date": "2024-04-08",
+      "roomcharge": "1200000",
+      "wifi": "true",
+      "cable": false,
+      "electric": "202",
       "status": "true"
     }
   ],
@@ -97,51 +97,5 @@
       "id": "0"
     }
   ],
-  "History": [
-    {
-      "id": "e871",
-      "status": true,
-      "date": "2024-3-31",
-      "name": "3F",
-      "roomcharge": "1200000",
-      "electric": 52800,
-      "water": 80000,
-      "trash": "35000",
-      "wifi": 0,
-      "cable": 0,
-      "other": 0,
-      "total": 1367800,
-      "time": "3/2024"
-    },
-    {
-      "id": "b7ec",
-      "status": false,
-      "date": "2024-3-31",
-      "name": "3F",
-      "roomcharge": "1200000",
-      "electric": 105600,
-      "water": 80000,
-      "trash": "35000",
-      "wifi": 0,
-      "cable": 0,
-      "other": 0,
-      "total": 1420600,
-      "time": "3/2024"
-    },
-    {
-      "id": "cc32",
-      "status": false,
-      "date": "2024-3-31",
-      "name": "3F",
-      "roomcharge": "1200000",
-      "electric": 105600,
-      "water": 80000,
-      "trash": "35000",
-      "wifi": 0,
-      "cable": 0,
-      "other": 0,
-      "total": 1420600,
-      "time": "3/2024"
-    }
-  ]
+  "History": []
 }

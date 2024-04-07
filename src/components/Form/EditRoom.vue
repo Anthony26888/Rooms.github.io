@@ -42,11 +42,9 @@
         >
         </v-checkbox>
       </div>
+      <v-btn :disabled="!form" class="w-100" color="primary" type="submit">Lưu</v-btn>
     </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn :disabled="!form" color="primary" type="submit">Lưu</v-btn>
-    </v-card-actions>
+    
   </v-form>
 </template>
 <script setup>

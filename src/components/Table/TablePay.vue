@@ -18,7 +18,7 @@
         <v-icon
           icon="mdi-eye"
           color="success"
-          @click="store.fetchEditPay(item.id); ViewPay=true"
+          @click="store.fetchEditPay(item.id); store.ViewPayDialog=true"
         ></v-icon>
       </template>
     </v-data-table-virtual>
@@ -40,7 +40,7 @@
           <v-btn
             @click="
               notify = false;
-              store.DeletePaid();
+              store.DeletePaid(store.editPay.id);
             "
             color="red"
           >
@@ -53,32 +53,32 @@
 
   <!--Notifition View Pay-->
   <v-dialog
-    v-model="ViewPay"
+    v-model="store.ViewPayDialog"
     width="500"
     transition="dialog-bottom-transition"
     persistent
   >
     <v-card>
       <v-card-title class="text-center">HÓA ĐƠN TIỀN PHÒNG</v-card-title>
-      <v-card-subtitle class="text-center">Phòng: {{NumberRoom}}</v-card-subtitle>
-      <v-card-subtitle class="text-center">Tháng {{TimeRoom}}</v-card-subtitle>
+      <v-card-subtitle class="text-center">Phòng: {{store.editPay.name}}</v-card-subtitle>
+      <v-card-subtitle class="text-center">Tháng {{store.editPay.time}}</v-card-subtitle>
       
       <v-card-text>
-        <table class="table w-100 pa-3 pb-3">
-          <v-divider :thickness="2" ></v-divider>
+        <v-divider :thickness="2" ></v-divider>
+        <table class="table w-100 pa-3 pb-3">          
           <tbody class="table-group-divider">
             <tr>
               <td scope="row" class="text-start text-table">Tiền phòng:</td>
               <td></td>
               <td></td>
-              <td class="text-end">{{ RoomCharge }}</td>
+              <td class="text-end">{{ store.editPay.roomcharge }}</td>
             </tr>
             <tr>
               <td scope="row" class="text-start text-table">Điện:</td>
               <td></td>
               <td></td>
               <td class="text-end">
-                {{ ElectricCharge }}
+                {{ store.editPay.electric }}
               </td>
             </tr>
             <tr>
@@ -87,46 +87,47 @@
               </td>
               <td></td>
               <td></td>
-              <td class="text-end">{{ WaterCharge }}</td>
+              <td class="text-end">{{ store.editPay.water }}</td>
             </tr>
             <tr>
               <td scope="row" class="text-start text-table">Rác:</td>
               <td></td>
               <td></td>
-              <td class="text-end">{{ TrashCharge }}</td>
+              <td class="text-end">{{ store.editPay.trash }}</td>
             </tr>
             <tr>
               <td scope="row" class="text-start text-table">Wifi:</td>
               <td></td>
               <td></td>
-              <td class="text-end">{{ WifiCharge }}</td>
+              <td class="text-end">{{ store.editPay.wifi }}</td>
             </tr>
             <tr>
               <td scope="row" class="text-start text-table">Cáp:</td>
               <td></td>
               <td></td>
-              <td class="text-end">{{ CableCharge }}</td>
+              <td class="text-end">{{ store.editPay.cable }}</td>
             </tr>
             <tr>
-              <td scope="row" class="text-start text-table">Tiền khác:</td>
+              <td scope="row" class="text-start text-table">Tiền nợ:</td>
               <td></td>
               <td></td>
-              <td class="text-end">{{ OtherCharge }}</td>
+              <td class="text-end">{{ store.editPay.debt }}</td>
             </tr>
-          </tbody>
-          <v-divider :thickness="2"></v-divider>
-          <tfoot>
+          </tbody>          
+          <tfoot>            
             <tr>
               <th scope="row" class="text-start "><h2>Tổng:</h2></th>
               <td></td>
               <td></td>
-              <td class="text-end">{{ RoomCharge }}</td>
+              <td class="text-end">{{ store.editPay.total }}</td>
             </tr>
           </tfoot>
         </table>
+        <v-btn @click='store.PaidCharge(store.editPay.id);' class='w-100 bg-green m-2'>Thanh toán</v-btn>
+        <v-btn @click='notify = true' class='w-100 mt-2 bg-red m-2'>Xóa</v-btn>
+        <v-btn @click='store.ViewPayDialog=false' class='w-100 mt-2 bg-gray'>Quay lại</v-btn>
       </v-card-text>
-      <v-btn @click='store.PaidCharge(item.id)' class='w-100 bg-green m-2'>Thanh toán</v-btn>
-      <v-btn @click='ViewPay=false' class='bg-gray'>Quay lại</v-btn>
+      
     </v-card>
   </v-dialog>
 </template>
@@ -137,15 +138,13 @@ import { useAppStore } from "@/store/app";
 <script>
 const store = useAppStore();
 store.fetchPay();
+
 export default {
   name: "TablePay",
   data() {
     return {
-      Now: "",
-      ViewPay: false,
-      notify: false,
-      NumberRoom:store.editPay.name,
-      TimeRoom:store.editPay.time,
+      Now: "",      
+      notify: false,        
       headers: [
         { title: "Phòng" },
         { title: "Tình trạng" },

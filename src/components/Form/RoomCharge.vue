@@ -1,5 +1,23 @@
 <template lang="">
-  <form >
+  <form
+    v-on:submit.prevent="
+      store.CaculatorCharge(
+        DateNow,
+        Time,
+        NameRoom,
+        RoomCharge,
+        ElectricCharge,
+        WaterCharge,
+        TrashCharge,
+        WifiCharge,
+        CableCharge,
+        DebtCharge,
+        Total,
+        Status
+      );
+      store.Parameter(ElectricNew);
+    "
+  >
     <v-card-text>
       <VRow>
         <VCol xs="12" sm="4">
@@ -9,8 +27,8 @@
         </VCol>
       </VRow>
       <h3 class="text-start mt-4">Điện</h3>
-      <VRow class="mt-1">        
-        <VCol xs="4">
+      <VRow class="mt-1">
+        <VCol cols="5">
           <v-text-field
             variant="outlined"
             label="Số cũ"
@@ -18,9 +36,10 @@
             type="number"
             suffix="Kw"
             :rules="[rules.required]"
+            required
           ></v-text-field>
         </VCol>
-        <VCol xs="4">
+        <VCol cols="5">
           <v-text-field
             variant="outlined"
             label="Số mới"
@@ -28,12 +47,12 @@
             type="number"
             suffix="Kw"
             :rules="[rules.required]"
+            required
           ></v-text-field>
         </VCol>
-        <VCol xs="4">
+        <VCol cols="2">
           <div class="d-flex text-center mt-4">
-            <h3>= {{ ResultElectric }}</h3>
-            <p class="ms-2">Kw</p>
+            <h3>={{ ResultElectric }}</h3>
           </div>
         </VCol>
       </VRow>
@@ -71,17 +90,15 @@
         </VCol>
       </VRow>
       -->
-      <h3 class="text-start mt-4">Tiền khác</h3>
-      <VRow class="mt-1">        
-        <VCol cols="12">
-          <v-text-field v-model="OtherCharge" suffix="vnđ"></v-text-field>
-        </VCol>
-      </VRow>
 
       <h3 class="text-start mt-4">Tiền nợ</h3>
-      <VRow class="mt-1">        
+      <VRow class="mt-1">
         <VCol cols="12">
-          <v-text-field v-model="DebtCharge" suffix="vnđ"></v-text-field>
+          <v-text-field
+            v-model="DebtCharge"
+            suffix="vnđ"
+            variant="outlined"
+          ></v-text-field>
         </VCol>
       </VRow>
 
@@ -90,13 +107,13 @@
       <table class="table w-100 pa-3 pb-3">
         <tbody class="table-group-divider">
           <tr>
-            <th scope="row" class="text-start">Tiền phòng</th>
+            <td scope="row" class="text-start">Tiền phòng:</td>
             <td></td>
             <td></td>
             <td class="text-end">{{ RoomCharge }}</td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">Điện</th>
+            <td scope="row" class="text-start">Điện:</td>
             <td></td>
             <td></td>
             <td class="text-end">
@@ -104,78 +121,51 @@
             </td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">
-              Nước ({{ store.editRoom.qty }} người)
-            </th>
+            <td scope="row" class="text-start">
+              Nước: ({{ store.editRoom.qty }} người)
+            </td>
             <td></td>
             <td></td>
             <td class="text-end">{{ WaterCharge }}</td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">Rác</th>
+            <td scope="row" class="text-start">Rác:</td>
             <td></td>
             <td></td>
             <td class="text-end">{{ TrashCharge }}</td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">Wifi</th>
+            <td scope="row" class="text-start">Wifi:</td>
             <td></td>
             <td></td>
             <td class="text-end">{{ WifiCharge }}</td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">Cáp</th>
+            <td scope="row" class="text-start">Cáp:</td>
             <td></td>
             <td></td>
             <td class="text-end">{{ CableCharge }}</td>
           </tr>
           <tr>
-            <th scope="row" class="text-start">Tiền khác</th>
+            <td scope="row" class="text-start">Tiền nợ</td>
             <td></td>
             <td></td>
-            <td class="text-end">{{ OtherCharge }}</td>
+            <td class="text-end">{{ DebtCharge }}</td>
           </tr>
         </tbody>
-        
+
+        <tfoot>
+          <tr>
+            <th scope="row" class="text-start"><h2>Tổng:</h2></th>
+            <td></td>
+            <td></td>
+            <th class="text-end">{{ Total }}</th>
+          </tr>
+        </tfoot>
       </table>
+    <v-btn class="w-100 2" type="submit" color="primary">Lưu</v-btn>
 
-      <v-divider :thickness="2"></v-divider>
-
-      <VRow class="mt-2">
-        <VCol cols="2">
-          <h2 class="ma-1 mb-1 mt-2">Tổng:</h2>
-        </VCol>
-        <VCol cols="8"></VCol>
-        <VCol cols="2" class="text-end">
-          <h3>{{ Total }}</h3>
-        </VCol>
-      </VRow>
     </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn
-        type="submit"
-        color="primary"
-        @click="
-          store.CaculatorCharge(
-            DateNow,
-            Time,
-            NameRoom,
-            RoomCharge,
-            ElectricCharge,
-            WaterCharge,
-            TrashCharge,
-            WifiCharge,
-            CableCharge,
-            OtherCharge,
-            Total,
-            Status,
-          );  
-          store.Parameter(ElectricNew);   
-        "
-        >Lưu</v-btn
-      >
-    </v-card-actions>
   </form>
 </template>
 <script setup>
@@ -197,7 +187,6 @@ export default {
       ResultElectric: 0,
       ResultWater: 0,
 
-      OtherCharge: 0,
       Total: 0,
       WaterCharge: 0,
       ElectricCharge: 0,
@@ -213,16 +202,27 @@ export default {
       rules: {
         required: (value) => !!value || "Nhập thông tin",
       },
-      Month:0,
-      Year:0,
-      Time:"",     
+      Month: 0,
+      Year: 0,
+      Time: "",
     };
   },
   mounted() {
     setInterval(() => {
       //Old and New
-      this.ResultElectric = this.ElectricNew - this.ElectricOld;
-      this.ResultWater = this.WaterNew - this.WaterOld;
+
+      const checkElectric = this.ElectricNew - this.ElectricOld;
+      if (checkElectric > 0) {
+        this.ResultElectric = checkElectric;
+      } else {
+        this.ResultElectric = 0;
+      }
+      //const checkWater = this.WaterNew - this.WaterOld;
+      //if( checkWater > 0){
+      // this.ResultWater = checkWater
+      //}else{
+      // this.ResultWater = 0
+      //}
 
       //Electric
       const Charge0 = store.service[0].Electric0;
@@ -261,16 +261,15 @@ export default {
       this.WaterCharge = store.service[0].Water * store.editRoom.qty;
 
       //Service
+      if (store.editRoom.wifi == "true") {
+        this.WifiCharge = store.service[0].Wifi;
+      } else {
+        this.WifiCharge = 0;
+      }
       if (store.editRoom.cable == "true") {
         this.CableCharge = store.service.Cable;
       } else {
         this.CableCharge = 0;
-      }
-
-      if (store.editRoom.wifi == "true") {
-        this.WifiCharge = store.service.Wifi;
-      } else {
-        this.WifiCharge = 0;
       }
 
       //Total
@@ -280,22 +279,18 @@ export default {
         this.WaterCharge +
         Number(this.WifiCharge) +
         Number(this.CableCharge) +
-        Number(this.TrashCharge) +
-        Number(this.OtherCharge) -
+        Number(this.TrashCharge) -
         Number(this.DebtCharge);
 
-
-      const now = new Date()
-      const Day = now.getDate()
-      const Month = now.getMonth() +1
-      const Year = now.getFullYear()
-      this.Time = Month + "/" +Year
-      this.DateNow = Year + "-" + Month + "-" + Day
+      const now = new Date();
+      const Day = now.getDate();
+      const Month = now.getMonth() + 1;
+      const Year = now.getFullYear();
+      this.Time = Month + "/" + Year;
+      this.DateNow = Year + "-" + Month + "-" + Day;
     }, 10);
   },
-  computed: {
-    
-  },
+  computed: {},
 };
 </script>
 <style lang=""></style>

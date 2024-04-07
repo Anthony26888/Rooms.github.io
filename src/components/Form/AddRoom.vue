@@ -20,6 +20,7 @@
         v-model="LocationRoom"
         label="Vị trí"
         :items="['Dãy A', 'Dãy B']"
+        required
       ></v-select>
       <v-text-field variant="outlined" label="Nhập tên phòng" v-model="NameRoom"></v-text-field>
       <v-text-field
@@ -27,24 +28,28 @@
         label="Nhập số tiền phòng"
         type="number"
         v-model="RoomCharge"
+        required
       ></v-text-field>
       <v-select
         variant="outlined"
         v-model="QtyMember"
         label="Số lượng người"
         :items="['1', '2', '3', '4', '5', '6']"
+        required
       ></v-select>
       <v-text-field
         variant="outlined"
         label="Ngày vào"
         type="date"
         v-model="DateRoom"
+        required
       ></v-text-field>
       <v-text-field
         variant="outlined"
         label="Số điện cuối"
         type="number"
         v-model="LastElectric"
+        required
       ></v-text-field>
       <b>Dịch vụ thêm:</b>
       <div class="d-flex">
@@ -54,6 +59,7 @@
           color="secondary"
           value="true"
           v-model="WifiService"
+          required
         ></v-checkbox>
         <v-checkbox
           disabled
@@ -61,14 +67,13 @@
           color="orange"
           value="true"
           v-model="CableService"
+          
         >
         </v-checkbox>
       </div>
+      <v-btn class="w-100" type="submit" color="primary">Tạo</v-btn>
     </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn type="submit" color="primary">Tạo</v-btn>
-    </v-card-actions>
+    
   </form>
 </template>
 <script setup>
