@@ -4,7 +4,7 @@
       :headers="Headers"
       :items="store.Filter"
       item-value="name"
-      @click="ViewPay = true"
+      
     >
       <template v-slot:item.status="{ value }">
         <v-chip color="red" v-if="value == false"
@@ -16,18 +16,9 @@
       </template>
       <template v-slot:item.actions="{ item }">
         <v-icon
-          icon="mdi-check"
+          icon="mdi-eye"
           color="success"
-          @click="store.PaidCharge(item.id)"
-        ></v-icon>
-        <v-icon
-          class=""
-          icon="mdi-delete"
-          color="red"
-          @click="
-            notify = true;
-            store.GetIdPay(item.id);
-          "
+          @click="store.fetchEditPay(item.id); ViewPay=true"
         ></v-icon>
       </template>
     </v-data-table-virtual>
@@ -69,8 +60,8 @@
   >
     <v-card>
       <v-card-title class="text-center">HÓA ĐƠN TIỀN PHÒNG</v-card-title>
-      <v-card-subtitle class="text-center">Phòng: 3F</v-card-subtitle>
-      <v-card-subtitle class="text-center">Tháng 3/2024</v-card-subtitle>
+      <v-card-subtitle class="text-center">Phòng: {{NumberRoom}}</v-card-subtitle>
+      <v-card-subtitle class="text-center">Tháng {{TimeRoom}}</v-card-subtitle>
       
       <v-card-text>
         <table class="table w-100 pa-3 pb-3">
@@ -134,11 +125,8 @@
           </tfoot>
         </table>
       </v-card-text>
-      <v-card-actions>
-        <v-btn @click="ViewPay=false">Đóng</v-btn>
-        <v-spacer></v-spacer>
-        <v-btn @click="store.PaidCharge(item.id)" class="bg-green">Thạnh toán</v-btn>
-      </v-card-actions>
+      <v-btn @click='store.PaidCharge(item.id)' class='w-100 bg-green m-2'>Thanh toán</v-btn>
+      <v-btn @click='ViewPay=false' class='bg-gray'>Quay lại</v-btn>
     </v-card>
   </v-dialog>
 </template>
@@ -156,6 +144,8 @@ export default {
       Now: "",
       ViewPay: false,
       notify: false,
+      NumberRoom:store.editPay.name,
+      TimeRoom:store.editPay.time,
       headers: [
         { title: "Phòng" },
         { title: "Tình trạng" },
