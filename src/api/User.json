@@ -1,6 +1,5 @@
 {
   "Room": [
-   
     {
       "number": "11G",
       "qty": "2",
@@ -101,7 +100,7 @@
   "History": [
     {
       "id": "e871",
-      "status": false,
+      "status": true,
       "date": "2024-3-31",
       "name": "3F",
       "roomcharge": "1200000",
@@ -143,21 +142,6 @@
       "other": 0,
       "total": 1420600,
       "time": "3/2024"
-    },
-    {
-      "id": "0caf",
-      "status": false,
-      "date": "2024-4-3",
-      "name": "11G",
-      "roomcharge": "1000000",
-      "electric": 7200,
-      "water": 40000,
-      "trash": "35000",
-      "wifi": 0,
-      "cable": 0,
-      "other": 0,
-      "total": 1082200,
-      "time": "4/2024"
     }
   ]
 }

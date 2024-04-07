@@ -136,6 +136,7 @@
             <td class="text-end">{{ OtherCharge }}</td>
           </tr>
         </tbody>
+        
       </table>
 
       <v-divider :thickness="2"></v-divider>

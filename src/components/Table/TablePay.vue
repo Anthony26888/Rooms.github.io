@@ -4,31 +4,31 @@
       :headers="Headers"
       :items="store.Filter"
       item-value="name"
+      @click="ViewPay = true"
     >
       <template v-slot:item.status="{ value }">
-        <p v-if="value == false" class="text-red">Chưa thanh toán</p>
-        <p v-else class="text-green">Đã thanh toán</p>
+        <v-chip color="red" v-if="value == false"
+          ><v-icon>mdi-window-close</v-icon></v-chip
+        >
+        <v-chip color="green" v-else class="text-green"
+          ><v-icon>mdi-check</v-icon></v-chip
+        >
       </template>
       <template v-slot:item.actions="{ item }">
-        <v-btn
-          :disabled="checkPay"
-          class="button"
-          color="success"
+        <v-icon
           icon="mdi-check"
-          variant="text"
+          color="success"
           @click="store.PaidCharge(item.id)"
-        ></v-btn>
-
-        <v-btn
-          class="button ms-5"
-          color="red"
+        ></v-icon>
+        <v-icon
+          class=""
           icon="mdi-delete"
-          variant="text"
+          color="red"
           @click="
             notify = true;
             store.GetIdPay(item.id);
           "
-        ></v-btn>
+        ></v-icon>
       </template>
     </v-data-table-virtual>
   </v-card>
@@ -50,7 +50,6 @@
             @click="
               notify = false;
               store.DeletePaid();
-              reloadPage()
             "
             color="red"
           >
@@ -58,6 +57,88 @@
           </v-btn>
         </div>
       </template>
+    </v-card>
+  </v-dialog>
+
+  <!--Notifition View Pay-->
+  <v-dialog
+    v-model="ViewPay"
+    width="500"
+    transition="dialog-bottom-transition"
+    persistent
+  >
+    <v-card>
+      <v-card-title class="text-center">HÓA ĐƠN TIỀN PHÒNG</v-card-title>
+      <v-card-subtitle class="text-center">Phòng: 3F</v-card-subtitle>
+      <v-card-subtitle class="text-center">Tháng 3/2024</v-card-subtitle>
+      
+      <v-card-text>
+        <table class="table w-100 pa-3 pb-3">
+          <v-divider :thickness="2" ></v-divider>
+          <tbody class="table-group-divider">
+            <tr>
+              <td scope="row" class="text-start text-table">Tiền phòng:</td>
+              <td></td>
+              <td></td>
+              <td class="text-end">{{ RoomCharge }}</td>
+            </tr>
+            <tr>
+              <td scope="row" class="text-start text-table">Điện:</td>
+              <td></td>
+              <td></td>
+              <td class="text-end">
+                {{ ElectricCharge }}
+              </td>
+            </tr>
+            <tr>
+              <td scope="row" class="text-start text-table">
+                Nước: ({{ store.editRoom.qty }} người)
+              </td>
+              <td></td>
+              <td></td>
+              <td class="text-end">{{ WaterCharge }}</td>
+            </tr>
+            <tr>
+              <td scope="row" class="text-start text-table">Rác:</td>
+              <td></td>
+              <td></td>
+              <td class="text-end">{{ TrashCharge }}</td>
+            </tr>
+            <tr>
+              <td scope="row" class="text-start text-table">Wifi:</td>
+              <td></td>
+              <td></td>
+              <td class="text-end">{{ WifiCharge }}</td>
+            </tr>
+            <tr>
+              <td scope="row" class="text-start text-table">Cáp:</td>
+              <td></td>
+              <td></td>
+              <td class="text-end">{{ CableCharge }}</td>
+            </tr>
+            <tr>
+              <td scope="row" class="text-start text-table">Tiền khác:</td>
+              <td></td>
+              <td></td>
+              <td class="text-end">{{ OtherCharge }}</td>
+            </tr>
+          </tbody>
+          <v-divider :thickness="2"></v-divider>
+          <tfoot>
+            <tr>
+              <th scope="row" class="text-start "><h2>Tổng:</h2></th>
+              <td></td>
+              <td></td>
+              <td class="text-end">{{ RoomCharge }}</td>
+            </tr>
+          </tfoot>
+        </table>
+      </v-card-text>
+      <v-card-actions>
+        <v-btn @click="ViewPay=false">Đóng</v-btn>
+        <v-spacer></v-spacer>
+        <v-btn @click="store.PaidCharge(item.id)" class="bg-green">Thạnh toán</v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -73,6 +154,7 @@ export default {
   data() {
     return {
       Now: "",
+      ViewPay: false,
       notify: false,
       headers: [
         { title: "Phòng" },
@@ -92,13 +174,13 @@ export default {
     };
   },
   computed: {
-    check(){
-     if(store.FilterTime = null){
-      return store.pay
-     }else{
-      return store.FilterPay
-     }
-    }
+    check() {
+      if ((store.FilterTime = null)) {
+        return store.pay;
+      } else {
+        return store.FilterPay;
+      }
+    },
   },
   methods: {
     reloadPage() {
@@ -115,30 +197,39 @@ export default {
 </script>
 
 <style scoped>
+.text-table{
+  font-size: 15px;
+}
 @media only screen and (min-width: 400px) {
   .text-title {
     font-size: 13px;
   }
+
   td {
     font-size: 13px;
   }
+
   .button {
     width: 12px;
     height: 12pxl;
   }
 }
+
 @media only screen and (min-width: 700px) {
   .text-title {
     font-size: 18px;
   }
+
   td {
     font-size: 18px;
   }
 }
+
 @media only screen and (min-width: 1024px) {
   .text-title {
     font-size: 18px;
   }
+
   td {
     font-size: 18px;
   }
