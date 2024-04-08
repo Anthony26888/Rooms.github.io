@@ -10,8 +10,7 @@
         WifiService,
         CableService,
         LastElectric
-      );
-      
+      )
     "
   >
     <v-card-text>
@@ -22,7 +21,11 @@
         :items="['Dãy A', 'Dãy B']"
         required
       ></v-select>
-      <v-text-field variant="outlined" label="Nhập tên phòng" v-model="NameRoom"></v-text-field>
+      <v-text-field
+        variant="outlined"
+        label="Nhập tên phòng"
+        v-model="NameRoom"
+      ></v-text-field>
       <v-text-field
         variant="outlined"
         label="Nhập số tiền phòng"
@@ -52,28 +55,15 @@
         required
       ></v-text-field>
       <b>Dịch vụ thêm:</b>
-      <div class="d-flex">
-        <v-checkbox
-          variant="outlined"
-          label="Wifi"
-          color="secondary"
-          value="true"
-          v-model="WifiService"
-          required
-        ></v-checkbox>
-        <v-checkbox
-          disabled
-          label="Cáp"
-          color="orange"
-          value="true"
-          v-model="CableService"
-          
-        >
-        </v-checkbox>
-      </div>
+      <v-checkbox
+        variant="outlined"
+        label="Wifi"
+        color="secondary"
+        value="true"
+        v-model="WifiService"
+      ></v-checkbox>
       <v-btn class="w-100" type="submit" color="primary">Tạo</v-btn>
     </v-card-text>
-    
   </form>
 </template>
 <script setup>
@@ -90,7 +80,7 @@ export default {
       RoomCharge: 0,
       DateRoom: "",
       QtyMember: "",
-      LastElectric:0,
+      LastElectric: "",
       WifiService: false,
       CableService: false,
     };

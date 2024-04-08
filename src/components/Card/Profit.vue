@@ -15,13 +15,13 @@
     <VCol xs="6">
       <v-card>
         <v-card-title class="text-title">Đã đóng</v-card-title>        
-        <v-card-text class="text-center text-num text-blue">{{ store.Paid }}</v-card-text>
+        <v-card-text class="text-center text-num text-blue">{{ store.NumPaid }}</v-card-text>
       </v-card>
     </VCol>
     <VCol xs="6">
       <v-card>
         <v-card-title class="text-title">Chưa đóng </v-card-title>        
-        <v-card-text class="text-center text-num text-deep-orange">{{ store.Pay }}</v-card-text>
+        <v-card-text class="text-center text-num text-deep-orange">{{ store.NumPay }}</v-card-text>
       </v-card>
     </VCol>
   </VRow>

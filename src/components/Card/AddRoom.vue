@@ -1,30 +1,14 @@
 <template lang="">
-  <VRow>
-    <VCol cols="3">
-      <v-btn
-        prepend-icon="mdi-plus"
-        color="success"
-        variant="tonal"
-        class="mb-3"
-        @click="store.AddRoomDialog = true"
-      >
-        Thêm phòng
-      </v-btn>
-    </VCol>
-    <VCol cols="4"></VCol>
-    <VCol cols="5">
-      <v-select
-        label="Chọn dãy"
-        :items="[
-          'Dãy A',
-          'Dãy B'
-        ]"
-        variant="solo"
-      ></v-select>
-    </VCol>
-  </VRow>
-
-  <v-divider :thickness="2"></v-divider>
+  <v-btn
+    prepend-icon="mdi-plus"
+    color="success"
+    variant="tonal"
+    class="mb-3 mt-1"
+    @click="store.AddRoomDialog = true"
+  >
+    Thêm phòng
+  </v-btn>
+  
   <v-dialog v-model="store.AddRoomDialog" width="500">
     <v-card title="Tạo phòng">
       <template v-slot:append>
@@ -49,9 +33,10 @@ const store = useAppStore();
 export default {
   data() {
     return {
-      form: false,
+      form: false,      
     };
-  },
+  }
+  
 };
 </script>
 <style lang=""></style>

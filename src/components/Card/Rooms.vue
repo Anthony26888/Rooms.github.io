@@ -21,7 +21,7 @@
         </template>
         <v-card-text>
           <p><b>Số người:</b> {{ item.qty }} người</p>
-          <p><b>Tiền phòng:</b> {{ item.roomcharge }} vnđ</p>
+          <p><b>Tiền phòng:</b> {{ Number(item.roomcharge).toLocaleString("en-GB") }} vnđ</p>
           <div class="d-flex">
             <b>Dịch vụ thêm:</b>
             <p v-if="item.wifi == 'true'" class="ms-2">Wifi</p>
@@ -63,7 +63,7 @@
                 color="success"
                 variant="tonal"
                 @click="
-                  caculator = true;
+                  store.CaculatorChargeDialog = true;
                   store.fetchEditRoom(item.id);
                 "
                 v-if="item.status == 'true'"
@@ -238,7 +238,7 @@
 
   <!--Caculator Roomcharge-->
   <v-dialog
-    v-model="caculator"
+    v-model="store.CaculatorChargeDialog"
     width="700"
     transition="dialog-bottom-transition"
   >
@@ -248,7 +248,7 @@
           class="mx-auto"
           variant="text"
           icon="mdi-close"
-          @click="caculator = false"
+          @click="store.CaculatorChargeDialog = false"
         ></v-btn>
       </template>
       <RoomCharge />
@@ -299,7 +299,7 @@
           <v-btn
             @click="
               notifyRoom = false;
-              store.Checkout();
+              store.Checkout(store.editPay.id);
             "
             color="red"
           >

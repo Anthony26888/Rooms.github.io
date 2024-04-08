@@ -7,7 +7,7 @@ export const useAppStore = defineStore("app", {
   state: () => {
     return {
       RestApi:"https://n7hnx2-3000.csb.app/",
-      Url:"https://n7hnx2-3000.csb.app",
+      Url:"http://localhost:3000",
       NumberRoom: "",
       IdRoom: useLocalStorage("IdRoom", ""),
       IdMember: "",
@@ -23,8 +23,9 @@ export const useAppStore = defineStore("app", {
       FilterPay: [],
       Sum: 0,
       Debt: 0,
-      Paid: 0,
-      Pay: 0,
+      NumPaid: 0,
+      NumPay: 0,
+      FilterRoom:[],
       AddRoomDialog:false,
       EditRoomDialog:false,
       EditMemberDialog:false,
@@ -33,6 +34,7 @@ export const useAppStore = defineStore("app", {
       EditWaterDialog:false,
       EditTrashDialog:false,
       EditMoreDialog:false,
+      CaculatorChargeDialog:false,
       ViewPayDialog:false
     };
   },
@@ -65,12 +67,13 @@ export const useAppStore = defineStore("app", {
         });
         this.Sum = sum;
         this.Debt = debt;
-        this.Paid = checkTrue.length;
-        this.Pay = checkFalse.length;
+        this.NumPaid = checkTrue.length;
+        this.NumPay = checkFalse.length;
         return array;
       }
       return array;
     },
+    
   },
   actions: {
     //Fetch api room
@@ -118,6 +121,7 @@ export const useAppStore = defineStore("app", {
       QtyMember,
       RoomCharge,
       DateRoom,
+      LastElectric,
       WifiService,
       CableService
     ) {     
@@ -129,6 +133,7 @@ export const useAppStore = defineStore("app", {
           qty: QtyMember,
           roomcharge: RoomCharge,
           date: DateRoom,
+          electric:LastElectric,
           wifi: WifiService,
           cable: CableService,
           status: "true",
@@ -141,7 +146,7 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-    //Delete room
+    //Checkout room
     async Checkout() {
       axios
         .patch(`${this.Url}/Room/${this.IdRoom}`, {
@@ -157,6 +162,17 @@ export const useAppStore = defineStore("app", {
         .catch((error) => {
           console.error("Error submitting form:", error);
         });
+    },
+
+    //Filter Room
+    FilterRooms(item){
+      if(item == 'Dãy A'){
+        return this.FilterRoom = this.Room.filter((value) => value.location = 'Dãy A')
+      }
+      if(item == 'Dãy B'){
+        return this.FilterRoom = this.Room.filter((value) => value.location = 'Dãy B')
+      }      
+      
     },
 
     //Parameter of Electric and Water
@@ -357,6 +373,7 @@ export const useAppStore = defineStore("app", {
       Total,
       Status
     ) {
+      this.CaculatorChargeDialog = false,
       axios
         .post(`${this.Url}/History`, {
           status: Status,

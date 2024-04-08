@@ -91,7 +91,7 @@
       </VRow>
       -->
 
-      <h3 class="text-start mt-4">Tiền nợ</h3>
+      <h3 class="text-start">Tiền nợ</h3>
       <VRow class="mt-1">
         <VCol cols="12">
           <v-text-field
@@ -110,14 +110,14 @@
             <td scope="row" class="text-start">Tiền phòng:</td>
             <td></td>
             <td></td>
-            <td class="text-end">{{ RoomCharge }}</td>
+            <td class="text-end">{{ Number(RoomCharge).toLocaleString("en-GB") }}</td>
           </tr>
           <tr>
             <td scope="row" class="text-start">Điện:</td>
             <td></td>
             <td></td>
             <td class="text-end">
-              {{ ElectricCharge }}
+              {{ Number(ElectricCharge).toLocaleString("en-GB") }}
             </td>
           </tr>
           <tr>
@@ -126,40 +126,34 @@
             </td>
             <td></td>
             <td></td>
-            <td class="text-end">{{ WaterCharge }}</td>
+            <td class="text-end">{{ Number(WaterCharge).toLocaleString("en-GB") }}</td>
           </tr>
           <tr>
             <td scope="row" class="text-start">Rác:</td>
             <td></td>
             <td></td>
-            <td class="text-end">{{ TrashCharge }}</td>
+            <td class="text-end">{{ Number(TrashCharge).toLocaleString("en-GB") }}</td>
           </tr>
           <tr>
             <td scope="row" class="text-start">Wifi:</td>
             <td></td>
             <td></td>
-            <td class="text-end">{{ WifiCharge }}</td>
-          </tr>
-          <tr>
-            <td scope="row" class="text-start">Cáp:</td>
-            <td></td>
-            <td></td>
-            <td class="text-end">{{ CableCharge }}</td>
-          </tr>
+            <td class="text-end">{{ Number(WifiCharge).toLocaleString("en-GB") }}</td>
+          </tr>          
           <tr>
             <td scope="row" class="text-start">Tiền nợ</td>
             <td></td>
             <td></td>
-            <td class="text-end">{{ DebtCharge }}</td>
+            <td class="text-end">{{ Number(DebtCharge).toLocaleString("en-GB") }}</td>
           </tr>
         </tbody>
 
         <tfoot>
           <tr>
-            <th scope="row" class="text-start"><h2>Tổng:</h2></th>
+            <th scope="row" class="text-start"><h3>Tổng:</h3></th>
             <td></td>
             <td></td>
-            <th class="text-end">{{ Total }}</th>
+            <th class="text-end"><h3>{{ Number(Total).toLocaleString("en-GB") }}</h3></th>
           </tr>
         </tfoot>
       </table>
@@ -192,8 +186,7 @@ export default {
       ElectricCharge: 0,
       RoomCharge: store.editRoom.roomcharge,
       TrashCharge: store.service[0].Trash,
-      WifiCharge: 0,
-      CableCharge: 0,
+      WifiCharge: 0,      
       DebtCharge: 0,
 
       DateNow: "",
@@ -266,19 +259,13 @@ export default {
       } else {
         this.WifiCharge = 0;
       }
-      if (store.editRoom.cable == "true") {
-        this.CableCharge = store.service.Cable;
-      } else {
-        this.CableCharge = 0;
-      }
 
       //Total
       this.Total =
         Number(this.RoomCharge) +
         this.ElectricCharge +
         this.WaterCharge +
-        Number(this.WifiCharge) +
-        Number(this.CableCharge) +
+        Number(this.WifiCharge) +        
         Number(this.TrashCharge) -
         Number(this.DebtCharge);
 

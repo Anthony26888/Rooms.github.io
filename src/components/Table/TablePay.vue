@@ -24,7 +24,7 @@
     </v-data-table-virtual>
   </v-card>
 
-  <!--Notifition Delete Room-->
+  <!--Notifition Delete Pay-->
   <v-dialog
     v-model="notify"
     width="500"
@@ -71,14 +71,14 @@
               <td scope="row" class="text-start text-table">Tiền phòng:</td>
               <td></td>
               <td></td>
-              <td class="text-end">{{ store.editPay.roomcharge }}</td>
+              <td class="text-end">{{ Number(store.editPay.roomcharge).toLocaleString("en-GB") }}</td>
             </tr>
             <tr>
               <td scope="row" class="text-start text-table">Điện:</td>
               <td></td>
               <td></td>
               <td class="text-end">
-                {{ store.editPay.electric }}
+                {{ Number(store.editPay.electric).toLocaleString("en-GB") }}
               </td>
             </tr>
             <tr>
@@ -87,44 +87,38 @@
               </td>
               <td></td>
               <td></td>
-              <td class="text-end">{{ store.editPay.water }}</td>
+              <td class="text-end">{{ Number(store.editPay.water).toLocaleString("en-GB") }}</td>
             </tr>
             <tr>
               <td scope="row" class="text-start text-table">Rác:</td>
               <td></td>
               <td></td>
-              <td class="text-end">{{ store.editPay.trash }}</td>
+              <td class="text-end">{{ Number(store.editPay.trash).toLocaleString("en-GB") }}</td>
             </tr>
             <tr>
               <td scope="row" class="text-start text-table">Wifi:</td>
               <td></td>
               <td></td>
-              <td class="text-end">{{ store.editPay.wifi }}</td>
-            </tr>
-            <tr>
-              <td scope="row" class="text-start text-table">Cáp:</td>
-              <td></td>
-              <td></td>
-              <td class="text-end">{{ store.editPay.cable }}</td>
-            </tr>
+              <td class="text-end">{{ Number(store.editPay.wifi).toLocaleString("en-GB") }}</td>
+            </tr>            
             <tr>
               <td scope="row" class="text-start text-table">Tiền nợ:</td>
               <td></td>
               <td></td>
-              <td class="text-end">{{ store.editPay.debt }}</td>
+              <td class="text-end">{{ Number(store.editPay.debt).toLocaleString("en-GB") }}</td>
             </tr>
           </tbody>          
           <tfoot>            
             <tr>
-              <th scope="row" class="text-start "><h2>Tổng:</h2></th>
+              <th scope="row" class="text-start "><h3>Tổng:</h3></th>
               <td></td>
               <td></td>
-              <td class="text-end">{{ store.editPay.total }}</td>
+              <td class="text-end"><h3>{{ Number(store.editPay.total).toLocaleString("en-GB") }}</h3></td>
             </tr>
           </tfoot>
         </table>
-        <v-btn v-if="store.editPay.status =true" disabled @click='store.PaidCharge(store.editPay.id);' class='w-100 bg-green m-2'>Thanh toán</v-btn>
-        <v-btn v-else @click='store.PaidCharge(store.editPay.id);' class='w-100 bg-green m-2'>Thanh toán</v-btn>
+        <v-btn v-if="store.editPay.status == false"  @click='store.PaidCharge(store.editPay.id);' class='w-100 bg-green m-2'>Thanh toán</v-btn>
+        <v-btn v-else disabled class='w-100 bg-green m-2'>Đã Thanh toán</v-btn>
         <v-btn @click='notify = true' class='w-100 mt-2 bg-red m-2'>Xóa</v-btn>
         <v-btn @click='store.ViewPayDialog=false' class='w-100 mt-2 bg-gray'>Quay lại</v-btn>
       </v-card-text>
@@ -155,11 +149,11 @@ export default {
       ],
 
       Headers: [
-        { title: "Phòng", align: "start", key: "name" },
-        { title: "Tình trạng", align: "start", key: "status" },
-        { title: "Tổng tiền", align: "start", key: "total" },
-        { title: "Thời gian", align: "start", key: "date" },
-        { title: "Tùy chỉnh", align: "start", key: "actions", sortable: false },
+        { title: "Phòng", align: "center", key: "name" },
+        { title: "Tình trạng", align: "center", key: "status" },
+        { title: "Tổng tiền", align: "center", key: "total" },
+        { title: "Thời gian", align: "center", key: "date" },
+        { title: "Tùy chỉnh", align: "center", key: "actions", sortable: false },
       ],
     };
   },
