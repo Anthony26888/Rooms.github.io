@@ -1,27 +1,43 @@
 <template lang="">
-  <v-btn
-    prepend-icon="mdi-plus"
-    color="success"
-    variant="tonal"
-    class="mb-3"
-    @click="store.AddRoomDialog = true"
-  >
-    Thêm phòng
-  </v-btn>
+  <VRow>
+    <VCol cols="3">
+      <v-btn
+        prepend-icon="mdi-plus"
+        color="success"
+        variant="tonal"
+        class="mb-3"
+        @click="store.AddRoomDialog = true"
+      >
+        Thêm phòng
+      </v-btn>
+    </VCol>
+    <VCol cols="4"></VCol>
+    <VCol cols="5">
+      <v-select
+        label="Chọn dãy"
+        :items="[
+          'Dãy A',
+          'Dãy B'
+        ]"
+        variant="solo"
+      ></v-select>
+    </VCol>
+  </VRow>
+
   <v-divider :thickness="2"></v-divider>
   <v-dialog v-model="store.AddRoomDialog" width="500">
     <v-card title="Tạo phòng">
       <template v-slot:append>
-        <v-btn          
+        <v-btn
           variant="text"
           icon="mdi-close"
           @click="store.AddRoomDialog = false"
         ></v-btn>
       </template>
       <v-card-text>
-        <FormAdd/>
+        <FormAdd />
       </v-card-text>
-    </v-card>    
+    </v-card>
   </v-dialog>
 </template>
 <script setup>

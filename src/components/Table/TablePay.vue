@@ -123,7 +123,8 @@
             </tr>
           </tfoot>
         </table>
-        <v-btn @click='store.PaidCharge(store.editPay.id);' class='w-100 bg-green m-2'>Thanh toán</v-btn>
+        <v-btn v-if="store.editPay.status =true" disabled @click='store.PaidCharge(store.editPay.id);' class='w-100 bg-green m-2'>Thanh toán</v-btn>
+        <v-btn v-else @click='store.PaidCharge(store.editPay.id);' class='w-100 bg-green m-2'>Thanh toán</v-btn>
         <v-btn @click='notify = true' class='w-100 mt-2 bg-red m-2'>Xóa</v-btn>
         <v-btn @click='store.ViewPayDialog=false' class='w-100 mt-2 bg-gray'>Quay lại</v-btn>
       </v-card-text>

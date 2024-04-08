@@ -26,6 +26,11 @@
         v-model="DateRoom"
         pattern="\d{4}-\d{2}-\d{2}"
       ></v-text-field>
+      <v-text-field
+        variant="outlined"
+        label="Số điện cuối"
+        v-model="LastElectric"
+      ></v-text-field>
       <b>Dịch vụ thêm:</b>
       <div class="d-flex">
         <v-checkbox
@@ -61,6 +66,7 @@ export default {
       QtyMember: store.editRoom.qty,
       RoomCharge: store.editRoom.roomcharge,
       DateRoom: store.editRoom.date,
+      LastElectric:store.editRoom.electric,
       WifiService: store.editRoom.wifi,
       CableService: store.editRoom.cable
 
