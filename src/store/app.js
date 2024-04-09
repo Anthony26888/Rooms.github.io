@@ -6,8 +6,8 @@ import { useLocalStorage } from "@vueuse/core";
 export const useAppStore = defineStore("app", {
   state: () => {
     return {
-      RestApi:"https://n7hnx2-3000.csb.app",
-      Url:"https://n7hnx2-3000.csb.app",
+      RestApi: "https://n7hnx2-3000.csb.app",
+      Url: "http://localhost:3000",
       NumberRoom: "",
       IdRoom: useLocalStorage("IdRoom", ""),
       IdMember: "",
@@ -19,23 +19,23 @@ export const useAppStore = defineStore("app", {
       editRoom: [],
       editPay: [],
       service: [],
-      FilterRoom:null,
+      FilterRoom: null,
       FilterTime: null,
       FilterPay: [],
       Sum: 0,
       Debt: 0,
       NumPaid: 0,
-      NumPay: 0,      
-      AddRoomDialog:false,
-      EditRoomDialog:false,
-      EditMemberDialog:false,
-      NewProfile:false,
-      EditElectricDialog:false,
-      EditWaterDialog:false,
-      EditTrashDialog:false,
-      EditMoreDialog:false,
-      CaculatorChargeDialog:false,
-      ViewPayDialog:false
+      NumPay: 0,
+      AddRoomDialog: false,
+      EditRoomDialog: false,
+      EditMemberDialog: false,
+      NewProfile: false,
+      EditElectricDialog: false,
+      EditWaterDialog: false,
+      EditTrashDialog: false,
+      EditMoreDialog: false,
+      CaculatorChargeDialog: false,
+      ViewPayDialog: false,
     };
   },
   getters: {
@@ -73,16 +73,6 @@ export const useAppStore = defineStore("app", {
       }
       return array;
     },
-    FilterRooms(){
-      if(this.FilterRoom == null || this.FilterRoom == 'Tất cả'){
-        return this.Room
-      }else{
-        return this.Room.filter((value) => value.location === this.FilterRoom)
-      }
-      
-      
-    },
-    
   },
   actions: {
     //Fetch api room
@@ -91,7 +81,6 @@ export const useAppStore = defineStore("app", {
         const res = await fetch(`${this.Url}/Room`);
         this.Room = await res.json();
       }, 1000);
-      
     },
 
     //Create a new room
@@ -105,7 +94,7 @@ export const useAppStore = defineStore("app", {
       CableService,
       LastElectric
     ) {
-      this.AddRoomDialog = false
+      this.AddRoomDialog = false;
       axios
         .post(`${this.Url}/Room`, {
           number: NameRoom,
@@ -120,7 +109,6 @@ export const useAppStore = defineStore("app", {
         })
         .then((response) => console.log(response.data))
         .then((error) => console.log(error));
-      
     },
 
     //Edit profile of room
@@ -133,8 +121,8 @@ export const useAppStore = defineStore("app", {
       LastElectric,
       WifiService,
       CableService
-    ) {     
-      this.EditRoomDialog = false 
+    ) {
+      this.EditRoomDialog = false;
       axios
         .put(`${this.Url}/Room/${this.IdRoom}`, {
           location: LocationRoom,
@@ -142,7 +130,7 @@ export const useAppStore = defineStore("app", {
           qty: QtyMember,
           roomcharge: RoomCharge,
           date: DateRoom,
-          electric:LastElectric,
+          electric: LastElectric,
           wifi: WifiService,
           cable: CableService,
           status: "true",
@@ -172,7 +160,6 @@ export const useAppStore = defineStore("app", {
           console.error("Error submitting form:", error);
         });
     },
-    
 
     //Parameter of Electric and Water
     Parameter(ElectricNew) {
@@ -192,8 +179,7 @@ export const useAppStore = defineStore("app", {
     async fetchProfile(number) {
       const res = await fetch(`${this.Url}/Profile?room=` + number);
       this.profile = await res.json();
-      this.NumberRoom = number
-      
+      this.NumberRoom = number;
     },
 
     //Create a new member in that room
@@ -206,7 +192,7 @@ export const useAppStore = defineStore("app", {
       WorkMember,
       LocationMember
     ) {
-      this.NewProfile = false
+      this.NewProfile = false;
       axios
         .post(`${this.Url}/Profile`, {
           room: this.NumberRoom,
@@ -237,25 +223,24 @@ export const useAppStore = defineStore("app", {
       WorkMember,
       LocationMember
     ) {
-      this.EditMemberDialog = false,
-      
-      axios
-        .put(`${this.Url}/Profile/${IdMember}`, {
-          name: NameMember,
-          room: this.NumberRoom,
-          birth: BirthMember,
-          location: LocationMember,
-          phone: PhoneMember,
-          sex: SexMember,
-          cccd: CccdMember,
-          work: WorkMember,
-        })
-        .then((response) => {
-          console.log("Form submitted successfully!", response.data);
-        })
-        .catch((error) => {
-          console.error("Error submitting form:", error);
-        });
+      (this.EditMemberDialog = false),
+        axios
+          .put(`${this.Url}/Profile/${IdMember}`, {
+            name: NameMember,
+            room: this.NumberRoom,
+            birth: BirthMember,
+            location: LocationMember,
+            phone: PhoneMember,
+            sex: SexMember,
+            cccd: CccdMember,
+            work: WorkMember,
+          })
+          .then((response) => {
+            console.log("Form submitted successfully!", response.data);
+          })
+          .catch((error) => {
+            console.error("Error submitting form:", error);
+          });
     },
 
     //Delete profile of member
@@ -280,7 +265,7 @@ export const useAppStore = defineStore("app", {
 
     //Edit Electric
     EditElectric(Electric0, Electric50, Electric100, Electric200, Electric300) {
-      this.EditElectricDialog = false
+      this.EditElectricDialog = false;
       axios
         .patch(`${this.Url}/Service/0`, {
           Electric0: Electric0,
@@ -299,7 +284,7 @@ export const useAppStore = defineStore("app", {
 
     //Edit Water
     EditWater(Water) {
-      this.EditWaterDialog = false
+      this.EditWaterDialog = false;
       axios
         .patch(`${this.Url}/Service/0`, {
           Water: Water,
@@ -314,7 +299,7 @@ export const useAppStore = defineStore("app", {
 
     //Edit Trash
     EditTrash(Trash) {
-      this.EditTrashDialog = false
+      this.EditTrashDialog = false;
       axios
         .patch(`${this.Url}/Service/0`, {
           Trash: Trash,
@@ -329,7 +314,7 @@ export const useAppStore = defineStore("app", {
 
     //Edit Wifi and Cable
     EditMore(Wifi, Cable) {
-      this.EditMoreDialog = false
+      this.EditMoreDialog = false;
       axios
         .patch(`${this.Url}/Service/0`, {
           Wifi: Wifi,
@@ -359,44 +344,47 @@ export const useAppStore = defineStore("app", {
 
     //Caculator Room Charge
     CaculatorCharge(
-      DateNow,      
+      DateNow,
       NameRoom,
+      LocationRoom,
       RoomCharge,
       ElectricCharge,
+      ResultElectric,
       WaterCharge,
       TrashCharge,
       WifiCharge,
       CableCharge,
       DebtCharge,
-      Total,
-      Status
+      Total
     ) {
-      this.CaculatorChargeDialog = false,
-      axios
-        .post(`${this.Url}/History`, {
-          status: Status,
-          date: DateNow,
-          name: NameRoom,
-          roomcharge: RoomCharge,
-          electric: ElectricCharge,
-          water: WaterCharge,
-          trash: TrashCharge,
-          wifi: WifiCharge,
-          cable: CableCharge,
-          debt: DebtCharge,
-          total: Total          
-        })
-        .then((response) => {
-          console.log("Form submitted successfully!", response.data);
-        })
-        .catch((error) => {
-          console.error("Error submitting form:", error);
-        });
+      (this.CaculatorChargeDialog = false),
+        axios
+          .post(`${this.Url}/History`, {            
+            date: DateNow,
+            name: NameRoom,
+            location: LocationRoom,
+            roomcharge: RoomCharge,
+            electric: ElectricCharge,
+            resultElectric: ResultElectric,
+            water: WaterCharge,
+            trash: TrashCharge,
+            wifi: WifiCharge,
+            cable: CableCharge,
+            debt: DebtCharge,
+            total: Total,
+            status: false
+          })
+          .then((response) => {
+            console.log("Form submitted successfully!", response.data);
+          })
+          .catch((error) => {
+            console.error("Error submitting form:", error);
+          });
     },
 
     //Delete Payment
     DeletePaid(id) {
-      this.ViewPayDialog = false
+      this.ViewPayDialog = false;
       axios
         .delete(`${this.Url}/History/${id}`)
         .then((response) => {
@@ -407,11 +395,9 @@ export const useAppStore = defineStore("app", {
         });
     },
 
-    
-
     //Accept paid room charge
     PaidCharge(id) {
-      this.ViewPayDialog = false
+      this.ViewPayDialog = false;
       axios
         .patch(`${this.Url}/History/` + id, {
           status: true,

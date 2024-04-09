@@ -2,30 +2,27 @@
   <form
     v-on:submit.prevent="
       store.CaculatorCharge(
-        DateNow,        
+        DateNow,
         NameRoom,
+        LocationRoom,
         RoomCharge,
         ElectricCharge,
+        ResultElectric,
         WaterCharge,
         TrashCharge,
         WifiCharge,
         CableCharge,
         DebtCharge,
-        Total,
-        Status
+        Total
       );
       store.Parameter(ElectricNew);
     "
   >
+    <v-card-subtitle>Phòng: {{ NameRoom }}</v-card-subtitle>
+    <v-card-subtitle>Vị trí: {{ LocationRoom }}</v-card-subtitle>
+    <v-card-subtitle>Ngày tính tiền: {{ DateNow }}</v-card-subtitle>
     <v-card-text>
-      <VRow>
-        <VCol xs="12" sm="4">
-          <v-card>
-            <v-card-text>Thời gian: {{ DateNow }}</v-card-text>
-          </v-card>
-        </VCol>
-      </VRow>
-      <h3 class="text-start mt-4">Điện</h3>
+      <h3 class="text-start">Điện</h3>
       <VRow class="mt-1">
         <VCol cols="5">
           <v-text-field
@@ -109,10 +106,14 @@
             <td scope="row" class="text-start">Tiền phòng:</td>
             <td></td>
             <td></td>
-            <td class="text-end">{{ Number(RoomCharge).toLocaleString("en-GB") }}</td>
+            <td class="text-end">
+              {{ Number(RoomCharge).toLocaleString("en-GB") }}
+            </td>
           </tr>
           <tr>
-            <td scope="row" class="text-start">Điện:</td>
+            <td scope="row" class="text-start">
+              Điện: ({{ ResultElectric }} KW)
+            </td>
             <td></td>
             <td></td>
             <td class="text-end">
@@ -125,25 +126,33 @@
             </td>
             <td></td>
             <td></td>
-            <td class="text-end">{{ Number(WaterCharge).toLocaleString("en-GB") }}</td>
+            <td class="text-end">
+              {{ Number(WaterCharge).toLocaleString("en-GB") }}
+            </td>
           </tr>
           <tr>
             <td scope="row" class="text-start">Rác:</td>
             <td></td>
             <td></td>
-            <td class="text-end">{{ Number(TrashCharge).toLocaleString("en-GB") }}</td>
+            <td class="text-end">
+              {{ Number(TrashCharge).toLocaleString("en-GB") }}
+            </td>
           </tr>
           <tr>
             <td scope="row" class="text-start">Wifi:</td>
             <td></td>
             <td></td>
-            <td class="text-end">{{ Number(WifiCharge).toLocaleString("en-GB") }}</td>
-          </tr>          
+            <td class="text-end">
+              {{ Number(WifiCharge).toLocaleString("en-GB") }}
+            </td>
+          </tr>
           <tr>
             <td scope="row" class="text-start">Tiền nợ</td>
             <td></td>
             <td></td>
-            <td class="text-end">{{ Number(DebtCharge).toLocaleString("en-GB") }}</td>
+            <td class="text-end">
+              {{ Number(DebtCharge).toLocaleString("en-GB") }}
+            </td>
           </tr>
         </tbody>
 
@@ -152,12 +161,13 @@
             <th scope="row" class="text-start"><h3>Tổng:</h3></th>
             <td></td>
             <td></td>
-            <th class="text-end"><h3>{{ Number(Total).toLocaleString("en-GB") }}</h3></th>
+            <th class="text-end">
+              <h3>{{ Number(Total).toLocaleString("en-GB") }}</h3>
+            </th>
           </tr>
         </tfoot>
       </table>
-    <v-btn class="w-100 2" type="submit" color="primary">Lưu</v-btn>
-
+      <v-btn class="w-100 2" type="submit" color="primary">Lưu</v-btn>
     </v-card-text>
   </form>
 </template>
@@ -185,15 +195,15 @@ export default {
       ElectricCharge: 0,
       RoomCharge: store.editRoom.roomcharge,
       TrashCharge: store.service[0].Trash,
-      WifiCharge: 0,      
+      WifiCharge: 0,
       DebtCharge: 0,
 
       DateNow: "",
       NameRoom: store.editRoom.number,
-      Status: false,
+      LocationRoom: store.editRoom.location,      
       rules: {
         required: (value) => !!value || "Nhập thông tin",
-      }, 
+      },
     };
   },
   mounted() {
@@ -261,14 +271,14 @@ export default {
         Number(this.RoomCharge) +
         this.ElectricCharge +
         this.WaterCharge +
-        Number(this.WifiCharge) +        
+        Number(this.WifiCharge) +
         Number(this.TrashCharge) -
         Number(this.DebtCharge);
 
       const now = new Date();
       const Day = now.getDate();
       const Month = now.getMonth() + 1;
-      const Year = now.getFullYear();      
+      const Year = now.getFullYear();
       this.DateNow = Day + "/" + Month + "/" + Year;
     }, 10);
   },

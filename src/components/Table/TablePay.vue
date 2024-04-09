@@ -79,11 +79,14 @@
   >
     <v-card class="rounded-lg">
       <v-card-title class="text-center">HÓA ĐƠN TIỀN PHÒNG</v-card-title>
-      <v-card-subtitle class="text-center"
+      <v-card-subtitle class="text-start"
         >Phòng: {{ store.editPay.name }}</v-card-subtitle
       >
-      <v-card-subtitle class="text-center"
-        >Tháng {{ store.editPay.time }}</v-card-subtitle
+      <v-card-subtitle class="text-start"
+        >Vị trí: {{ store.editPay.location }}</v-card-subtitle
+      >
+      <v-card-subtitle class="text-start"
+        >Tháng: {{ store.editPay.time }}</v-card-subtitle
       >
 
       <v-card-text>
@@ -99,7 +102,7 @@
               </td>
             </tr>
             <tr>
-              <td scope="row" class="text-start text-table">Điện:</td>
+              <td scope="row" class="text-start text-table">Điện: ({{store.editPay.resultElectric}} KW)</td>
               <td></td>
               <td></td>
               <td class="text-end">
