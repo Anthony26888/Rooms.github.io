@@ -1,16 +1,18 @@
 <template lang="">
-  <v-form v-on:submit.prevent="store.FilterRooms(Select)">
+  <v-form v-on:submit.prevent="store.FilterRoom= Select">
     <v-row>
-      <v-col cols="8">
+      <v-col cols="7">
         <v-select
           v-model="Select"
           label="Chọn dãy"
           density="compact"
-          :items="['Tất cả', 'Dãy A', 'Dãy B']"
           variant="solo"
-        ></v-select>
+          :items="List"         
+        >
+        <option>Dãy A</option>
+        </v-select>
       </v-col>
-      <v-col cols="4">
+      <v-col cols="5">
         <v-btn type="submit" color="success">Tìm</v-btn>
       </v-col>
     </v-row>
@@ -19,17 +21,21 @@
 <script setup>
 import { useAppStore } from "@/store/app";
 const store = useAppStore();
-
 </script>
 <script>
-
 export default {
   name: "FilterRoom",
   data() {
     return {
-      Select: "Tất cả",
+      List:[
+        'Tất cả',
+        'Dãy A',
+        'Dãy B'
+      ],
+      Select: "",
     };
   },
+ 
 };
 </script>
 <style lang=""></style>

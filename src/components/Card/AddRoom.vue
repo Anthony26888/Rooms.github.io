@@ -6,7 +6,7 @@
     class="mb-3 mt-1"
     @click="store.AddRoomDialog = true"
   >
-    Thêm phòng
+    Thêm
   </v-btn>
   
   <v-dialog v-model="store.AddRoomDialog" width="500">

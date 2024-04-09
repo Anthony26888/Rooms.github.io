@@ -1,6 +1,5 @@
 <template>
-  <vContainer >  
-    <SelectCalander/>  
+  <vContainer >       
     <CardProfit />
     <TablePay/>
   </vContainer>

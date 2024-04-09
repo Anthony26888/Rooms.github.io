@@ -1,29 +1,18 @@
 <template>
   <VRow class="mt-1">
-    <VCol  xs="12">
-      <v-card>
-        <v-card-title class="text-title">Tổng Thu</v-card-title>
-        <v-card-text class="text-center text-num text-green">{{ store.Sum }}</v-card-text>
+    <VCol  xs="6">
+      
+      <v-card color="teal-lighten-1 rounded-lg" variant="tonal">
+        <v-card-title class="text-title text-green">Tổng Thu</v-card-title>
+        <v-card-text class="text-start text-num text-green"><h2>{{ Number(store.Sum).toLocaleString("en-GB") }}</h2></v-card-text>
       </v-card>
     </VCol>
-    <VCol xs="12">
-      <v-card>
+    <VCol xs="6">
+      <v-card color="red-lighten-1 rounded-lg" variant="tonal">
         <v-card-title class="text-title">Tổng Nợ</v-card-title>
-        <v-card-text class="text-center text-num text-red">{{ store.Debt }}</v-card-text>
+        <v-card-text class="text-start text-num text-red"><h2>{{ Number(store.Debt).toLocaleString("en-GB") }}</h2></v-card-text>
       </v-card>
-    </VCol>
-    <VCol xs="6">
-      <v-card>
-        <v-card-title class="text-title">Đã đóng</v-card-title>        
-        <v-card-text class="text-center text-num text-blue">{{ store.NumPaid }}</v-card-text>
-      </v-card>
-    </VCol>
-    <VCol xs="6">
-      <v-card>
-        <v-card-title class="text-title">Chưa đóng </v-card-title>        
-        <v-card-text class="text-center text-num text-deep-orange">{{ store.NumPay }}</v-card-text>
-      </v-card>
-    </VCol>
+    </VCol>    
   </VRow>
 </template>
 <script setup>

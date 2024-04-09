@@ -19,13 +19,13 @@ export const useAppStore = defineStore("app", {
       editRoom: [],
       editPay: [],
       service: [],
+      FilterRoom:null,
       FilterTime: null,
       FilterPay: [],
       Sum: 0,
       Debt: 0,
       NumPaid: 0,
-      NumPay: 0,
-      FilterRoom:[],
+      NumPay: 0,      
       AddRoomDialog:false,
       EditRoomDialog:false,
       EditMemberDialog:false,
@@ -72,6 +72,15 @@ export const useAppStore = defineStore("app", {
         return array;
       }
       return array;
+    },
+    FilterRooms(){
+      if(this.FilterRoom == null || this.FilterRoom == 'Tất cả'){
+        return this.Room
+      }else{
+        return this.Room.filter((value) => value.location === this.FilterRoom)
+      }
+      
+      
     },
     
   },
@@ -163,17 +172,7 @@ export const useAppStore = defineStore("app", {
           console.error("Error submitting form:", error);
         });
     },
-
-    //Filter Room
-    FilterRooms(item){
-      if(item == 'Dãy A'){
-        return this.FilterRoom = this.Room.filter((value) => value.location = 'Dãy A')
-      }
-      if(item == 'Dãy B'){
-        return this.FilterRoom = this.Room.filter((value) => value.location = 'Dãy B')
-      }      
-      
-    },
+    
 
     //Parameter of Electric and Water
     Parameter(ElectricNew) {
@@ -360,8 +359,7 @@ export const useAppStore = defineStore("app", {
 
     //Caculator Room Charge
     CaculatorCharge(
-      DateNow,
-      Time,
+      DateNow,      
       NameRoom,
       RoomCharge,
       ElectricCharge,
@@ -386,8 +384,7 @@ export const useAppStore = defineStore("app", {
           wifi: WifiCharge,
           cable: CableCharge,
           debt: DebtCharge,
-          total: Total,
-          time: Time,
+          total: Total          
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);

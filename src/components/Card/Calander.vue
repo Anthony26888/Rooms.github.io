@@ -7,10 +7,11 @@
           label="Chọn thời gian"
           :items="List"
           variant="solo"
+          density="compact"
         ></v-select>
       </VCol>
       <VCol xs="12" md="3">
-        <VBtn type="submit" class="mt-2">Tìm kiếm</VBtn>
+        <VBtn type="submit" color="success">Tìm kiếm</VBtn>
       </VCol>
       
     </VRow>

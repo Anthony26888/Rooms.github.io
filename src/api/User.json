@@ -6,7 +6,7 @@
       "qty": "1",
       "roomcharge": "1200000",
       "date": "2024-04-08",
-      "electric": "222",
+      "electric": "777",
       "wifi": "true",
       "status": "true",
       "id": "1cf2"
@@ -17,11 +17,35 @@
       "qty": "1",
       "roomcharge": "1230000",
       "date": "2024-04-08",
-      "electric": "1222",
+      "electric": "1333",
       "wifi": false,
       "cable": false,
       "status": "true",
       "id": "961f"
+    },
+    {
+      "id": "4222",
+      "number": "2B",
+      "qty": "1",
+      "location": "Dãy A",
+      "date": "2024-04-09",
+      "roomcharge": "1000000",
+      "wifi": "true",
+      "cable": false,
+      "electric": "222",
+      "status": "true"
+    },
+    {
+      "id": "9c61",
+      "number": "3B",
+      "qty": "2",
+      "location": "Dãy B",
+      "date": "2024-04-09",
+      "roomcharge": "1200000",
+      "wifi": "true",
+      "cable": false,
+      "electric": "245",
+      "status": "true"
     }
   ],
   "Profile": [
@@ -96,5 +120,19 @@
       "id": "0"
     }
   ],
-  "History": []
+  "History": [
+    {
+      "id": "1f72",
+      "status": false,
+      "date": "9/4/2024",
+      "name": "1A",
+      "roomcharge": "1200000",
+      "electric": 288000,
+      "water": 20000,
+      "trash": "35000",
+      "wifi": "20000",
+      "debt": 0,
+      "total": 1563000
+    }
+  ]
 }

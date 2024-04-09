@@ -2,8 +2,7 @@
   <form
     v-on:submit.prevent="
       store.CaculatorCharge(
-        DateNow,
-        Time,
+        DateNow,        
         NameRoom,
         RoomCharge,
         ElectricCharge,
@@ -36,7 +35,7 @@
             type="number"
             suffix="Kw"
             :rules="[rules.required]"
-            required
+            readonly
           ></v-text-field>
         </VCol>
         <VCol cols="5">
@@ -194,10 +193,7 @@ export default {
       Status: false,
       rules: {
         required: (value) => !!value || "Nhập thông tin",
-      },
-      Month: 0,
-      Year: 0,
-      Time: "",
+      }, 
     };
   },
   mounted() {
@@ -272,9 +268,8 @@ export default {
       const now = new Date();
       const Day = now.getDate();
       const Month = now.getMonth() + 1;
-      const Year = now.getFullYear();
-      this.Time = Month + "/" + Year;
-      this.DateNow = Year + "-" + Month + "-" + Day;
+      const Year = now.getFullYear();      
+      this.DateNow = Day + "/" + Month + "/" + Year;
     }, 10);
   },
   computed: {},
