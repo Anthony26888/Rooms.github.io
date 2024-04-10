@@ -1,7 +1,7 @@
 <template>
   <VRow class="mt-1">
     <VCol  xs="6" sm="6" md="6">      
-      <v-card color="teal-lighten-1 rounded-lg" variant="tonal">
+      <v-card color="teal-lighten-1" class="rounded-lg p-5" variant="tonal">
         <v-card-title class="text-title text-green">Tổng Thu</v-card-title>
         <v-card-text class="text-start text-num text-green"><h2>{{ Number(store.Sum).toLocaleString("en-GB") }}</h2></v-card-text>
       </v-card>

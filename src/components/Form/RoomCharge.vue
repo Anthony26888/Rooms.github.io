@@ -147,6 +147,14 @@
             </td>
           </tr>
           <tr>
+            <td scope="row" class="text-start">Cáp:</td>
+            <td></td>
+            <td></td>
+            <td class="text-end">
+              {{ Number(CableCharge).toLocaleString("en-GB") }}
+            </td>
+          </tr>
+          <tr>
             <td scope="row" class="text-start">Tiền nợ</td>
             <td></td>
             <td></td>
@@ -196,6 +204,7 @@ export default {
       RoomCharge: store.editRoom.roomcharge,
       TrashCharge: store.service[0].Trash,
       WifiCharge: 0,
+      CableCharge:0,
       DebtCharge: 0,
 
       DateNow: "",
@@ -265,6 +274,11 @@ export default {
       } else {
         this.WifiCharge = 0;
       }
+      if (store.editRoom.cable == "true") {
+        this.CableCharge = store.service[0].Cable;
+      } else {
+        this.CableCharge = 0;
+      }
 
       //Total
       this.Total =
@@ -272,6 +286,7 @@ export default {
         this.ElectricCharge +
         this.WaterCharge +
         Number(this.WifiCharge) +
+        Number(this.CableCharge) +
         Number(this.TrashCharge) -
         Number(this.DebtCharge);
 

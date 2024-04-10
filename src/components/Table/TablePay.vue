@@ -11,7 +11,7 @@
         :items="Month"
         variant="solo"
         density="compact"
-        class="mt-2 rounded-lg"
+        class="mt-4 rounded-lg"
       ></v-select>
     </v-card-title>
 
@@ -29,6 +29,9 @@
         <v-chip color="green" v-else class="text-green"
           ><v-icon>mdi-check</v-icon></v-chip
         >
+      </template>
+      <template v-slot:item.total="{ value }">
+        {{Number(value).toLocaleString("en-GB")}}
       </template>
       <template v-slot:item.actions="{ item }">
         <v-icon
@@ -86,7 +89,7 @@
         >Vị trí: {{ store.editPay.location }}</v-card-subtitle
       >
       <v-card-subtitle class="text-start"
-        >Tháng: {{ store.editPay.time }}</v-card-subtitle
+        >Thời gian: {{ store.editPay.date }}</v-card-subtitle
       >
 
       <v-card-text>
@@ -187,14 +190,7 @@ export default {
     return {
       SelectMonth:"",
       Now: "",
-      notify: false,
-      headers: [
-        { title: "Phòng" },
-        { title: "Tình trạng" },
-        { title: "Tổng tiền" },
-        { title: "Thời gian" },
-        { title: "" },
-      ],
+      notify: false,    
 
       Headers: [
         { title: "Phòng", align: "center", key: "name" },
@@ -225,25 +221,9 @@ export default {
     };
   },
   computed: {
-    check() {
-      if ((store.FilterTime = null)) {
-        return store.pay;
-      } else {
-        return store.FilterPay;
-      }
-    },
+    
   },
-  methods: {
-    reloadPage() {
-      window.location.reload();
-    },
-
-    DeletePaid() {},
-    getColor(status) {
-      if (status == false) return "text-red";
-      else return "text-green";
-    },
-  },
+  
 };
 </script>
 

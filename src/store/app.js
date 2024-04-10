@@ -36,13 +36,18 @@ export const useAppStore = defineStore("app", {
       EditMoreDialog: false,
       CaculatorChargeDialog: false,
       ViewPayDialog: false,
+      AlertNewRoom:false,
+      AlertEditRoom:false,
+      AlertNewMember:false,
+      AlertEditMember:false,
+      AlerCalculator:false,
     };
   },
   getters: {
     Filter() {
       let sum = 0;
       let debt = 0;
-      const array = this.pay.filter((value) => value.time === this.FilterTime);
+      const array = this.pay;
       const checkTrue = array.filter((value) => value.status === true);
       const checkFalse = array.filter((value) => value.status === false);
       checkTrue.forEach(function (value) {
@@ -53,24 +58,8 @@ export const useAppStore = defineStore("app", {
       });
       this.Sum = sum;
       this.Debt = debt;
-      this.Paid = checkTrue.length;
-      this.Pay = checkFalse.length;
-      if (this.FilterTime == null) {
-        const array = this.pay;
-        const checkTrue = array.filter((value) => value.status === true);
-        const checkFalse = array.filter((value) => value.status === false);
-        checkTrue.forEach(function (value) {
-          sum += parseFloat(value.total);
-        });
-        checkFalse.forEach(function (value) {
-          debt += parseFloat(value.total);
-        });
-        this.Sum = sum;
-        this.Debt = debt;
-        this.NumPaid = checkTrue.length;
-        this.NumPay = checkFalse.length;
-        return array;
-      }
+      this.NumPaid = checkTrue.length;
+      this.NumPay = checkFalse.length;
       return array;
     },
   },
@@ -92,7 +81,8 @@ export const useAppStore = defineStore("app", {
       DateRoom,
       WifiService,
       CableService,
-      LastElectric
+      LastElectric,
+      Deposit
     ) {
       this.AddRoomDialog = false;
       axios
@@ -105,6 +95,7 @@ export const useAppStore = defineStore("app", {
           wifi: WifiService,
           cable: CableService,
           electric: LastElectric,
+          deposit: Deposit,
           status: "true",
         })
         .then((response) => console.log(response.data))
@@ -116,11 +107,12 @@ export const useAppStore = defineStore("app", {
       LocationRoom,
       NameRoom,
       QtyMember,
-      RoomCharge,
+      RoomCharge,      
       DateRoom,
       LastElectric,
       WifiService,
-      CableService
+      CableService,
+      Deposit,
     ) {
       this.EditRoomDialog = false;
       axios
@@ -128,11 +120,12 @@ export const useAppStore = defineStore("app", {
           location: LocationRoom,
           number: NameRoom,
           qty: QtyMember,
-          roomcharge: RoomCharge,
+          roomcharge: RoomCharge,          
           date: DateRoom,
           electric: LastElectric,
           wifi: WifiService,
           cable: CableService,
+          deposit:Deposit,
           status: "true",
         })
         .then((response) => {
@@ -152,6 +145,7 @@ export const useAppStore = defineStore("app", {
           date: "",
           wifi: false,
           cable: false,
+          deposit:0
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -359,7 +353,7 @@ export const useAppStore = defineStore("app", {
     ) {
       (this.CaculatorChargeDialog = false),
         axios
-          .post(`${this.Url}/History`, {            
+          .post(`${this.Url}/History`, {
             date: DateNow,
             name: NameRoom,
             location: LocationRoom,
@@ -372,7 +366,7 @@ export const useAppStore = defineStore("app", {
             cable: CableCharge,
             debt: DebtCharge,
             total: Total,
-            status: false
+            status: false,
           })
           .then((response) => {
             console.log("Form submitted successfully!", response.data);

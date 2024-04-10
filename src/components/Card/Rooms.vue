@@ -47,13 +47,13 @@
               <p><b>Số người:</b> {{ item.raw.qty }} người</p>
               <p>
                 <b>Tiền phòng:</b>
-                {{ Number(item.raw.roomcharge).toLocaleString("en-GB") }} vnđ
-              </p>
+                {{ Number(item.raw.roomcharge).toLocaleString("en-GB") }}</p>
               <div class="d-flex">
                 <b>Dịch vụ thêm:</b>
                 <p v-if="item.raw.wifi == 'true'" class="ms-2">Wifi</p>
                 <p v-if="item.raw.cable == 'true'" class="ms-2">Cáp</p>
               </div>
+              <p><b>Tiền cọc:</b> {{ Number(item.raw.deposit).toLocaleString("en-GB")}}</p>
               <p><b>Ngày vào:</b> {{ item.raw.date }}</p>
             </v-card-text>
             <v-card-actions>
@@ -293,6 +293,24 @@
       </template>
     </v-card>
   </v-dialog>
+
+  <!--Alert New Room-->
+  <v-snackbar v-model="store.AlertNewRoom" :timeout="Timeout" color="success">
+    <v-icon class="me-4">mdi-check</v-icon>
+    {{ TextAlertNew }}
+  </v-snackbar>
+
+  <!--Alert Edit Room-->
+  <v-snackbar v-model="store.AlertEditRoom" :timeout="Timeout" color="success">
+    <v-icon class="me-4">mdi-check</v-icon>
+    {{ TextAlertEdit }}
+  </v-snackbar>
+
+  <!--Alert New Member-->
+  <v-snackbar v-model="store.AlertNewMember" :timeout="Timeout" color="success">
+    <v-icon class="me-4">mdi-check</v-icon>
+    {{ TextAlertEdit }}
+  </v-snackbar>
 </template>
 <script setup>
 import EditRoom from "@/components/Form/EditRoom.vue";
@@ -312,15 +330,14 @@ export default {
     return {
       search:"",
       dialog: false,
-      notifyMember: false,
-      notifyRoom: false,
-      caculator: false,
+      TextAlertNew: "Thêm phòng thành công",
+      TextAlertEdit: "Chỉnh sửa phòng thành công",
+      Timeout:"3000"
+ 
     };
   },
   methods: {
-    reloadPage() {
-      window.location.reload();
-    },
+
   },
 };
 </script>
