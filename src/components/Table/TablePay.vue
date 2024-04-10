@@ -82,13 +82,13 @@
   >
     <v-card class="rounded-lg">
       <v-card-title class="text-center">HÓA ĐƠN TIỀN PHÒNG</v-card-title>
-      <v-card-subtitle class="text-start"
+      <v-card-subtitle class="text-center"
         >Phòng: {{ store.editPay.name }}</v-card-subtitle
       >
-      <v-card-subtitle class="text-start"
+      <v-card-subtitle class="text-center"
         >Vị trí: {{ store.editPay.location }}</v-card-subtitle
       >
-      <v-card-subtitle class="text-start"
+      <v-card-subtitle class="text-center"
         >Thời gian: {{ store.editPay.date }}</v-card-subtitle
       >
 
