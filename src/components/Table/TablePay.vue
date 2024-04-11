@@ -107,9 +107,10 @@
             <tr>
               <td scope="row" class="text-start text-table">
                 Điện:
+                <p class="text-table text-muted">{{ store.editPay.electricnew}} - {{ store.editPay.electricold}} = {{ store.editPay.resultElectric }} kW</p>
               </td>
-              <td class="text-start text-table">{{ store.editPay.electricnew}} - {{ store.editPay.electricold}}</td>
-              <td class="text-start text-table">= {{ store.editPay.resultElectric }} kW</td>
+              <td class="text-start text-table text-muted"></td>
+              <td></td>
               <td class="text-end">
                 {{ Number(store.editPay.electric).toLocaleString("en-GB") }}
               </td>
