@@ -347,7 +347,8 @@ export const useAppStore = defineStore("app", {
       DebtCharge,
       Total,
       ElectricOld,
-      ElectricNew
+      ElectricNew,
+      QtyMember
     ) {
       this.CaculatorChargeDialog = false,
         axios
@@ -366,7 +367,8 @@ export const useAppStore = defineStore("app", {
             total: Total,
             status: false,
             electricold:ElectricOld,
-            electricnew:ElectricNew
+            electricnew:ElectricNew,
+            qtyMember: QtyMember
           })
           .then((response) => {
             console.log("Form submitted successfully!", response.data);
@@ -417,6 +419,7 @@ export const useAppStore = defineStore("app", {
       this.editRoom = this.Room.find((value) => value.id === id);
       this.IdRoom = id;
     },
+
 
     //Fetch api pay for edit
     fetchEditPay(id) {

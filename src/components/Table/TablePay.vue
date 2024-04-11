@@ -94,82 +94,7 @@
 
       <v-card-text>
         <v-divider :thickness="2"></v-divider>
-        <table class="table w-100 pa-3 pb-3">
-          <tbody class="table-group-divider">
-            <tr>
-              <td scope="row" class="text-start text-table">Tiền phòng:</td>
-              <td></td>
-              <td></td>
-              <td class="text-end">
-                {{ Number(store.editPay.roomcharge).toLocaleString("en-GB") }}
-              </td>
-            </tr>
-            <tr>
-              <td scope="row" class="text-start text-table">
-                Điện:<p class="text-table text-muted">{{ store.editPay.electricnew}} - {{ store.editPay.electricold}} = {{ store.editPay.resultElectric }} kW</p>
-              </td>
-              <td></td>
-              <td></td>
-              <td class="text-end">
-                {{ Number(store.editPay.electric).toLocaleString("en-GB") }}
-              </td>
-            </tr>
-            <tr>
-              <td scope="row" class="text-start text-table">
-                Nước: ({{ store.editRoom.qty }} người)
-              </td>
-              <td></td>
-              <td></td>
-              <td class="text-end">
-                {{ Number(store.editPay.water).toLocaleString("en-GB") }}
-              </td>
-            </tr>
-            <tr>
-              <td scope="row" class="text-start text-table">Rác:</td>
-              <td></td>
-              <td></td>
-              <td class="text-end">
-                {{ Number(store.editPay.trash).toLocaleString("en-GB") }}
-              </td>
-            </tr>
-            <tr>
-              <td scope="row" class="text-start text-table">Wifi:</td>
-              <td></td>
-              <td></td>
-              <td class="text-end">
-                {{ Number(store.editPay.wifi).toLocaleString("en-GB") }}
-              </td>
-            </tr>
-            <tr>
-              <td scope="row" class="text-start text-table">Cáp:</td>
-              <td></td>
-              <td></td>
-              <td class="text-end">
-                {{ Number(store.editPay.cable).toLocaleString("en-GB") }}
-              </td>
-            </tr>
-            <tr>
-              <td scope="row" class="text-start text-table">Tiền nợ:</td>
-              <td></td>
-              <td></td>
-              <td class="text-end">
-                {{ Number(store.editPay.debt).toLocaleString("en-GB") }}
-              </td>
-            </tr>
-          </tbody>
-          <tfoot>
-            <tr>
-              <th scope="row" class="text-start"><h3>Tổng:</h3></th>
-              <td></td>
-              <td></td>
-              <td class="text-end">
-                <h3>
-                  {{ Number(store.editPay.total).toLocaleString("en-GB") }}
-                </h3>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+        <table-bill></table-bill>
         <v-btn
           v-if="store.editPay.status == false"
           @click="store.PaidCharge(store.editPay.id);store.AlertSuccess = true"
@@ -181,7 +106,7 @@
         <v-btn @click="store.ViewPayDialog = false" class="w-100 mt-2 bg-gray"
           >Quay lại</v-btn
         >
-      </v-card-text>
+      </v-card-text>    
     </v-card>
   </v-dialog>
   <!--Alert-->
@@ -193,7 +118,7 @@
 
 <script setup>
 import { useAppStore } from "@/store/app";
-import Filter from "@/components/Card/Calander.vue";
+import TableBill from "@/components/Table/TableBill";
 </script>
 <script>
 const store = useAppStore();

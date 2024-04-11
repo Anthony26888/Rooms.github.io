@@ -15,7 +15,8 @@
         DebtCharge,
         Total,
         ElectricOld,
-        ElectricNew
+        ElectricNew,
+        QtyMember
       );
       store.Parameter(ElectricNew);
       store.AlertSuccess = true
@@ -125,7 +126,7 @@
           </tr>
           <tr>
             <td scope="row" class="text-start">
-              Nước: ({{ store.editRoom.qty }} người)
+              Nước: ({{ QtyMember}} người)
             </td>
             <td></td>
             <td></td>
@@ -202,6 +203,7 @@ export default {
       ResultWater: 0,
 
       Total: 0,
+      QtyMember:store.editRoom.qty,
       WaterCharge: 0,
       ElectricCharge: 0,
       RoomCharge: store.editRoom.roomcharge,

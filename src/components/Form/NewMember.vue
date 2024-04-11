@@ -22,9 +22,8 @@
         <v-text-field label="Quê quán" v-model="LocationMember"></v-text-field>
       </v-row>
     </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn type="submit" color="primary">Lưu</v-btn>
+    <v-card-actions>      
+      <v-btn type="submit" class="w-100 bg-primary">Lưu</v-btn>
     </v-card-actions>
   </form>
 </template>

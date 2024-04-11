@@ -87,7 +87,10 @@
           </div>
         </v-col>
       </v-row>
-      <v-btn class="w-100" type="submit" color="primary">Tạo</v-btn>
+      <v-card-actions>
+        <v-btn class="w-100 bg-primary" type="submit" >Tạo</v-btn>
+      </v-card-actions>
+      
     </v-card-text>
   </form>
   

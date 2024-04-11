@@ -144,6 +144,7 @@ export default {
       editWater: false,
       editTrash: false,
       editMore: false,
+      Timeout:1000
     };
   },
   methods: {

@@ -320,7 +320,7 @@ export default {
       search:"",
       dialog: false,
       TextAlert: "Thành công",      
-      Timeout:"3000",
+      Timeout:"1000",
       notifyRoom:false,
       notifyMember:false
  
