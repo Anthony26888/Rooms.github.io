@@ -32,7 +32,7 @@
           class="mx-auto"
           variant="text"
           icon="mdi-close"
-          @click="editElectric = false"
+          @click="store.EditElectricDialog = false"
         ></v-btn>
       </template>
       <edit-electric></edit-electric>
@@ -51,7 +51,7 @@
           class="mx-auto"
           variant="text"
           icon="mdi-close"
-          @click="editWater = false"
+          @click="store.EditWaterDialog = false"
         ></v-btn>
       </template>
       <edit-water></edit-water>
@@ -70,7 +70,7 @@
           class="mx-auto"
           variant="text"
           icon="mdi-close"
-          @click="editTrash = false"
+          @click="store.EditTrashDialog = false"
         ></v-btn>
       </template>
       <edit-trash></edit-trash>
@@ -89,76 +89,81 @@
           class="mx-auto"
           variant="text"
           icon="mdi-close"
-          @click="editMore = false"
+          @click="store.EditMoreDialog = false"
         ></v-btn>
       </template>
       <edit-more></edit-more>
     </v-card>
-  </v-dialog> 
+  </v-dialog>
+  <!--Alert-->
+  <v-snackbar v-model="store.AlertSuccess" :timeout="Timeout" color="success">
+    <v-icon class="me-4">mdi-check-circle-outline</v-icon>
+    {{ TextAlert }}
+  </v-snackbar>
 </template>
 <script setup>
-import EditElectric from "@/components/Form/EditElectric.vue"
-import EditWater from "@/components/Form/EditWater.vue"
-import EditTrash from "@/components/Form/EditTrash.vue"
-import EditMore from "@/components/Form/EditMore.vue"
+import EditElectric from "@/components/Form/EditElectric.vue";
+import EditWater from "@/components/Form/EditWater.vue";
+import EditTrash from "@/components/Form/EditTrash.vue";
+import EditMore from "@/components/Form/EditMore.vue";
 import { useAppStore } from "@/store/app";
 </script>
 <script>
 const store = useAppStore();
 export default {
-  name:"Service",
+  name: "Service",
   data() {
     return {
       List: [
         {
-          id:"0",
+          id: "0",
           icon: "mdi-lightning-bolt",
           title: "ĐIỆN",
           color: "orange",
         },
         {
-          id:"1",
+          id: "1",
           icon: "mdi-water",
           title: "NƯỚC",
           color: "primary",
         },
         {
-          id:"2",
+          id: "2",
           icon: "mdi-trash-can",
           title: "RÁC",
           color: "green",
         },
         {
-          id:"3",
+          id: "3",
           icon: "mdi-view-grid-plus",
           title: "Dịch vụ thêm",
           color: "indigo",
-        }
+        },
       ],
       editElectric: false,
-      editWater:false,
-      editTrash:false,
-      editMore:false,      
+      editWater: false,
+      editTrash: false,
+      editMore: false,
     };
   },
   methods: {
-    edit(item){
-      if(item == 0){
-        return store.EditElectricDialog = true
-      };
-
-      if(item == 1){
-        return store.EditWaterDialog= true
-      };
-
-      if(item == 2){
-        return store.EditTrashDialog = true
-      };
-
-      if(item == 3){
-        return store.EditMoreDialog = true
+    edit(item) {
+      if (item == 0) {
+        return (store.EditElectricDialog = true);
       }
-    }
+
+      if (item == 1) {
+        return (store.EditWaterDialog = true);
+      }
+
+      if (item == 2) {
+        return (store.EditTrashDialog = true);
+      }
+
+      if (item == 3) {
+        return (store.EditMoreDialog = true);
+      }
+    },
   },
 };
 </script>

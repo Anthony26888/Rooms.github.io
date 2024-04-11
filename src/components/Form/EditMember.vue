@@ -1,5 +1,5 @@
 <template lang="">
-  <v-form v-model="form" v-on:submit.prevent="store.EditMember(IdMember, NameMember, BirthMember, PhoneMember, SexMember, CccdMember, WorkMember, LocationMember)">
+  <v-form v-model="form" v-on:submit.prevent="store.EditMember(IdMember, NameMember, BirthMember, PhoneMember, SexMember, CccdMember, WorkMember, LocationMember);store.AlertSuccess = true">
     <v-card-text>
       <v-row>
         <v-col cols="6">

@@ -1,5 +1,5 @@
 <template lang="">
-  <form v-on:submit.prevent="store.CreateMember(NameMember, BirthMember, PhoneMember, SexMember, CccdMember, WorkMember, LocationMember)">
+  <form v-on:submit.prevent="store.CreateMember(NameMember, BirthMember, PhoneMember, SexMember, CccdMember, WorkMember, LocationMember);store.AlertSuccess = true">
     <v-card-text>
       <v-row>
         <v-col cols="6">

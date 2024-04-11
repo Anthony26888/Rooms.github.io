@@ -31,7 +31,7 @@
         >
       </template>
       <template v-slot:item.total="{ value }">
-        {{Number(value).toLocaleString("en-GB")}}
+        {{ Number(value).toLocaleString("en-GB") }}
       </template>
       <template v-slot:item.actions="{ item }">
         <v-icon
@@ -105,8 +105,10 @@
               </td>
             </tr>
             <tr>
-              <td scope="row" class="text-start text-table">Điện: ({{store.editPay.resultElectric}} KW)</td>
-              <td></td>
+              <td scope="row" class="text-start text-table">
+                Điện:
+              </td>
+              <td class="text-start text-table">{{ store.editPay.electricnew}} - {{ store.editPay.electricold}} = {{ store.editPay.resultElectric }} kW</td>
               <td></td>
               <td class="text-end">
                 {{ Number(store.editPay.electric).toLocaleString("en-GB") }}
@@ -139,6 +141,14 @@
               </td>
             </tr>
             <tr>
+              <td scope="row" class="text-start text-table">Cáp:</td>
+              <td></td>
+              <td></td>
+              <td class="text-end">
+                {{ Number(store.editPay.cable).toLocaleString("en-GB") }}
+              </td>
+            </tr>
+            <tr>
               <td scope="row" class="text-start text-table">Tiền nợ:</td>
               <td></td>
               <td></td>
@@ -162,7 +172,7 @@
         </table>
         <v-btn
           v-if="store.editPay.status == false"
-          @click="store.PaidCharge(store.editPay.id)"
+          @click="store.PaidCharge(store.editPay.id);store.AlertSuccess = true"
           class="w-100 bg-green m-2"
           >Thanh toán</v-btn
         >
@@ -174,6 +184,11 @@
       </v-card-text>
     </v-card>
   </v-dialog>
+  <!--Alert-->
+  <v-snackbar v-model="store.AlertSuccess" :timeout="Timeout" color="success">
+    <v-icon class="me-4">mdi-check-circle-outline</v-icon>
+    {{ TextAlert }}
+  </v-snackbar>
 </template>
 
 <script setup>
@@ -188,9 +203,11 @@ export default {
   name: "TablePay",
   data() {
     return {
-      SelectMonth:"",
+      SelectMonth: "",
       Now: "",
-      notify: false,    
+      notify: false,
+      TextAlert: "Thành công",      
+      Timeout:"3000",
 
       Headers: [
         { title: "Phòng", align: "center", key: "name" },
@@ -220,10 +237,7 @@ export default {
       ],
     };
   },
-  computed: {
-    
-  },
-  
+  computed: {},
 };
 </script>
 

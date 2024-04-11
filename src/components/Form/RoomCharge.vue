@@ -13,9 +13,12 @@
         WifiCharge,
         CableCharge,
         DebtCharge,
-        Total
+        Total,
+        ElectricOld,
+        ElectricNew
       );
       store.Parameter(ElectricNew);
+      store.AlertSuccess = true
     "
   >
     <v-card-subtitle>Phòng: {{ NameRoom }}</v-card-subtitle>

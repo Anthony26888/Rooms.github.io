@@ -294,23 +294,12 @@
     </v-card>
   </v-dialog>
 
-  <!--Alert New Room-->
-  <v-snackbar v-model="store.AlertNewRoom" :timeout="Timeout" color="success">
-    <v-icon class="me-4">mdi-check</v-icon>
-    {{ TextAlertNew }}
+  <!--Alert Room-->
+  <v-snackbar v-model="store.AlertSuccess" :timeout="Timeout" color="success">
+    <v-icon class="me-4">mdi-check-circle-outline</v-icon>
+    {{ TextAlert }}
   </v-snackbar>
 
-  <!--Alert Edit Room-->
-  <v-snackbar v-model="store.AlertEditRoom" :timeout="Timeout" color="success">
-    <v-icon class="me-4">mdi-check</v-icon>
-    {{ TextAlertEdit }}
-  </v-snackbar>
-
-  <!--Alert New Member-->
-  <v-snackbar v-model="store.AlertNewMember" :timeout="Timeout" color="success">
-    <v-icon class="me-4">mdi-check</v-icon>
-    {{ TextAlertEdit }}
-  </v-snackbar>
 </template>
 <script setup>
 import EditRoom from "@/components/Form/EditRoom.vue";
@@ -330,9 +319,10 @@ export default {
     return {
       search:"",
       dialog: false,
-      TextAlertNew: "Thêm phòng thành công",
-      TextAlertEdit: "Chỉnh sửa phòng thành công",
-      Timeout:"3000"
+      TextAlert: "Thành công",      
+      Timeout:"3000",
+      notifyRoom:false,
+      notifyMember:false
  
     };
   },

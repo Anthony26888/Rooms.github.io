@@ -13,7 +13,7 @@
         CableService,
         Deposit,
       );
-      store.AlertEditRoom = true
+      store.AlertSuccess = true
     "
   >
     <v-card-text>

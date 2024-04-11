@@ -17,8 +17,8 @@ export default {
         return {
             List:[
                 {title:"Phòng trọ", icon:"mdi-home", router:"/Rooms"},
-                {title:"Doanh số", icon:"mdi-monitor", router:"/"},
-                {title:"Dịch vụ", icon:"mdi-check", router:"/Service"},
+                {title:"Doanh số", icon:"mdi-cash-register", router:"/"},
+                {title:"Dịch vụ", icon:"mdi-room-service", router:"/Service"},
             ]
         }
     },

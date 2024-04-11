@@ -36,11 +36,7 @@ export const useAppStore = defineStore("app", {
       EditMoreDialog: false,
       CaculatorChargeDialog: false,
       ViewPayDialog: false,
-      AlertNewRoom:false,
-      AlertEditRoom:false,
-      AlertNewMember:false,
-      AlertEditMember:false,
-      AlerCalculator:false,
+      AlertSuccess:false,
     };
   },
   getters: {
@@ -349,9 +345,11 @@ export const useAppStore = defineStore("app", {
       WifiCharge,
       CableCharge,
       DebtCharge,
-      Total
+      Total,
+      ElectricOld,
+      ElectricNew
     ) {
-      (this.CaculatorChargeDialog = false),
+      this.CaculatorChargeDialog = false,
         axios
           .post(`${this.Url}/History`, {
             date: DateNow,
@@ -367,6 +365,8 @@ export const useAppStore = defineStore("app", {
             debt: DebtCharge,
             total: Total,
             status: false,
+            electricold:ElectricOld,
+            electricnew:ElectricNew
           })
           .then((response) => {
             console.log("Form submitted successfully!", response.data);

@@ -12,7 +12,7 @@
         LastElectric,
         Deposit
       );
-      store.AlertNewRoom = true
+      store.AlertSuccess = true
     "
   >
     <v-card-text>

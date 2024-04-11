@@ -6,7 +6,7 @@
       "qty": "1",
       "roomcharge": "1200000",
       "date": "2024-04-10",
-      "electric": "55",
+      "electric": "88",
       "wifi": "true",
       "cable": "true",
       "deposit": "200000",
@@ -22,22 +22,22 @@
       "roomcharge": "900000",
       "wifi": "true",
       "cable": false,
-      "electric": "12",
+      "electric": "105",
       "deposit": "200000",
       "status": "true"
     },
     {
-      "id": "d45e",
+      "location": "Dãy A",
       "number": "3A",
       "qty": "1",
-      "location": "Dãy A",
-      "date": "2024-04-10",
       "roomcharge": "1100000",
+      "date": "2024-04-10",
+      "electric": "123456",
       "wifi": "true",
       "cable": false,
-      "electric": "123456",
       "deposit": "200000",
-      "status": "true"
+      "status": "true",
+      "id": "d45e"
     },
     {
       "location": "Dãy A",
@@ -58,12 +58,38 @@
       "qty": "1",
       "roomcharge": "1200000",
       "date": "2024-04-10",
-      "electric": "11",
+      "electric": "22",
       "wifi": "true",
       "cable": false,
       "deposit": "300000",
       "status": "true",
       "id": "14bd"
+    },
+    {
+      "id": "8685",
+      "number": "5A",
+      "qty": "1",
+      "location": "Dãy A",
+      "date": "2024-04-11",
+      "roomcharge": "900000",
+      "wifi": "true",
+      "cable": false,
+      "electric": "12345",
+      "deposit": "200000",
+      "status": "true"
+    },
+    {
+      "location": "Dãy A",
+      "number": "7A",
+      "qty": 0,
+      "roomcharge": "1200000",
+      "date": "",
+      "electric": "1",
+      "wifi": false,
+      "cable": false,
+      "deposit": 0,
+      "status": false,
+      "id": "ee6b"
     }
   ],
   "Profile": [
@@ -140,20 +166,40 @@
   ],
   "History": [
     {
-      "id": "4d68",
-      "date": "10/4/2024",
+      "id": "368c",
+      "date": "11/4/2024",
       "name": "1A",
       "location": "Dãy A",
       "roomcharge": "1200000",
-      "electric": 103200,
-      "resultElectric": 43,
+      "electric": 26400,
+      "resultElectric": 11,
       "water": 20000,
       "trash": "35000",
       "wifi": "20000",
       "cable": "20000",
       "debt": 0,
-      "total": 1398200,
-      "status": false
+      "total": 1321400,
+      "status": true,
+      "electricold": "77",
+      "electricnew": "88"
+    },
+    {
+      "id": "a942",
+      "date": "11/4/2024",
+      "name": "2A",
+      "location": "Dãy A",
+      "roomcharge": "900000",
+      "electric": 203700,
+      "resultElectric": 81,
+      "water": 40000,
+      "trash": "35000",
+      "wifi": "20000",
+      "cable": 0,
+      "debt": 0,
+      "total": 1198700,
+      "status": false,
+      "electricold": "24",
+      "electricnew": "105"
     }
   ]
 }

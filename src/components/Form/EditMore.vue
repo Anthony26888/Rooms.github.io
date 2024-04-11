@@ -1,5 +1,5 @@
 <template lang="">
-  <v-form v-on:submit="store.EditMore(Wifi, Cable)">
+  <v-form v-on:submit="store.EditMore(Wifi, Cable);store.AlertSuccess = true">
     <v-card-text>
       <v-text-field
         label="Giá tiền wifi"
@@ -12,9 +12,8 @@
         v-model="Cable"
       ></v-text-field>
     </v-card-text>
-    <v-card-actions>
-      <v-spacer></v-spacer>
-      <v-btn color="primary" type="submit">Lưu</v-btn>
+    <v-card-actions>      
+      <v-btn type="submit" class="w-100 bg-primary">Lưu</v-btn>
     </v-card-actions>
   </v-form>
 </template>
