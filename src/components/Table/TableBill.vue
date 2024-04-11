@@ -11,7 +11,8 @@
       </tr>
       <tr>
         <td scope="row" class="text-start text-table">
-          Điện: {{ store.editPay.electricnew }} -
+          Điện:<br> 
+          {{ store.editPay.electricnew }} -
           {{ store.editPay.electricold }} =
           {{ store.editPay.resultElectric }} kW
         </td>
