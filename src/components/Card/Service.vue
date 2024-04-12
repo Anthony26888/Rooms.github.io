@@ -1,5 +1,5 @@
 <template lang="">
-  <div class="d-flex flex-wrap justify-center algin-center">
+  <div class="d-flex flex-wrap justify-center algin-center">   
     <v-sheet
       class="ma-2 mb-2 pa-4 text-center mx-auto"
       elevation="5"

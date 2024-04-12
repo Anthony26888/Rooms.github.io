@@ -1,50 +1,52 @@
 <template lang="">
-  <v-card class="mt-3 mx-auto rounded-lg">
-    <v-card-title class="d-flex align-center pe-2">
-      <h3>Thanh toán</h3>
+  <v-skeleton-loader type="table-heading, table-thead,table-tbody" class="mt-3 mx-auto rounded-lg h-100" :loading="loading">
+    <v-card class="w-100 h-100 rounded-lg">
+      <v-card-title class="d-flex align-center pe-2">
+        <h3>Thanh toán</h3>
 
-      <v-spacer></v-spacer>
+        <v-spacer></v-spacer>
 
-      <v-select
-        v-model="SelectMonth"
-        label="Chọn thời gian"
-        :items="Month"
-        variant="solo"
-        density="compact"
-        class="mt-4 rounded-lg"
-      ></v-select>
-    </v-card-title>
+        <v-select
+          v-model="SelectMonth"
+          label="Chọn thời gian"
+          :items="Month"
+          variant="solo"
+          density="compact"
+          class="mt-4 rounded-lg"
+        ></v-select>
+      </v-card-title>
 
-    <v-divider></v-divider>
-    <v-data-table-virtual
-      :headers="Headers"
-      :items="store.Filter"
-      item-value="name"
-      :search="SelectMonth"
-    >
-      <template v-slot:item.status="{ value }">
-        <v-chip color="red" v-if="value == false"
-          ><v-icon>mdi-window-close</v-icon></v-chip
-        >
-        <v-chip color="green" v-else class="text-green"
-          ><v-icon>mdi-check</v-icon></v-chip
-        >
-      </template>
-      <template v-slot:item.total="{ value }">
-        {{ Number(value).toLocaleString("en-GB") }}
-      </template>
-      <template v-slot:item.actions="{ item }">
-        <v-icon
-          icon="mdi-eye"
-          color="success"
-          @click="
-            store.fetchEditPay(item.id);
-            store.ViewPayDialog = true;
-          "
-        ></v-icon>
-      </template>
-    </v-data-table-virtual>
-  </v-card>
+      <v-divider></v-divider>
+      <v-data-table-virtual
+        :headers="Headers"
+        :items="store.Filter"
+        item-value="name"
+        :search="SelectMonth"
+      >
+        <template v-slot:item.status="{ value }">
+          <v-chip color="red" v-if="value == false"
+            ><v-icon>mdi-window-close</v-icon></v-chip
+          >
+          <v-chip color="green" v-else class="text-green"
+            ><v-icon>mdi-check</v-icon></v-chip
+          >
+        </template>
+        <template v-slot:item.total="{ value }">
+          {{ Number(value).toLocaleString("en-GB") }}
+        </template>
+        <template v-slot:item.actions="{ item }">
+          <v-icon
+            icon="mdi-eye"
+            color="success"
+            @click="
+              store.fetchEditPay(item.id);
+              store.ViewPayDialog = true;
+            "
+          ></v-icon>
+        </template>
+      </v-data-table-virtual>
+    </v-card>
+  </v-skeleton-loader>
 
   <!--Notifition Delete Pay-->
   <v-dialog
@@ -97,7 +99,10 @@
         <table-bill></table-bill>
         <v-btn
           v-if="store.editPay.status == false"
-          @click="store.PaidCharge(store.editPay.id);store.AlertSuccess = true"
+          @click="
+            store.PaidCharge(store.editPay.id);
+            store.AlertSuccess = true;
+          "
           class="w-100 bg-green m-2"
           >Thanh toán</v-btn
         >
@@ -106,7 +111,7 @@
         <v-btn @click="store.ViewPayDialog = false" class="w-100 mt-2 bg-gray"
           >Quay lại</v-btn
         >
-      </v-card-text>    
+      </v-card-text>
     </v-card>
   </v-dialog>
   <!--Alert-->
@@ -131,8 +136,8 @@ export default {
       SelectMonth: "",
       Now: "",
       notify: false,
-      TextAlert: "Thành công",      
-      Timeout:"3000",
+      TextAlert: "Thành công",
+      Timeout: "1000",
 
       Headers: [
         { title: "Phòng", align: "center", key: "name" },
@@ -160,9 +165,14 @@ export default {
         "11/2024",
         "12/2024",
       ],
+      loading:true
     };
   },
-  computed: {},
+  mounted() {
+    setTimeout(() =>{
+      this.loading = false
+    },1000)
+  },
 };
 </script>
 

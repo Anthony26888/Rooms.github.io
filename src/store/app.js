@@ -6,8 +6,8 @@ import { useLocalStorage } from "@vueuse/core";
 export const useAppStore = defineStore("app", {
   state: () => {
     return {
-      Url: "https://n7hnx2-3000.csb.app",
-      Urlapi: "http://localhost:3000",
+      Urlapi: "https://n7hnx2-3000.csb.app",
+      Url: "http://localhost:3000",
       NumberRoom: "",
       IdRoom: useLocalStorage("IdRoom", ""),
       IdMember: "",
@@ -36,7 +36,7 @@ export const useAppStore = defineStore("app", {
       EditMoreDialog: false,
       CaculatorChargeDialog: false,
       ViewPayDialog: false,
-      AlertSuccess:false,
+      AlertSuccess: false,
     };
   },
   getters: {
@@ -82,18 +82,27 @@ export const useAppStore = defineStore("app", {
     ) {
       this.AddRoomDialog = false;
       axios
-        .post(`${this.Url}/Room`, {
-          number: NameRoom,
-          qty: QtyMember,
-          location: LocationRoom,
-          date: DateRoom,
-          roomcharge: RoomCharge,
-          wifi: WifiService,
-          cable: CableService,
-          electric: LastElectric,
-          deposit: Deposit,
-          status: "true",
-        })
+        .post(
+          `${this.Url}/Room`,
+          {
+            number: NameRoom,
+            qty: QtyMember,
+            location: LocationRoom,
+            date: DateRoom,
+            roomcharge: RoomCharge,
+            wifi: WifiService,
+            cable: CableService,
+            electric: LastElectric,
+            deposit: Deposit,
+            status: "true",
+          },
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((response) => console.log(response.data))
         .then((error) => console.log(error));
     },
@@ -103,27 +112,36 @@ export const useAppStore = defineStore("app", {
       LocationRoom,
       NameRoom,
       QtyMember,
-      RoomCharge,      
+      RoomCharge,
       DateRoom,
       LastElectric,
       WifiService,
       CableService,
-      Deposit,
+      Deposit
     ) {
       this.EditRoomDialog = false;
       axios
-        .put(`${this.Url}/Room/${this.IdRoom}`, {
-          location: LocationRoom,
-          number: NameRoom,
-          qty: QtyMember,
-          roomcharge: RoomCharge,          
-          date: DateRoom,
-          electric: LastElectric,
-          wifi: WifiService,
-          cable: CableService,
-          deposit:Deposit,
-          status: "true",
-        })
+        .put(
+          `${this.Url}/Room/${this.IdRoom}`,
+          {
+            location: LocationRoom,
+            number: NameRoom,
+            qty: QtyMember,
+            roomcharge: RoomCharge,
+            date: DateRoom,
+            electric: LastElectric,
+            wifi: WifiService,
+            cable: CableService,
+            deposit: Deposit,
+            status: "true",
+          },
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -141,7 +159,7 @@ export const useAppStore = defineStore("app", {
           date: "",
           wifi: false,
           cable: false,
-          deposit:0
+          deposit: 0,
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
@@ -184,16 +202,25 @@ export const useAppStore = defineStore("app", {
     ) {
       this.NewProfile = false;
       axios
-        .post(`${this.Url}/Profile`, {
-          room: this.NumberRoom,
-          name: NameMember,
-          birth: BirthMember,
-          location: LocationMember,
-          phone: PhoneMember,
-          sex: SexMember,
-          cccd: CccdMember,
-          work: WorkMember,
-        })
+        .post(
+          `${this.Url}/Profile`,
+          {
+            room: this.NumberRoom,
+            name: NameMember,
+            birth: BirthMember,
+            location: LocationMember,
+            phone: PhoneMember,
+            sex: SexMember,
+            cccd: CccdMember,
+            work: WorkMember,
+          },
+          {
+            headers: {
+              "Access-Control-Allow-Origin": "*",
+              "Content-Type": "application/json",
+            },
+          }
+        )
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
         })
@@ -350,26 +377,36 @@ export const useAppStore = defineStore("app", {
       ElectricNew,
       QtyMember
     ) {
-      this.CaculatorChargeDialog = false,
+      (this.CaculatorChargeDialog = false),
         axios
-          .post(`${this.Url}/History`, {
-            date: DateNow,
-            name: NameRoom,
-            location: LocationRoom,
-            roomcharge: RoomCharge,
-            electric: ElectricCharge,
-            resultElectric: ResultElectric,
-            water: WaterCharge,
-            trash: TrashCharge,
-            wifi: WifiCharge,
-            cable: CableCharge,
-            debt: DebtCharge,
-            total: Total,
-            status: false,
-            electricold:ElectricOld,
-            electricnew:ElectricNew,
-            qtyMember: QtyMember
-          })
+          .post(
+            `${this.Url}/History`,
+            {
+              date: DateNow,
+              name: NameRoom,
+              location: LocationRoom,
+              roomcharge: RoomCharge,
+              electric: ElectricCharge,
+              resultElectric: ResultElectric,
+              water: WaterCharge,
+              trash: TrashCharge,
+              wifi: WifiCharge,
+              cable: CableCharge,
+              debt: DebtCharge,
+              total: Total,
+              status: false,
+              electricold: ElectricOld,
+              electricnew: ElectricNew,
+              qtyMember: QtyMember,
+            },
+
+            {
+              headers: {
+                "Access-Control-Allow-Origin": "*",
+                "Content-Type": "application/json",
+              },
+            }
+          )
           .then((response) => {
             console.log("Form submitted successfully!", response.data);
           })
@@ -419,7 +456,6 @@ export const useAppStore = defineStore("app", {
       this.editRoom = this.Room.find((value) => value.id === id);
       this.IdRoom = id;
     },
-
 
     //Fetch api pay for edit
     fetchEditPay(id) {

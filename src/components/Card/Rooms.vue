@@ -1,10 +1,6 @@
 <template lang="">
-  <v-data-iterator
-    :items="store.Room"
-    :items-per-page="10"
-    :search="search"    
-  >
-    <template v-slot:header>      
+  <v-data-iterator :items="store.Room" :items-per-page="10" :search="search">
+    <template v-slot:header>
       <v-toolbar class="px-2">
         <add-room></add-room>
         <v-spacer></v-spacer>
@@ -24,96 +20,111 @@
     <template v-slot:default="{ items }">
       <div class="d-flex flex-wrap justify-center algin-center">
         <div v-for="(item, index) in items" :key="index">
-          <v-card
-            class="ma-2 mb-2 card-room rounded-lg"
-            :title="`Phòng ` + item.raw.number"
-            :subtitle="item.raw.location"
-            max-width="320"
+          <v-skeleton-loader
+            type="list-item-avatar-two-line, list-item-three-line, button, button, button, button"            
+            class="rounded-lg ma-2 mb-2"
+            :loading="loading"
           >
-            <template v-slot:prepend>
-              <v-avatar color="blue-darken-2">
-                <v-icon icon="mdi-home"></v-icon>
-              </v-avatar>
-            </template>
-            <template v-slot:append>
-              <div class="ribbon-wrap">
-                <div class="ribbon bg-success" v-if="item.raw.status == 'true'">
-                  Đã thuê
-                </div>
-                <div class="ribbon bg-red" v-else>Trống</div>
-              </div>
-            </template>
-            <v-card-text>
-              <p><b>Số người:</b> {{ item.raw.qty }} người</p>
-              <p>
-                <b>Tiền phòng:</b>
-                {{ Number(item.raw.roomcharge).toLocaleString("en-GB") }}</p>
-              <div class="d-flex">
-                <b>Dịch vụ thêm:</b>
-                <p v-if="item.raw.wifi == 'true'" class="ms-2">Wifi</p>
-                <p v-if="item.raw.cable == 'true'" class="ms-2">Cáp</p>
-              </div>
-              <p><b>Tiền cọc:</b> {{ Number(item.raw.deposit).toLocaleString("en-GB")}}</p>
-              <p><b>Ngày vào:</b> {{ item.raw.date }}</p>
-            </v-card-text>
-            <v-card-actions>
-              <div class="d-flex flex-wrap justify-center algin-center mx-auto">
-                <div class="ma-1 mb-1">
-                  <v-btn
-                    class="button-card"
-                    color="primary"
-                    variant="tonal"
-                    icon="mdi-account-group"
-                    @click="
-                      dialog = true;
-                      store.fetchProfile(item.raw.number);
-                    "
+            <v-card
+              class="card-room rounded-lg"
+              :title="`Phòng ` + item.raw.number"
+              :subtitle="item.raw.location"
+              variant="flat"
+            >
+              <template v-slot:prepend>
+                <v-avatar color="blue-darken-2">
+                  <v-icon icon="mdi-home"></v-icon>
+                </v-avatar>
+              </template>
+              <template v-slot:append>
+                <div class="ribbon-wrap">
+                  <div
+                    class="ribbon bg-success"
+                    v-if="item.raw.status == 'true'"
                   >
-                  </v-btn>
+                    Đã thuê
+                  </div>
+                  <div class="ribbon bg-red" v-else>Trống</div>
                 </div>
-                <div class="ma-1 mb-1">
-                  <v-btn
-                    class="button-card"
-                    color="orange"
-                    variant="tonal"
-                    icon="mdi-home-edit"
-                    @click="
-                      store.EditRoomDialog = true;
-                      store.fetchEditRoom(item.raw.id);
-                    "
-                  >
-                  </v-btn>
+              </template>
+              <v-card-text>
+                <p><b>Số người:</b> {{ item.raw.qty }} người</p>
+                <p>
+                  <b>Tiền phòng:</b>
+                  {{ Number(item.raw.roomcharge).toLocaleString("en-GB") }}
+                </p>
+                <div class="d-flex">
+                  <b>Dịch vụ thêm:</b>
+                  <p v-if="item.raw.wifi == 'true'" class="ms-2">Wifi</p>
+                  <p v-if="item.raw.cable == 'true'" class="ms-2">Cáp</p>
                 </div>
-                <div class="ma-1 mb-1">
-                  <v-btn
-                    class="button-card"
-                    color="success"
-                    variant="tonal"
-                    icon="mdi-calculator-variant"
-                    @click="
-                      store.CaculatorChargeDialog = true;
-                      store.fetchEditRoom(item.raw.id);
-                    "
-                  >
-                  </v-btn>
-                </div>
+                <p>
+                  <b>Tiền cọc:</b>
+                  {{ Number(item.raw.deposit).toLocaleString("en-GB") }}
+                </p>
+                <p><b>Ngày vào:</b> {{ item.raw.date }}</p>
+              </v-card-text>
+              <v-card-actions>
+                <div
+                  class="d-flex flex-wrap justify-center algin-center mx-auto"
+                >
+                  <div class="ma-1 mb-1">
+                    <v-btn
+                      class="button-card"
+                      color="primary"
+                      variant="tonal"
+                      icon="mdi-account-group"
+                      @click="
+                        dialog = true;
+                        store.fetchProfile(item.raw.number);
+                      "
+                    >
+                    </v-btn>
+                  </div>
+                  <div class="ma-1 mb-1">
+                    <v-btn
+                      class="button-card"
+                      color="orange"
+                      variant="tonal"
+                      icon="mdi-home-edit"
+                      @click="
+                        store.EditRoomDialog = true;
+                        store.fetchEditRoom(item.raw.id);
+                      "
+                    >
+                    </v-btn>
+                  </div>
+                  <div class="ma-1 mb-1">
+                    <v-btn
+                      class="button-card"
+                      color="success"
+                      variant="tonal"
+                      icon="mdi-calculator-variant"
+                      @click="
+                        store.CaculatorChargeDialog = true;
+                        store.fetchEditRoom(item.raw.id);
+                      "
+                    >
+                    </v-btn>
+                  </div>
 
-                <div class="ma-1 mb-1">
-                  <v-btn
-                    class="button-card"
-                    color="red"
-                    variant="tonal"
-                    icon="mdi-close-circle"
-                    @click="
-                      notifyRoom = true;
-                      store.fetchEditRoom(item.raw.id);
-                    "
-                  >
-                  </v-btn>
+                  <div class="ma-1 mb-1">
+                    <v-btn
+                      class="button-card"
+                      color="red"
+                      variant="tonal"
+                      icon="mdi-close-circle"
+                      @click="
+                        notifyRoom = true;
+                        store.fetchEditRoom(item.raw.id);
+                      "
+                    >
+                    </v-btn>
+                  </div>
                 </div>
-              </div>
-            </v-card-actions>
-          </v-card>
+              </v-card-actions>
+            </v-card>
+          </v-skeleton-loader>
         </div>
       </div>
     </template>
@@ -299,7 +310,6 @@
     <v-icon class="me-4">mdi-check-circle-outline</v-icon>
     {{ TextAlert }}
   </v-snackbar>
-
 </template>
 <script setup>
 import EditRoom from "@/components/Form/EditRoom.vue";
@@ -307,7 +317,7 @@ import EditMember from "@/components/Form/EditMember.vue";
 import NewMember from "@/components/Form/NewMember.vue";
 import RoomCharge from "@/components/Form/RoomCharge.vue";
 import TableProfile from "@/components/Table/TableProfile.vue";
-import AddRoom from "@/components/Card/AddRoom.vue"
+import AddRoom from "@/components/Card/AddRoom.vue";
 import { useAppStore } from "@/store/app";
 const store = useAppStore();
 store.fetchRoom();
@@ -317,17 +327,19 @@ store.fetchService();
 export default {
   data() {
     return {
-      search:"",
+      search: "",
       dialog: false,
-      TextAlert: "Thành công",      
-      Timeout:"1000",
-      notifyRoom:false,
-      notifyMember:false
- 
+      TextAlert: "Thành công",
+      Timeout: "1000",
+      notifyRoom: false,
+      notifyMember: false,
+      loading: true,
     };
   },
-  methods: {
-
+  mounted() {
+    setTimeout(() =>{
+      this.loading = false
+    },1500) 
   },
 };
 </script>
