@@ -11,9 +11,8 @@
       </tr>
       <tr>
         <td scope="row" class="text-start text-table">
-          Điện:<br> 
-          {{ store.editPay.electricnew }} -
-          {{ store.editPay.electricold }} =
+          Điện:<br />
+          {{ store.editPay.electricnew }} - {{ store.editPay.electricold }} =
           {{ store.editPay.resultElectric }} kW
         </td>
         <td></td>
@@ -77,13 +76,27 @@
         </td>
       </tr>
     </tfoot>
-  </table>  
+  </table>
+  <v-img  
+    width="200" 
+    class="mx-auto mb-1" 
+    aspect-ratio="1/1"
+    cover
+    :src= "UrlBank"
+  ></v-img>
 </template>
 <script setup>
 import { useAppStore } from "@/store/app";
-const store = useAppStore();
+
 </script>
 <script>
-export default {};
+const store = useAppStore();
+export default {
+  data() {
+    return {      
+      UrlBank:`https://img.vietqr.io/image/VCB-1027827738-qr_only.png?amount=${store.editPay.total}&addInfo=Phong${store.editPay.name}` 
+    }
+  },
+};
 </script>
 <style lang=""></style>
