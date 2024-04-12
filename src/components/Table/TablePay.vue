@@ -1,5 +1,9 @@
 <template lang="">
-  <v-skeleton-loader type="table-heading, table-thead,table-tbody" class="mt-3 mx-auto rounded-lg h-100" :loading="loading">
+  <v-skeleton-loader
+    type="table-heading, table-thead,table-tbody"
+    class="mt-3 mx-auto rounded-lg h-100"
+    :loading="loading"
+  >
     <v-card class="w-100 h-100 rounded-lg">
       <v-card-title class="d-flex align-center pe-2">
         <h3>Thanh toán</h3>
@@ -22,6 +26,8 @@
         :items="store.Filter"
         item-value="name"
         :search="SelectMonth"
+        v-model:page="page"
+        :items-per-page="itemsPerPage"
       >
         <template v-slot:item.status="{ value }">
           <v-chip color="red" v-if="value == false"
@@ -44,6 +50,14 @@
             "
           ></v-icon>
         </template>
+        <template v-slot:bottom>
+      <div class="text-center pt-2">
+        <v-pagination
+          v-model="page"
+          :length="pageCount"
+        ></v-pagination>
+      </div>
+    </template>
       </v-data-table-virtual>
     </v-card>
   </v-skeleton-loader>
@@ -138,6 +152,8 @@ export default {
       notify: false,
       TextAlert: "Thành công",
       Timeout: "1000",
+      page: 1,
+      itemsPerPage: 10,
 
       Headers: [
         { title: "Phòng", align: "center", key: "name" },
@@ -165,13 +181,13 @@ export default {
         "11/2024",
         "12/2024",
       ],
-      loading:true
+      loading: true,
     };
   },
   mounted() {
-    setTimeout(() =>{
-      this.loading = false
-    },1000)
+    setTimeout(() => {
+      this.loading = false;
+    }, 1000);
   },
 };
 </script>
