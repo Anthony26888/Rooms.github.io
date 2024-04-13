@@ -93,9 +93,8 @@ import { useAppStore } from "@/store/app";
 const store = useAppStore();
 export default {
   data() {
-    return {      
-      Url:"https://img.vietqr.io/image/STB-060109675711-qr_only.png"
-      UrlBank:`${Url}?amount=${store.editPay.total}&addInfo=Phong${store.editPay.name}` 
+    return {
+      UrlBank:`https://img.vietqr.io/image/STB-060109675711-qr_only.png?amount=${store.editPay.total}&addInfo=Phong${store.editPay.name}` 
     }
   },
 };
