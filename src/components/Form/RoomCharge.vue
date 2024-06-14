@@ -243,6 +243,7 @@ export default {
       const Charge100 = store.service[0].Electric100;
       const Charge200 = store.service[0].Electric200;
       const Charge300 = store.service[0].Electric300;
+      const Charge400 = store.service[0].Electric400;
       if (this.ResultElectric <= 50) {
         this.ElectricCharge = this.ResultElectric * Charge0;
       } else if (this.ResultElectric > 50 && this.ResultElectric <= 100) {
@@ -266,7 +267,15 @@ export default {
           Charge100 * 100 +
           Charge50 * 50 +
           Charge0 * 50;
-      } else {
+      } else if (this.ResultElectric > 400) {
+        this.ElectricCharge =
+          (this.ResultElectric - 400) * Charge400 +
+          Charge300 * 100 +
+          Charge200 * 100 +
+          Charge100 * 100 +
+          Charge50 * 50 +
+          Charge0 * 50;
+      }else {
         this.ElectricCharge = 0;
       }
 

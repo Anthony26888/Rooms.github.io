@@ -77,25 +77,26 @@
       </tr>
     </tfoot>
   </table>
-  <v-img  
+  <!--
+    <v-img  
     width="200" 
     class="mx-auto mb-1" 
     aspect-ratio="1/1"
     cover
     :src= "UrlBank"
   ></v-img>
+  -->
 </template>
 <script setup>
 import { useAppStore } from "@/store/app";
-
 </script>
 <script>
 const store = useAppStore();
 export default {
   data() {
     return {
-      UrlBank:`https://img.vietqr.io/image/STB-060109675711-qr_only.png?amount=${store.editPay.total}&addInfo=Phong${store.editPay.name}%20Chuyen%20Tien` 
-    }
+      UrlBank: `https://img.vietqr.io/image/STB-060109675711-qr_only.png?amount=${store.editPay.total}&addInfo=Phong${store.editPay.name}%20Chuyen%20Tien`,
+    };
   },
 };
 </script>

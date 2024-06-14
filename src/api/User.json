@@ -157,6 +157,7 @@
       "Electric100": 3000,
       "Electric200": 3200,
       "Electric300": 3500,
+      "Electric400": "3700",
       "Water": "20000",
       "Trash": "35000",
       "Wifi": "20000",

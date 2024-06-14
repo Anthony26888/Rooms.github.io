@@ -281,7 +281,7 @@ export const useAppStore = defineStore("app", {
     },
 
     //Edit Electric
-    EditElectric(Electric0, Electric50, Electric100, Electric200, Electric300) {
+    EditElectric(Electric0, Electric50, Electric100, Electric200, Electric300, Electric400) {
       this.EditElectricDialog = false;
       axios
         .patch(`${this.Url}/Service/0`, {
@@ -290,6 +290,7 @@ export const useAppStore = defineStore("app", {
           Electric100: Electric100,
           Electric200: Electric200,
           Electric300: Electric300,
+          Electric400: Electric400,
         })
         .then((response) => {
           console.log("Form submitted successfully!", response.data);
