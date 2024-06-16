@@ -22,7 +22,7 @@
             variant="outlined"
             v-model="LocationRoom"
             label="Vị trí"
-            :items="['Dãy A', 'Dãy B']"
+            :items="['Dãy Cũ', 'Dãy Mới']"
             required
           ></v-select>
           <v-text-field
