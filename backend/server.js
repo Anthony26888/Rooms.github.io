@@ -139,6 +139,6 @@ app.use((req, res) => {
   res.status(404).send("Not Found");
 });
 
-server.listen(3000, () => {
+server.listen(8000, () => {
   console.log("✅ Backend running");
 });
