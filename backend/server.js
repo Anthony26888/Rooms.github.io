@@ -118,7 +118,7 @@ app.put("/api/services/:id", async (req, res) => {
 });
 
 // History
-app.post("/api/collections/History/records/:id", async (req, res) => {
+app.post("/api/history/:id", async (req, res) => {
   const history = await pb
     .collection("History")
     .create(req.params.id, req.body);
@@ -139,6 +139,6 @@ app.use((req, res) => {
   res.status(404).send("Not Found");
 });
 
-server.listen(8000, () => {
+server.listen(3000, () => {
   console.log("✅ Backend running");
 });
