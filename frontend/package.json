@@ -19,6 +19,7 @@
     "axios": "^1.6.7",
     "core-js": "^3.29.0",
     "cors": "^2.8.5",
+    "express": "^5.1.0",
     "json-serve": "^0.1.0",
     "json-server": "^1.0.0-alpha.23",
     "pinia": "^2.0.0",
