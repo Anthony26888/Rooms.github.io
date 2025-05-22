@@ -10,13 +10,16 @@ RUN apk add --no-cache curl unzip && \
     chmod +x pocketbase && \
     rm pb.zip
 
-# Copy binary PocketBase
-COPY ./pocketbase/pocketbase ./pocketbase
-COPY ./pocketbase/pb_data ./pb_data
+# Copy PocketBase binary
+COPY ./pocketbase/pocketbase /app/pocketbase
 
-# Copy static frontend (nếu có)
-COPY ./public ./pb_public
+# Optional: copy pb_data if you have existing data
+# (comment out if not needed)
+COPY ./pocketbase/pb_data /app/pb_data
 
+# Optional: copy frontend static files
+# (comment out if not using frontend with PocketBase)
+COPY ./pocketbase/public /app/public
 # Cấp quyền chạy binary
 RUN chmod +x ./pocketbase
 
