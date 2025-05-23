@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: RoomRent
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    plan: free
