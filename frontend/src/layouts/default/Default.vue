@@ -1,5 +1,5 @@
 <template>
-  <v-layout height="100vh">
+  <v-layout height="100vh" class="background">
     <v-main>
       <router-view />
     </v-main>
@@ -10,3 +10,8 @@
 <script setup>
 // import Navigation from "./BottomNavigation.vue";
 </script>
+<style scope>
+.background {
+  background-color: #F5F5F5;
+}
+</style>

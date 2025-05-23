@@ -152,7 +152,7 @@ app.use((req, res) => {
 
 const PORT = process.env.PORT || 3000;
 
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {
   console.log(`✅ Backend running on port ${PORT}`);
 }).on('error', (err) => {
   if (err.code === 'EADDRINUSE') {
