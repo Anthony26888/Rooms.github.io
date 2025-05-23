@@ -26,15 +26,6 @@ services:
     networks:
       - app-network
 
-  pocketbase:
-    image: ghcr.io/muchobien/pocketbase:latest
-    ports:
-      - "8090:8090"
-    volumes:
-      - ./pocketbase/pb_data:/pb_data
-    networks:
-      - app-network
-
 networks:
   app-network:
     driver: bridge 

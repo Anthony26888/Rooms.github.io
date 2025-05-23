@@ -27,7 +27,7 @@ const io = new Server(server, {
   cors: { origin: "*" },
 });
 
-const pb = new PocketBase(process.env.VITE_APP_POCKETBASE_URL); // Get URL from environment variable
+const pb = new PocketBase("https://pocketbase-3blj.onrender.com"); // Get URL from environment variable
 
 // Đăng nhập với tài khoản admin
 async function loginAdmin() {
@@ -36,14 +36,25 @@ async function loginAdmin() {
     console.log("✅ Đăng nhập admin thành công");
   } catch (error) {
     console.error("❌ Lỗi đăng nhập admin:", error);
+    // Thử kết nối lại sau 5 giây
+    setTimeout(loginAdmin, 5000);
   }
 }
 
 // Gọi hàm đăng nhập
 loginAdmin();
 
+// Xử lý lỗi kết nối realtime
 pb.collection("Rooms").subscribe("*", function (e) {
   io.emit("getRooms", e.record);
+}, function(error) {
+  console.error("❌ Lỗi kết nối realtime:", error);
+  // Thử kết nối lại sau 5 giây
+  setTimeout(() => {
+    pb.collection("Rooms").subscribe("*", function (e) {
+      io.emit("getRooms", e.record);
+    });
+  }, 5000);
 });
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);
@@ -139,6 +150,15 @@ app.use((req, res) => {
   res.status(404).send("Not Found");
 });
 
-server.listen(3000, () => {
-  console.log("✅ Backend running");
+const PORT = process.env.PORT || 3000;
+
+server.listen(PORT, () => {
+  console.log(`✅ Backend running on port ${PORT}`);
+}).on('error', (err) => {
+  if (err.code === 'EADDRINUSE') {
+    console.error(`❌ Port ${PORT} is already in use. Please try a different port.`);
+    process.exit(1);
+  } else {
+    console.error('❌ Server error:', err);
+  }
 });
