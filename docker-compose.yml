@@ -20,9 +20,9 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - VITE_APP_POCKETBASE_URL=http://pocketbase:8090
-    depends_on:
-      - pocketbase
+      - DATABASE_URL=sqlite:///app.db
+    volumes:
+      - ./backend/data:/app/data
     networks:
       - app-network
 

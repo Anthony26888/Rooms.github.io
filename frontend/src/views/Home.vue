@@ -2,7 +2,9 @@
   <div>
     <v-card variant="text" class="overflow-y-auto" height="100vh">
       <v-card-title>
-        <h1 class="text-h5 font-weight-bold d-flex justify-space-between mb-4 align-center">
+        <h1
+          class="text-h5 font-weight-bold d-flex justify-space-between mb-4 align-center"
+        >
           Danh sách phòng
         </h1>
       </v-card-title>
@@ -33,7 +35,7 @@
                 color="orange"
                 variant="tonal"
                 class="text-caption ms-2"
-                @click="GetService('rtx5ynv6su4127j')"
+                @click="GetService()"
                 >Dịch vụ</v-btn
               >
               <v-spacer></v-spacer>
@@ -71,27 +73,27 @@
 
                       <tr align="right">
                         <th>Tiền phòng:</th>
-                        <td>{{ item.raw.Room_Charge }}đ</td>
+                        <td>{{ item.raw.Room_Charge.toLocaleString() }}đ</td>
                       </tr>
 
                       <tr align="right">
                         <th>Tiền cọc:</th>
-                        <td>{{ item.raw.Deposit }}đ</td>
+                        <td>{{ item.raw.Deposit.toLocaleString() }}đ</td>
                       </tr>
 
                       <tr align="right">
                         <th>Số điện:</th>
-                        <td>{{ item.raw.Electric }} kW</td>
+                        <td>{{ item.raw.Electric.toLocaleString() }} kW</td>
                       </tr>
 
                       <tr align="right">
                         <th>Wifi:</th>
-                        <td>{{ item.raw.Wifi ? "Có" : "Không" }}</td>
+                        <td>{{ item.raw.Wifi === 1 ? "Có" : "Không" }}</td>
                       </tr>
 
                       <tr align="right">
                         <th>Cáp:</th>
-                        <td>{{ item.raw.Cable ? "Có" : "Không" }}</td>
+                        <td>{{ item.raw.Cable === 1 ? "Có" : "Không" }}</td>
                       </tr>
 
                       <tr align="right">
@@ -167,6 +169,13 @@
         <v-card-title class="d-flex align-center pa-4">
           <v-icon icon="mdi-plus" color="primary" class="me-2"></v-icon>
           Thêm phòng
+          <v-spacer></v-spacer>
+          <v-btn
+            icon="mdi-close"
+            variant="text"
+            size="small"
+            @click="DialogAdd = false"
+          ></v-btn>
         </v-card-title>
         <v-card-text>
           <v-row>
@@ -251,6 +260,13 @@
         <v-card-title class="d-flex align-center pa-4">
           <v-icon icon="mdi-pencil" color="primary" class="me-2"></v-icon>
           Sửa phòng
+          <v-spacer></v-spacer>
+          <v-btn
+            icon="mdi-close"
+            variant="text"
+            size="small"
+            @click="DialogEdit = false"
+          ></v-btn>
         </v-card-title>
         <v-card-text>
           <v-row>
@@ -311,14 +327,16 @@
               <v-switch
                 color="primary"
                 label="Wifi"
-                v-model="Edit_Wifi"
+                :model-value="Edit_Wifi === 1"
+                @update:model-value="Edit_Wifi = $event ? 1 : 0"
               ></v-switch>
             </v-col>
             <v-col cols="6">
               <v-switch
                 color="orange"
                 label="Cáp"
-                v-model="Edit_Cable"
+                :model-value="Edit_Cable === 1"
+                @update:model-value="Edit_Cable = $event ? 1 : 0"
               ></v-switch>
             </v-col>
           </v-row>
@@ -337,6 +355,13 @@
         <v-card-title class="d-flex align-center pa-4">
           <v-icon icon="mdi-delete" color="error" class="me-2"></v-icon>
           Xóa phòng
+          <v-spacer></v-spacer>
+          <v-btn
+            icon="mdi-close"
+            variant="text"
+            size="small"
+            @click="DialogRemove = false"
+          ></v-btn>
         </v-card-title>
         <v-card-text> Bạn có chắc chắn muốn xóa phòng này không? </v-card-text>
         <v-card-actions class="d-flex justify-end">
@@ -350,6 +375,13 @@
         <v-card-title class="d-flex align-center pa-4">
           <v-icon icon="mdi-calculator" color="primary" class="me-2"></v-icon>
           Tính tiền
+          <v-spacer></v-spacer>
+          <v-btn
+            icon="mdi-close"
+            variant="text"
+            size="small"
+            @click="DialogCalculation = false"
+          ></v-btn>
         </v-card-title>
         <v-card-subtitle>
           Phòng: {{ Calculation_Name }} - {{ Calculation_Location }}
@@ -390,7 +422,10 @@
 
               <tr align="right">
                 <th>Tiền nước:</th>
-                <td>{{ Calculation_Water.toLocaleString() }}</td>
+                <td>
+                  ({{ Calculation_Members }} người)
+                  {{ Calculation_Water.toLocaleString() }}
+                </td>
               </tr>
 
               <tr align="right">
@@ -410,7 +445,9 @@
 
               <tr align="right">
                 <th><strong>Tổng tiền:</strong></th>
-                <td><strong>{{ Calculation_Total.toLocaleString() }}</strong></td>
+                <td>
+                  <strong>{{ Calculation_Total.toLocaleString() }}</strong>
+                </td>
               </tr>
             </tbody>
           </v-table>
@@ -423,14 +460,18 @@
     </v-dialog>
     <v-dialog v-model="DialogHistory" width="400">
       <v-card max-width="400">
-        <v-card-title class="d-flex align-center pa-4"> Lịch sử </v-card-title>
+        <v-card-title class="d-flex align-center pa-4">
+          Lịch sử
+          <v-spacer></v-spacer>
+          <v-btn
+            icon="mdi-close"
+            variant="text"
+            size="small"
+            @click="DialogHistory = false"
+          ></v-btn>
+        </v-card-title>
         <v-card-text>
           <v-data-table :headers="headers" :items="history">
-            <template #[`item.updated`]="{ item }">
-              {{
-                new Date(item.updated).toLocaleDateString("en-CA").replace(/-/g, "/")
-              }}
-            </template>
             <template #[`item.id`]="{ item }">
               <v-btn
                 icon="mdi-eye"
@@ -460,8 +501,14 @@
     </v-dialog>
     <v-dialog v-model="DialogDetailHistory" width="400">
       <v-card max-width="400">
-        <v-card-title class="d-flex align-center pa-4">
-          Hoá đơn
+        <v-card-title class="d-flex align-center pa-4"> Hoá đơn
+          <v-spacer></v-spacer>
+          <v-btn
+            icon="mdi-close"
+            variant="text"
+            size="small"
+            @click="DialogDetailHistory = false"
+          ></v-btn>
         </v-card-title>
         <v-card-subtitle>
           Phòng: {{ Calculation_Name }} - {{ Calculation_Location }}
@@ -504,7 +551,11 @@
 
               <tr align="right">
                 <th><strong>Tổng tiền:</strong></th>
-                <td><strong>{{ Calculation_Total_Detail.toLocaleString() }}</strong></td>
+                <td>
+                  <strong>{{
+                    Calculation_Total_Detail.toLocaleString()
+                  }}</strong>
+                </td>
               </tr>
             </tbody>
           </v-table>
@@ -516,6 +567,13 @@
         <v-card-title class="d-flex align-center pa-4">
           <v-icon icon="mdi-calculator" color="primary" class="me-2"></v-icon>
           Tiền dịch vụ
+          <v-spacer></v-spacer>
+          <v-btn
+            icon="mdi-close"
+            variant="text"
+            size="small"
+            @click="DialogService = false"
+          ></v-btn>
         </v-card-title>
         <v-card-text>
           <v-row>
@@ -634,6 +692,7 @@ const Add_Name = ref("");
 const Add_Location = ref("");
 const Add_Members = ref(0);
 const Add_Room_Charge = ref(0);
+const Add_Deposit = ref(0);
 const Add_Electric = ref(0);
 const Add_Wifi = ref(null);
 const Add_Cable = ref(null);
@@ -643,10 +702,11 @@ const Edit_Name = ref("");
 const Edit_Location = ref("");
 const Edit_Members = ref(0);
 const Edit_Room_Charge = ref(0);
+const Edit_Deposit = ref(0);
 const Edit_Electric_Old = ref(0);
-const Edit_Wifi = ref(false);
-const Edit_Cable = ref(false);
-const Edit_Status = ref(true);
+const Edit_Wifi = ref(null);
+const Edit_Cable = ref(null);
+const Edit_Status = ref(null);
 const itemsLocation = ref(["Dãy cũ", "Dãy mới"]);
 const itemsStatus = ref(["Còn trống", "Đã cho thuê"]);
 
@@ -666,10 +726,13 @@ const Calculation_RoomCharge = ref(0);
 const Calculation_Electric_Old = ref(0);
 const Calculation_Electric_New = ref(0);
 const Calculation_Electric_KW = ref(0);
-const Calculation_Water = ref(0);
+const Calculation_Members = ref(0);
 const Calculation_Trash = ref(0);
-const Calculation_Wifi = ref(0);
-const Calculation_Cable = ref(0);
+const Calculation_Water_Service = ref(0);
+const Calculation_Wifi_Service = ref(0);
+const Calculation_Cable_Service = ref(0);
+const Condition_Wifi = ref(0);
+const Condition_Cable = ref(0);
 
 const Calculation_RoomCharge_Detail = ref(0);
 const Calculation_Electric_Detail = ref(0);
@@ -681,10 +744,10 @@ const Calculation_Cable_Detail = ref(0);
 const Calculation_Total_Detail = ref(0);
 
 const headers = ref([
-{ title: "Xem", key: "id" },
-  { title: "Ngày", key: "updated" },
+  { title: "Xem", key: "id" },
+  { title: "Ngày", key: "created" },
   { title: "Số tiền", key: "Total" },
-  { title: "Số điện", key: "Electric_KW" }
+  { title: "Số điện", key: "Electric_KW" },
 ]);
 
 const Snackbar_Success = ref(false);
@@ -718,16 +781,54 @@ const Calculation_Electric = computed(() => {
   if (difference <= 50) {
     return difference * Electric_Service_50.value;
   } else if (difference <= 100) {
-    return 50 * Electric_Service_50.value + (difference - 50) * Electric_Service_100.value;
+    return (
+      50 * Electric_Service_50.value +
+      (difference - 50) * Electric_Service_100.value
+    );
   } else if (difference <= 200) {
-    return 50 * Electric_Service_50.value + 50 * Electric_Service_100.value + (difference - 100) * Electric_Service_200.value;
+    return (
+      50 * Electric_Service_50.value +
+      50 * Electric_Service_100.value +
+      (difference - 100) * Electric_Service_200.value
+    );
   } else if (difference <= 300) {
-    return 50 * Electric_Service_50.value + 50 * Electric_Service_100.value + 100 * Electric_Service_200.value + (difference - 200) * Electric_Service_300.value;
+    return (
+      50 * Electric_Service_50.value +
+      50 * Electric_Service_100.value +
+      100 * Electric_Service_200.value +
+      (difference - 200) * Electric_Service_300.value
+    );
   } else if (difference <= 400) {
-    return 50 * Electric_Service_50.value + 50 * Electric_Service_100.value + 100 * Electric_Service_200.value + 100 * Electric_Service_300.value + (difference - 300) * Electric_Service_400.value;
+    return (
+      50 * Electric_Service_50.value +
+      50 * Electric_Service_100.value +
+      100 * Electric_Service_200.value +
+      100 * Electric_Service_300.value +
+      (difference - 300) * Electric_Service_400.value
+    );
   } else {
     return 0;
   }
+});
+
+const Calculation_Wifi = computed(() => {
+  if (Condition_Wifi.value === 1) {
+    return Calculation_Wifi_Service.value;
+  } else {
+    return 0;
+  }
+});
+
+const Calculation_Cable = computed(() => {
+  if (Condition_Cable.value === 1) {
+    return Calculation_Cable_Service.value;
+  } else {
+    return 0;
+  }
+});
+
+const Calculation_Water = computed(() => {
+  return Calculation_Members.value * Calculation_Water_Service.value;
 });
 
 const GetRoom = async (id) => {
@@ -740,6 +841,7 @@ const GetRoom = async (id) => {
     Edit_Location.value = found.Location;
     Edit_Members.value = found.Members;
     Edit_Room_Charge.value = found.Room_Charge;
+    Edit_Deposit.value = found.Deposit;
     Edit_Wifi.value = found.Wifi;
     Edit_Cable.value = found.Cable;
     Edit_Status.value = found.Status;
@@ -748,9 +850,9 @@ const GetRoom = async (id) => {
   }
 };
 
-const GetService = async (id) => {
+const GetService = async () => {
   DialogService.value = true;
-  const found = services.value.find((service) => service.id === id);
+  const found = services.value.find((service) => service.id === 1);
   Get_Id.value = found.id;
   Electric_Service_50.value = found.Electric_50;
   Electric_Service_100.value = found.Electric_100;
@@ -763,7 +865,7 @@ const GetService = async (id) => {
   Cable_Service.value = found.Cable;
 };
 
-const GetCalculation = async (id, serviceId) => {
+const GetCalculation = async (id) => {
   DialogCalculation.value = true;
   Get_Id.value = id;
   const found = rooms.value.find((room) => room.id === id);
@@ -772,17 +874,18 @@ const GetCalculation = async (id, serviceId) => {
     Calculation_Location.value = found.Location;
     Calculation_RoomCharge.value = found.Room_Charge;
     Calculation_Electric_Old.value = found.Electric;
+    Condition_Wifi.value = found.Wifi;
+    Condition_Cable.value = found.Cable;
+    Calculation_Members.value = found.Members;
   } else {
     console.error("Room not found");
   }
-  const foundService = services.value.find(
-    (service) => service.id === serviceId
-  );
+  const foundService = services.value.find((service) => service.id === 1);
   if (foundService) {
-    Calculation_Water.value = foundService.Water;
+    Calculation_Water_Service.value = foundService.Water;
     Calculation_Trash.value = foundService.Trash;
-    Calculation_Wifi.value = foundService.Wifi;
-    Calculation_Cable.value = foundService.Cable;
+    Calculation_Wifi_Service.value = foundService.Wifi;
+    Calculation_Cable_Service.value = foundService.Cable;
     Electric_Service_50.value = foundService.Electric_50;
     Electric_Service_100.value = foundService.Electric_100;
     Electric_Service_200.value = foundService.Electric_200;
@@ -804,9 +907,13 @@ const GetHistory = async (id) => {
   const { history: historyData, cleanup } = useHistory(id);
 
   // Đợi dữ liệu được cập nhật
-  watch(historyData, (newValue) => {
-    history.value = newValue;
-  }, { immediate: true, deep: true });
+  watch(
+    historyData,
+    (newValue) => {
+      history.value = newValue;
+    },
+    { immediate: true, deep: true }
+  );
 
   // Cleanup khi dialog đóng
   watch(DialogHistory, (newValue) => {
@@ -858,8 +965,9 @@ const SaveAdd = async () => {
   const room = {
     Name: Add_Name.value,
     Location: Add_Location.value,
-    Members: Add_Members.value,
     Room_Charge: Add_Room_Charge.value,
+    Deposit: Add_Deposit.value,
+    Members: Add_Members.value,
     Electric: Add_Electric.value,
     Wifi: Add_Wifi.value,
     Cable: Add_Cable.value,
@@ -881,6 +989,7 @@ const SaveEdit = async () => {
     Location: Edit_Location.value,
     Members: Edit_Members.value,
     Room_Charge: Edit_Room_Charge.value,
+    Deposit: Edit_Deposit.value,
     Electric: Edit_Electric_Old.value,
     Wifi: Edit_Wifi.value,
     Cable: Edit_Cable.value,
@@ -922,6 +1031,7 @@ const SaveCalculation = async () => {
     Wifi: Calculation_Wifi.value,
     Cable: Calculation_Cable.value,
     Total: Calculation_Total.value,
+    created: new Date().toLocaleDateString("en-CA").replace(/-/g, "/"),
     Room_Id: Get_Id.value,
   };
   try {
@@ -932,6 +1042,7 @@ const SaveCalculation = async () => {
     message.value = "Tính toán thành công";
     Snackbar_Success.value = true;
     DialogCalculation.value = false;
+    Calculation_Electric_New.value = 0;
   } catch (error) {
     message.value = "Lỗi khi tính toán";
     Snackbar_Success.value = true;

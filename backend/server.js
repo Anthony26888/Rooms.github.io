@@ -1,19 +1,13 @@
 import express from "express";
 import http from "http";
 import { Server } from "socket.io";
-import PocketBase from "pocketbase";
 import cors from "cors";
 import { EventSource } from "eventsource";
-import path from "path";
-import { fileURLToPath } from "url";
 import dotenv from "dotenv";
+import db from "./database.js";
 
 // Load environment variables
 dotenv.config();
-
-// Get __dirname equivalent in ES modules
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Polyfill EventSource for Node.js
 global.EventSource = EventSource;
@@ -27,67 +21,37 @@ const io = new Server(server, {
   cors: { origin: "*" },
 });
 
-const pb = new PocketBase("https://pocketbase-3blj.onrender.com"); // Get URL from environment variable
 
-// Đăng nhập với tài khoản admin
-async function loginAdmin() {
-  try {
-    await pb.admins.authWithPassword("haidang34821@gmail.com", "haidang007");
-    console.log("✅ Đăng nhập admin thành công");
-  } catch (error) {
-    console.error("❌ Lỗi đăng nhập admin:", error);
-    // Thử kết nối lại sau 5 giây
-    setTimeout(loginAdmin, 5000);
-  }
-}
-
-// Gọi hàm đăng nhập
-loginAdmin();
-
-// Xử lý lỗi kết nối realtime
-pb.collection("Rooms").subscribe("*", function (e) {
-  io.emit("getRooms", e.record);
-}, function(error) {
-  console.error("❌ Lỗi kết nối realtime:", error);
-  // Thử kết nối lại sau 5 giây
-  setTimeout(() => {
-    pb.collection("Rooms").subscribe("*", function (e) {
-      io.emit("getRooms", e.record);
-    });
-  }, 5000);
-});
 io.on("connection", (socket) => {
   console.log("Client connected:", socket.id);
   socket.on("getRooms", async () => {
     try {
-      const records = await pb.collection("Rooms").getFullList({
-        sort: "-created",
+      const query = `SELECT * FROM Rooms ORDER BY id ASC`;
+      db.all(query, [], (err, rows) => {
+        if (err) return socket.emit("RoomsError", err);
+        socket.emit("RoomsData", rows);
       });
-      socket.emit("RoomsData", records);
     } catch (error) {
-      socket.emit("RoomsError", error);
+      socket.emit("detailBomError", error);
     }
   });
   socket.on("getServices", async () => {
     try {
-      const records = await pb.collection("Services").getFullList({
-        sort: "-created",
+      const query = `SELECT * FROM Services ORDER BY id ASC`;
+      db.all(query, [], (err, rows) => {
+        if (err) return socket.emit("ServicesError", err);
+        socket.emit("ServicesData", rows);
       });
-      socket.emit("ServicesData", records);
     } catch (error) {
       socket.emit("ServicesError", error);
     }
   });
   socket.on("getHistory", async (id) => {
-    try {
-      const records = await pb.collection("History").getFullList({
-        sort: "-updated",
-        filter: `Room_Id = "${id}"`,
-      });
-      socket.emit("HistoryData", records);
-    } catch (error) {
-      socket.emit("HistoryError", error);
-    }
+    const query = `SELECT * FROM History ORDER BY id DESC`;
+    db.all(query, [], (err, rows) => {
+      if (err) return socket.emit("HistoryError", err);
+      socket.emit("HistoryData", rows);
+    });
   });
   socket.on("disconnect", () => {
     console.log("Client disconnected:", socket.id);
@@ -96,54 +60,90 @@ io.on("connection", (socket) => {
 
 // Rooms
 app.post("/api/rooms", async (req, res) => {
-  const room = await pb.collection("Rooms").create(req.body);
-  io.emit("RoomsUpdate", room);
-  res.json(room);
+  const room = req.body;
+  try {
+    const query = `INSERT INTO Rooms (Name, Location, Room_Charge, Deposit, Electric, Members, Wifi, Cable, Status) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)`;
+    db.run(query, [room.Name, room.Location, room.Room_Charge, room.Deposit, room.Electric, room.Members, room.Wifi, room.Cable, room.Status], (err) => {
+      if (err) return res.status(500).json({ error: err.message });
+      io.emit("RoomsUpdate", room);
+      res.json(room);
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.delete("/api/rooms/:id", async (req, res) => {
-  await pb.collection("Rooms").delete(req.params.id);
-  io.emit("RoomsUpdate");
-  res.json({ message: "Room deleted" });
+  try {
+    const query = `DELETE FROM Rooms WHERE id = ?`;
+    db.run(query, [req.params.id], (err) => {
+      if (err) return res.status(500).json({ error: err.message });
+      io.emit("RoomsUpdate");
+      res.json({ message: "Room deleted" });
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.put("/api/rooms/:id", async (req, res) => {
-  const room = await pb.collection("Rooms").update(req.params.id, req.body);
-  io.emit("RoomsUpdate", room);
-  res.json(room);
+  const room = req.body;
+  try {
+    const query = `UPDATE Rooms SET Name = ?, Location = ?, Deposit = ?, Electric = ?, Members = ?, Room_Charge = ?, Wifi = ?, Cable = ?, Status = ? WHERE id = ?`;
+    db.run(query, [room.Name, room.Location, room.Deposit, room.Electric, room.Members, room.Room_Charge, room.Wifi, room.Cable, room.Status, req.params.id], (err) => {
+      if (err) return res.status(500).json({ error: err.message });
+      io.emit("RoomsUpdate", room);
+      res.json(room);
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 app.put("/api/rooms/electric/:id", async (req, res) => {
-  const room = await pb.collection("Rooms").update(req.params.id, req.body);
-  io.emit("RoomsUpdate", room);
-  res.json(room);
+  const { Electric } = req.body;
+  try {
+    const query = `UPDATE Rooms SET Electric = ? WHERE id = ?`;
+    db.run(query, [Electric, req.params.id], (err) => {
+      if (err) return res.status(500).json({ error: err.message });
+      io.emit("RoomsUpdate", Electric);
+      res.json(Electric);
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // Services
 app.put("/api/services/:id", async (req, res) => {
-  const service = await pb
-    .collection("Services")
-    .update(req.params.id, req.body);
-  io.emit("ServicesUpdate", service);
-  res.json(service);
+  const { Cable, Electric_100, Electric_200, Electric_300, Electric_400, Electric_50, Trash, Water, Wifi } = req.body;
+  try {
+    const query = `UPDATE Services SET Cable = ?, Electric_100 = ?, Electric_200 = ?, Electric_300 = ?, Electric_400 = ?, Electric_50 = ?, Trash = ?, Water = ?, Wifi = ? WHERE id = ?`;
+    db.run(query, [Cable, Electric_100, Electric_200, Electric_300, Electric_400, Electric_50, Trash, Water, Wifi, req.params.id], (err) => {
+      if (err) return res.status(500).json({ error: err.message });
+      io.emit("ServicesUpdate", req.body);
+      res.json(req.body);
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
 // History
-app.post("/api/history/:id", async (req, res) => {
-  const history = await pb
-    .collection("History")
-    .create(req.params.id, req.body);
-  io.emit("HistoryUpdate", history);
-  res.json(history);
+app.post("/api/history", async (req, res) => {
+  const history = req.body;
+  try {
+    const query = `INSERT INTO History (Name, Location, Room_Charge, Electric_Charge, Water, Trash, Wifi, Cable, Total, Room_Id, Electric_KW, Electric_Old, Electric_New, created) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )`;
+    db.run(query, [history.Name, history.Location, history.Room_Charge, history.Electric_Charge, history.Water, history.Trash, history.Wifi, history.Cable, history.Total, history.Room_Id, history.Electric_KW, history.Electric_Old, history.Electric_New, history.created], (err) => {
+      if (err) return res.status(500).json({ error: err.message });
+      io.emit("HistoryUpdate", history);
+      res.json(history);
+    });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
 });
 
-// Serve static files from the frontend/dist directory
-app.use(express.static(path.join(__dirname, "../frontend/dist")));
-
-// Handle frontend routes
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
-});
 
 // Handle 404
 app.use((req, res) => {
