@@ -841,6 +841,7 @@ const GetRoom = async (id) => {
     Edit_Location.value = found.Location;
     Edit_Members.value = found.Members;
     Edit_Room_Charge.value = found.Room_Charge;
+    Edit_Electric_Old.value = found.Electric
     Edit_Deposit.value = found.Deposit;
     Edit_Wifi.value = found.Wifi;
     Edit_Cable.value = found.Cable;
