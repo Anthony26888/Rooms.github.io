@@ -116,18 +116,39 @@ app.put("/api/rooms/electric/:id", async (req, res) => {
 
 // Services
 app.put("/api/services/:id", async (req, res) => {
-  const { Cable, Electric_100, Electric_200, Electric_300, Electric_400, Electric_50, Trash, Water, Wifi } = req.body;
-  try {
-    const query = `UPDATE Services SET Cable = ?, Electric_100 = ?, Electric_200 = ?, Electric_300 = ?, Electric_400 = ?, Electric_50 = ?, Trash = ?, Water = ?, Wifi = ? WHERE id = ?`;
-    db.run(query, [Cable, Electric_100, Electric_200, Electric_300, Electric_400, Electric_50, Trash, Water, Wifi, req.params.id], (err) => {
-      if (err) return res.status(500).json({ error: err.message });
-      io.emit("ServicesUpdate", req.body);
-      res.json(req.body);
-    });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
+  const { Cable, Electric, Trash, Water, Wifi } = req.body;
+  const id = Number(req.params.id);
+
+  if (isNaN(id)) {
+    return res.status(400).json({ error: "Invalid service ID" });
   }
+
+  // Chuyển string sang number (nếu có)
+  const cableNum = Number(Cable);
+  const electricNum = Number(Electric);
+  const trashNum = Number(Trash);
+  const waterNum = Number(Water);
+  const wifiNum = Number(Wifi);
+
+  if ([cableNum, electricNum, trashNum, waterNum, wifiNum].some(isNaN)) {
+    return res.status(400).json({ error: "Invalid numeric values in services data" });
+  }
+
+  const query = `
+    UPDATE Services 
+    SET Cable = ?, Electric = ?, Trash = ?, Water = ?, Wifi = ? 
+    WHERE id = ?`;
+
+  db.run(query, [cableNum, electricNum, trashNum, waterNum, wifiNum, id], (err) => {
+    if (err) {
+      console.error("SQL update error:", err);
+      return res.status(500).json({ error: err.message });
+    }
+    io.emit("ServicesUpdate", req.body);
+    res.json(req.body);
+  });
 });
+
 
 // History
 app.post("/api/history", async (req, res) => {

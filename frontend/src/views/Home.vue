@@ -579,37 +579,9 @@
           <v-row>
             <v-col cols="12">
               <InputField
-                label="Tiền điện 50 kW"
+                label="Tiền điện Kw"
                 type="number"
-                v-model="Electric_Service_50"
-              />
-            </v-col>
-            <v-col cols="6">
-              <InputField
-                label="Tiền điện 100 kW"
-                type="number"
-                v-model="Electric_Service_100"
-              />
-            </v-col>
-            <v-col cols="6">
-              <InputField
-                label="Tiền điện 200 kW"
-                type="number"
-                v-model="Electric_Service_200"
-              />
-            </v-col>
-            <v-col cols="6">
-              <InputField
-                label="Tiền điện 300 kW"
-                type="number"
-                v-model="Electric_Service_300"
-              />
-            </v-col>
-            <v-col cols="6">
-              <InputField
-                label="Tiền điện 400 kW"
-                type="number"
-                v-model="Electric_Service_400"
+                v-model="Electric_Service"
               />
             </v-col>
           </v-row>
@@ -694,9 +666,9 @@ const Add_Members = ref(0);
 const Add_Room_Charge = ref(0);
 const Add_Deposit = ref(0);
 const Add_Electric = ref(0);
-const Add_Wifi = ref(null);
-const Add_Cable = ref(null);
-const Add_Status = ref(null);
+const Add_Wifi = ref(0);
+const Add_Cable = ref(0);
+const Add_Status = ref("Đã cho thuê");
 
 const Edit_Name = ref("");
 const Edit_Location = ref("");
@@ -704,17 +676,13 @@ const Edit_Members = ref(0);
 const Edit_Room_Charge = ref(0);
 const Edit_Deposit = ref(0);
 const Edit_Electric_Old = ref(0);
-const Edit_Wifi = ref(null);
-const Edit_Cable = ref(null);
+const Edit_Wifi = ref(0);
+const Edit_Cable = ref(0);
 const Edit_Status = ref(null);
 const itemsLocation = ref(["Dãy cũ", "Dãy mới"]);
 const itemsStatus = ref(["Còn trống", "Đã cho thuê"]);
 
-const Electric_Service_50 = ref(0);
-const Electric_Service_100 = ref(0);
-const Electric_Service_200 = ref(0);
-const Electric_Service_300 = ref(0);
-const Electric_Service_400 = ref(0);
+const Electric_Service = ref(0);
 const Water_Service = ref(0);
 const Trash_Service = ref(0);
 const Wifi_Service = ref(0);
@@ -725,7 +693,6 @@ const Calculation_Location = ref("");
 const Calculation_RoomCharge = ref(0);
 const Calculation_Electric_Old = ref(0);
 const Calculation_Electric_New = ref(0);
-const Calculation_Electric_KW = ref(0);
 const Calculation_Members = ref(0);
 const Calculation_Trash = ref(0);
 const Calculation_Water_Service = ref(0);
@@ -766,50 +733,13 @@ const Calculation_Total = computed(() => {
 });
 
 const Calculation_Electric = computed(() => {
-  const difference =
-    Calculation_Electric_New.value - Calculation_Electric_Old.value;
-  if (difference > 0) {
-    Calculation_Electric_KW.value = difference;
-  } else {
-    Calculation_Electric_KW.value = 0;
-  }
-
-  if (difference <= 0) {
-    return 0;
-  }
-
-  if (difference <= 50) {
-    return difference * Electric_Service_50.value;
-  } else if (difference <= 100) {
-    return (
-      50 * Electric_Service_50.value +
-      (difference - 50) * Electric_Service_100.value
-    );
-  } else if (difference <= 200) {
-    return (
-      50 * Electric_Service_50.value +
-      50 * Electric_Service_100.value +
-      (difference - 100) * Electric_Service_200.value
-    );
-  } else if (difference <= 300) {
-    return (
-      50 * Electric_Service_50.value +
-      50 * Electric_Service_100.value +
-      100 * Electric_Service_200.value +
-      (difference - 200) * Electric_Service_300.value
-    );
-  } else if (difference <= 400) {
-    return (
-      50 * Electric_Service_50.value +
-      50 * Electric_Service_100.value +
-      100 * Electric_Service_200.value +
-      100 * Electric_Service_300.value +
-      (difference - 300) * Electric_Service_400.value
-    );
-  } else {
-    return 0;
-  }
+  return (Calculation_Electric_New.value - Calculation_Electric_Old.value) * Electric_Service.value;
 });
+
+const Calculation_Electric_KW = computed(() => {
+  return Calculation_Electric_New.value - Calculation_Electric_Old.value;
+});
+
 
 const Calculation_Wifi = computed(() => {
   if (Condition_Wifi.value === 1) {
@@ -855,11 +785,7 @@ const GetService = async () => {
   DialogService.value = true;
   const found = services.value.find((service) => service.id === 1);
   Get_Id.value = found.id;
-  Electric_Service_50.value = found.Electric_50;
-  Electric_Service_100.value = found.Electric_100;
-  Electric_Service_200.value = found.Electric_200;
-  Electric_Service_300.value = found.Electric_300;
-  Electric_Service_400.value = found.Electric_400;
+  Electric_Service.value = found.Electric;
   Water_Service.value = found.Water;
   Trash_Service.value = found.Trash;
   Wifi_Service.value = found.Wifi;
@@ -887,11 +813,7 @@ const GetCalculation = async (id) => {
     Calculation_Trash.value = foundService.Trash;
     Calculation_Wifi_Service.value = foundService.Wifi;
     Calculation_Cable_Service.value = foundService.Cable;
-    Electric_Service_50.value = foundService.Electric_50;
-    Electric_Service_100.value = foundService.Electric_100;
-    Electric_Service_200.value = foundService.Electric_200;
-    Electric_Service_300.value = foundService.Electric_300;
-    Electric_Service_400.value = foundService.Electric_400;
+    Electric_Service.value = foundService.Electric;
   } else {
     console.error("Service not found");
   }
@@ -942,15 +864,12 @@ const GetDetailHistory = async (id) => {
 const Service = async () => {
   DialogService.value = true;
   const services = {
-    Electric_50: Electric_Service_50.value,
-    Electric_100: Electric_Service_100.value,
-    Electric_200: Electric_Service_200.value,
-    Electric_300: Electric_Service_300.value,
-    Electric_400: Electric_Service_400.value,
-    Water: Water_Service.value,
-    Trash: Trash_Service.value,
-    Wifi: Wifi_Service.value,
-    Cable: Cable_Service.value,
+    Cable: Number(Cable_Service.value),
+    Electric: Number(Electric_Service.value),
+    Water: Number(Water_Service.value),
+    Trash: Number(Trash_Service.value),
+    Wifi: Number(Wifi_Service.value)
+    
   };
   try {
     await axios.put(`${Url}/api/services/${Get_Id.value}`, services);
@@ -972,8 +891,9 @@ const SaveAdd = async () => {
     Electric: Add_Electric.value,
     Wifi: Add_Wifi.value,
     Cable: Add_Cable.value,
-    Status: Add_Status.value,
+    Status: Add_Status.value
   };
+  console.log(room)
   try {
     await axios.post(`${Url}/api/rooms`, room);
     DialogAdd.value = false;
