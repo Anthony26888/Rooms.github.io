@@ -115,13 +115,8 @@ app.put("/api/rooms/electric/:id", async (req, res) => {
 });
 
 // Services
-app.put("/api/services/:id", async (req, res) => {
+app.put("/api/services", async (req, res) => {
   const { Cable, Electric, Trash, Water, Wifi } = req.body;
-  const id = Number(req.params.id);
-
-  if (isNaN(id)) {
-    return res.status(400).json({ error: "Invalid service ID" });
-  }
 
   // Chuyển string sang number (nếu có)
   const cableNum = Number(Cable);
@@ -137,9 +132,9 @@ app.put("/api/services/:id", async (req, res) => {
   const query = `
     UPDATE Services 
     SET Cable = ?, Electric = ?, Trash = ?, Water = ?, Wifi = ? 
-    WHERE id = ?`;
+    WHERE id = 1`;
 
-  db.run(query, [cableNum, electricNum, trashNum, waterNum, wifiNum, id], (err) => {
+  db.run(query, [cableNum, electricNum, trashNum, waterNum, wifiNum], (err) => {
     if (err) {
       console.error("SQL update error:", err);
       return res.status(500).json({ error: err.message });

@@ -733,11 +733,19 @@ const Calculation_Total = computed(() => {
 });
 
 const Calculation_Electric = computed(() => {
-  return (Calculation_Electric_New.value - Calculation_Electric_Old.value) * Electric_Service.value;
+  const newVal = Number(Calculation_Electric_New.value) || 0; // ép về số, fallback = 0
+  const oldVal = Number(Calculation_Electric_Old.value) || 0;
+
+  const result = (newVal - oldVal) * Electric_Service.value;
+  return result  > 0 ? result : 0;
 });
 
 const Calculation_Electric_KW = computed(() => {
-  return Calculation_Electric_New.value - Calculation_Electric_Old.value;
+  const newVal = Number(Calculation_Electric_New.value) || 0;
+  const oldVal = Number(Calculation_Electric_Old.value) || 0;
+
+  const result = newVal - oldVal;
+  return result > 0 ? result.toLocaleString() : "0";
 });
 
 
@@ -853,6 +861,7 @@ const GetDetailHistory = async (id) => {
   if (found) {
     Calculation_RoomCharge_Detail.value = found.Room_Charge;
     Calculation_Electric_Detail.value = found.Electric_Charge;
+    Calculation_Electric_KW_Detail.value = found.Electric_KW;
     Calculation_Water_Detail.value = found.Water;
     Calculation_Trash_Detail.value = found.Trash;
     Calculation_Wifi_Detail.value = found.Wifi;
@@ -872,7 +881,7 @@ const Service = async () => {
     
   };
   try {
-    await axios.put(`${Url}/api/services/${Get_Id.value}`, services);
+    await axios.put(`${Url}/api/services`, services);
     DialogService.value = false;
     message.value = "Thêm dịch vụ thành công";
     Snackbar_Success.value = true;

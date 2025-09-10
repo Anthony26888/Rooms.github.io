@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 export function useRooms() {
   const rooms = ref([]);
   const roomsError = ref([]);
-  const SOCKET_URL = import.meta.env.VITE_APP_URL; // Lấy URL từ .env
+  const SOCKET_URL = import.meta.env.VITE_APP_URL || "http://192.168.1.11:3000"; // Lấy URL từ .env
   const socket = io(SOCKET_URL);
   onMounted(() => {
     socket.emit("getRooms");

@@ -20,12 +20,13 @@ services:
       - "3000:3000"
     environment:
       - NODE_ENV=production
-      - DATABASE_URL=sqlite:///app.db
+      - DB_PATH=/data/database.db   # ✅ truyền vào container
     volumes:
-      - ./backend/data:/app/data
+      # Mount trực tiếp file SQLite từ host vào container
+      - ./backend/data/database.db:/data/database.db
     networks:
       - app-network
 
 networks:
   app-network:
-    driver: bridge 
+    driver: bridge

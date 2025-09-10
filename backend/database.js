@@ -1,15 +1,18 @@
 import sqlite3 from "sqlite3";
-const db = new sqlite3.Database("./database.db", (err) => {
+// Dùng biến môi trường hoặc fallback mặc định
+const DB_PATH = process.env.DB_PATH || "./data/database.db";
+
+
+const db = new sqlite3.Database(DB_PATH, (err) => {
   if (err) {
-    console.error(err.message);
+    console.error("Lỗi khi kết nối cơ sở dữ liệu:", err.message);
   } else {
-    console.log("Đã kết nối đến cơ sở dữ liệu SQLite.");
+    console.log(`Đã kết nối đến cơ sở dữ liệu SQLite tại ${DB_PATH}`);
     db.run("PRAGMA foreign_keys = ON;", (pragmaErr) => {
       if (pragmaErr) {
         console.error("Lỗi khi bật hỗ trợ khóa ngoại:", pragmaErr.message);
       } else {
         console.log("Hỗ trợ khóa ngoại đã được bật.");
-        // Tiếp tục tạo bảng và thực hiện các thao tác khác
       }
     });
   }
